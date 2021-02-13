@@ -10,7 +10,7 @@ const Navigation = () => {
                 </NavLink>
             <div>
                 <ul className="navigation__list">
-                    <NavLink className="navigation__link" to="/account">
+                    <NavLink className="navigation__link" to="/login">
                         log in
                         <div className="navigation__underline"></div>
                     </NavLink>
