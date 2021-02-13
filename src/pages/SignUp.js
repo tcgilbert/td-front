@@ -2,6 +2,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import useForm from '../utils/useForm'
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -23,9 +24,10 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = () => {
     const classes = useStyles();
+    const [values, handleChange] = useForm({username: "", email: "", password: "", confirmPassword: ""})
     return (
         <div className="signup">
-            <h1 className="signup__heading">Sign Up for your account</h1>
+            <h1 className="signup__heading">Sign up for your account</h1>
             <div className="signup__form">
                 <TextField
                     className={classes.textField}
@@ -36,9 +38,12 @@ const SignUp = () => {
                     InputLabelProps={{
                         className: classes.label
                     }}
+                    
                     label="Username"
                     type="text"
                     name="username"
+                    value={values.username}
+                    onChange={(e) => handleChange(e)}
                 />
                 <TextField
                     className={classes.textField}
@@ -51,6 +56,8 @@ const SignUp = () => {
                     label="Email"
                     type="text"
                     name="email"
+                    value={values.email}
+                    onChange={(e) => handleChange(e)}
                 />
                 <TextField
                     className={classes.textField}
@@ -61,8 +68,10 @@ const SignUp = () => {
                         className: classes.label
                     }}
                     label="Password"
-                    type="text"
+                    type="password"
                     name="password"
+                    value={values.password}
+                    onChange={(e) => handleChange(e)}
                 />
                 <TextField
                     className={classes.textField}
@@ -73,8 +82,10 @@ const SignUp = () => {
                         className: classes.label
                     }}
                     label="Confirm Password"
-                    type="text"
+                    type="password"
                     name="confirmPassword"
+                    value={values.confirmPassword}
+                    onChange={(e) => handleChange(e)}
                 />
                 <button className="signup__btn">Create Account</button>
             </div>

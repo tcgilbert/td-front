@@ -7,20 +7,36 @@
     justify-content: center;
 
     &__heading {
-        margin-top: 7rem;
+        margin-top: 1rem;
     }
 
     &__form {
         background-color: white;
         width: 50rem;
-        height: 50rem;
+        height: auto;
+        padding-bottom: 3rem;
         margin: 3rem auto;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
+     &__btn {
+         padding: 1.5rem;
+         font-size: 1.6rem;
+         margin-top: 4rem;
+         width: 90%;
+         text-transform: uppercase;
+         background-color: $color-blue;
+         color: white;
+         font-weight: 600;
+         outline: none;
+         border: none;
+         border-radius: 1rem;
+         transition: all .2s;
+     }
 
-    &__input:focus {
-        border-color: $color-neon_blue;
-    }
+     &__btn:hover {
+         cursor: pointer;
+         background-color: rgba($color-blue, .9);
+     }
 }
