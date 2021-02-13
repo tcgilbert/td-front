@@ -18,9 +18,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const LogIn = () => {
+const LogIn = (props) => {
     const classes = useStyles();
-    const [values, handleChange] = useForm({id: "", password: ""})
+    const [values, handleChange] = useForm({username: "", password: ""})
     return (
         <div className="signup">
             <h1 className="signup__heading">Log into your account</h1>
@@ -33,10 +33,10 @@ const LogIn = () => {
                     InputLabelProps={{
                         className: classes.label
                     }}
-                    label="Username / Email"
+                    label="Username"
                     type="text"
-                    name="id"
-                    value={values.id}
+                    name="username"
+                    value={values.username}
                     onChange={(e) => handleChange(e)}
                 />
                 <TextField
@@ -53,7 +53,7 @@ const LogIn = () => {
                     value={values.password}
                     onChange={(e) => handleChange(e)}
                 />
-                <button className="signup__btn">Log In</button>
+                <button onClick={() => props.handleLogin(values)} className="signup__btn">Log In</button>
                 <p className="signup__text">Don't have an account? <Link to='/register' className="signup__link">Register</Link></p>
             </div>
         </div>
