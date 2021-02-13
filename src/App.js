@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+import { Route, Redirect } from "react-router-dom";
+
+// pages
+import LandingPage from "./pages/LandingPage"
+import SignUp from "./pages/SignUp"
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    
+  // Private Route
+    const PrivateRoute = ({ component: Component, ...rest }) => {
+        const user = localStorage.getItem("jwtToken");
+        return (
+            <Route
+                {...rest}
+                render={(props) => {
+                    return user ? (
+                        <Component {...rest} {...props} />
+                    ) : (
+                        <Redirect to="/" />
+                    );
+                }}
+            />
+        );
+    };
+
+    return (
+
+      <div className="App">
+        <Route 
+          exact
+          path="/"
+          render={() => {
+            return (
+              <LandingPage />
+            )
+          }}
+        />
+        <Route 
+          exact
+          path="/account"
+          render={() => {
+            return (
+              <SignUp />
+            )
+          }}
+        />
+      </div>
+    )
 }
 
 export default App;
