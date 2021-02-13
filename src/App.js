@@ -46,7 +46,7 @@ function App() {
         </div>
         <Route 
           exact
-          path="/account"
+          path="/register"
           render={() => {
             return (
               <SignUp />

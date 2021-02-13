@@ -1,0 +1,27 @@
+.signup {
+    height: 100vh;
+    background-color: $bg-gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    &__heading {
+        margin-top: 7rem;
+    }
+
+    &__form {
+        background-color: white;
+        width: 50rem;
+        height: 50rem;
+        margin: 3rem auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    &__input:focus {
+        border-color: $color-neon_blue;
+    }
+}
