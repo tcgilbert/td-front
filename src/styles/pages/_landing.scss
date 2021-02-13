@@ -5,11 +5,13 @@
     margin-top: 10rem;
     text-align: center;
     &__heading {
-        font-size: 3rem;
+        font-size: 3.5rem;
+        font-weight: 400;
     }
     &__btn {
         background-color: $color-blue;
-        padding: 1rem;
+        padding: 2rem;
+        font-size: 2rem;
         margin-top: 2rem;
         border-radius: 1rem;
         text-transform: uppercase;

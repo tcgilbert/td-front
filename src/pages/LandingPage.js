@@ -8,7 +8,7 @@ const LandingPage = () => {
     return (
         <div className="landing">
             <h1 className="landing__heading">Let the world know what you are up to these days</h1>
-            <button className="landing__btn" onClick={() => history.push("/account")}>Sign Up For Free</button>
+            <button className="landing__btn" onClick={() => history.push("/account")}>Get started For Free</button>
         </div>
     )
 }

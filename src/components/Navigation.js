@@ -8,7 +8,8 @@ const Navigation = () => {
             <div>
                 <ul>
                     <NavLink className="navigation__link" to="/account">
-                        Log in
+                        log in
+                        <div className="navigation__underline"></div>
                     </NavLink>
                 </ul>
             </div>
