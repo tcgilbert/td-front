@@ -19,11 +19,12 @@
         outline: none;
         color: white;
         font-weight: 600;
+        transition: all .15s;
     }
     
     &__btn:hover {
         cursor: pointer;
-        transform: translateY(-.1rem);
-        box-shadow: 0 .5rem 1rem 0 rgba(0,0,0,0.17);
+        transform: translateY(-.15rem);
+        box-shadow: 0 .5rem 1rem 0 rgba(0,0,0,0.27);
     }
 }
