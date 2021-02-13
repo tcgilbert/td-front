@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useHistory } from "react-router-dom";
 
 const LandingPage = () => {
+
+    const history = useHistory()
+
     return (
-        <div>
-            <h1>Let the world know what you are up to these days</h1>
-            <button>Sign Up For Free</button>
+        <div className="landing">
+            <h1 className="landing__heading">Let the world know what you are up to these days</h1>
+            <button className="landing__btn" onClick={() => history.push("/account")}>Sign Up For Free</button>
         </div>
     )
 }

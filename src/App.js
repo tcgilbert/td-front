@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/App.scss";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { Route, Redirect } from "react-router-dom";
@@ -6,6 +6,9 @@ import { Route, Redirect } from "react-router-dom";
 // pages
 import LandingPage from "./pages/LandingPage"
 import SignUp from "./pages/SignUp"
+
+// components
+import Navigation from './components/Navigation'
 
 function App() {
     
@@ -29,15 +32,18 @@ function App() {
     return (
 
       <div className="App">
-        <Route 
-          exact
-          path="/"
-          render={() => {
-            return (
-              <LandingPage />
-            )
-          }}
-        />
+        <Navigation />
+        <div>
+          <Route
+            exact
+            path="/"
+            render={() => {
+              return (
+                <LandingPage />
+              )
+            }}
+          />
+        </div>
         <Route 
           exact
           path="/account"

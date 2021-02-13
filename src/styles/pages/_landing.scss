@@ -1,0 +1,27 @@
+@import "../variables.scss";
+
+
+.landing {
+    margin-top: 10rem;
+    text-align: center;
+    &__heading {
+        font-size: 3rem;
+    }
+    &__btn {
+        background-color: $color-blue;
+        padding: 1rem;
+        margin-top: 2rem;
+        border-radius: 1rem;
+        text-transform: uppercase;
+        border: none;
+        outline: none;
+        color: white;
+        font-weight: 600;
+    }
+    
+    &__btn:hover {
+        cursor: pointer;
+        transform: translateY(-.1rem);
+        box-shadow: 0 .5rem 1rem 0 rgba(0,0,0,0.17);
+    }
+}
