@@ -61,7 +61,11 @@ const ManageProfile = (props) => {
                 <h1>Welcome to you're profileee!!man</h1>
             </div>
             <div className="grid manage__grid4">
-                <h1>Welcome to you're profileeee man</h1>
+                <div className="phone">
+                    <div className="phone__content">
+                        <p className="phone__username">@{props.user.username}</p>
+                    </div>
+                </div>
             </div>
         </div>
     );

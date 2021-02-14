@@ -1,0 +1,27 @@
+.phone {
+    position: relative;
+    // left: 50%;
+    // top: 50%;
+    // transform: translate(-50%, -50%);
+    width: 60%;
+    height: 0;
+    padding-bottom: 110%;
+    border: solid 1.5rem black;
+    border-radius: 3.5rem;
+    overflow: auto;
+    margin: 3rem auto;
+    background-color: #fff;
+    
+    &__content {
+        // padding-to÷p: 100%;
+    }
+
+    &__username {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        font-size: 1.5rem;
+        font-size: 1.2vw;
+    }
+
+}

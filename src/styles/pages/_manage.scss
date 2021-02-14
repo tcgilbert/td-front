@@ -2,45 +2,46 @@
     margin-left: 6rem;
     height: 100vh;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     grid-template-rows: 1fr 10fr;
     // grid-area: "nav info" "dash display"
 
     &__grid1 {
-        // grid-area: "nav";
-        // padding: 1rem;
         border-bottom: solid lightgray .1rem;
         border-right: solid lightgray .1rem;
+        // max-height: 72px;
     }
-
+    
     &__grid2 {
-        // grid-area: "dash";
         position: relative;
         border-bottom: solid lightgray .1rem;
     }
-
+    
     &__grid3 {
         padding: 1rem;
         border-right: solid lightgray .1rem;
+        background-color: $bg-gray;
     }
-
+    
     &__grid4 {
-        padding: 1rem;
-
+        background-color: $bg-gray;
     }
 
     &__container {
         position: relative;
+        height: 100%;
     }
-
+    
     &__list {
         display: flex;
         flex-direction: row;
         margin-left: 2rem;
+        height: 100%;
+        min-height: 76px;
     }
 
     &__nav {
-        height: 7.2rem;
+        height: 100%;
         outline: none;
         padding: 0 1rem;
         margin-right: 1rem;
