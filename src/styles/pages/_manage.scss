@@ -15,7 +15,7 @@
 
     &__grid2 {
         // grid-area: "dash";
-        padding: 1rem;
+        position: relative;
         border-bottom: solid lightgray .1rem;
     }
 
@@ -82,5 +82,18 @@
         margin: 0 auto;
         height: .2rem;
         background-color: $color-red;
+    }
+
+    &__text {
+        font-size: 1.5rem;
+        font-weight: 500;
+        position: absolute;
+        top: 40%;
+        left: 5%;
+    }
+
+    &__thelink {
+        font-weight: 400;
+        color: black;
     }
 }
