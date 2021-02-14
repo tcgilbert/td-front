@@ -42,11 +42,11 @@ const Navigation = (props) => {
             </NavLink>
             <div>
                 <ul className="navigation__list">
-                    {handleButtons()}
-                    {/* <NavLink className="navigation__link" to="/login">
-                        log in
-                        <div className="navigation__underline"></div>
-                    </NavLink> */}
+                    {/* {handleButtons()} */}
+                    <NavLink className="navigation__link" to="/login">
+                    log in
+                    <div className="navigation__underline"></div>
+                </NavLink>
                 </ul>
             </div>
         </div>

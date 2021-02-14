@@ -1,9 +1,11 @@
 import React from 'react'
+import PrivateNav from '../components/PrivateNav'
 
-const ManageProfile = () => {
+const ManageProfile = (props) => {
     return (
         <div>
-            <h1>Welcome to you're profile man</h1>
+            <PrivateNav user={props.user} handleLogout={props.handleLogout}/>
+            <h1>Welcome to you're profileeee man</h1>
         </div>
     )
 }

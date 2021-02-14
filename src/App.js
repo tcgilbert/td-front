@@ -119,10 +119,10 @@ function App() {
 
     return (
         <div className="App">
-            <Navigation
+            {/* <Navigation
                 isAuthenticated={isAuthenticated}
                 handleLogout={handleLogout}
-            />
+            /> */}
             <div>
                 <Route
                     exact
@@ -151,7 +151,7 @@ function App() {
                 path="/manage"
                 component={ManageProfile}
                 user={currentUser}
-                setUser={setCurrentUser}
+                handleLogout={handleLogout}
             />
         </div>
     );

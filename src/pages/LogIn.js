@@ -3,6 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from '@material-ui/core/styles';
 import useForm from '../utils/useForm'
 import { Link } from 'react-router-dom'
+import Navigation from '../components/Navigation'
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -23,6 +24,7 @@ const LogIn = (props) => {
     const [values, handleChange] = useForm({username: "", password: ""})
     return (
         <div className="signup">
+            <Navigation/>
             <h1 className="signup__heading">Log into your account</h1>
             <div className="signup__form">
                 <TextField
