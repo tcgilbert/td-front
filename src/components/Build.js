@@ -28,13 +28,19 @@ const Build = () => {
                 <p className="build__text">Components</p>
                 <img className="build__arrow" src={Arrow} alt="Down Arrow" />
             </div>
-            <div className="build__pillbox">
-                <p className="build__pill">Text</p>
-                <p className="build__pill">Soundtrack</p>
-                <p className="build__pill">Book</p>
-                <p className="build__pill">Podcast</p>
-                <p className="build__pill">Movie</p>
-                <p className="build__pill">Link</p>
+            <div className="build__options">
+                <div className="build__pillbox">
+                    <p className="build__pill">Text</p>
+                    <p className="build__pill">Soundtrack</p>
+                    <p className="build__pill">Book</p>
+                    <p className="build__pill">Podcast</p>
+                    <p className="build__pill">Movie</p>
+                    <p className="build__pill">Link</p>
+                </div>
+                <div build__form>
+                    <input type="text"/>
+                    <input type="text"/>
+                </div>
             </div>
             <div className="build__sandbox">
                 <div className="build__element">Text</div>
