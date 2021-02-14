@@ -10,7 +10,7 @@ const ManageProfile = (props) => {
         <div className="manage">
             <PrivateNav user={props.user} handleLogout={props.handleLogout}/>
             <div className="grid manage__grid1">
-                <ul className="manage__nav">
+                <ul className="manage__list">
                     <div className="manage__container">
                         <button className="manage__nav" to="/manage">Build</button>
                         <div className="manage__underline"></div>

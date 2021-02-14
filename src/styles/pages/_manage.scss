@@ -8,20 +8,20 @@
 
     &__grid1 {
         // grid-area: "nav";
-        padding: 1rem;
-        border-bottom: solid red .1rem;
-        border-right: solid red .1rem;
+        // padding: 1rem;
+        border-bottom: solid lightgray .1rem;
+        border-right: solid lightgray .1rem;
     }
 
     &__grid2 {
         // grid-area: "dash";
         padding: 1rem;
-        border-bottom: solid red .1rem;
+        border-bottom: solid lightgray .1rem;
     }
 
     &__grid3 {
         padding: 1rem;
-        border-right: solid red .1rem;
+        border-right: solid lightgray .1rem;
     }
 
     &__grid4 {
@@ -33,10 +33,15 @@
         position: relative;
     }
 
-    &__nav {
+    &__list {
         display: flex;
         flex-direction: row;
-        padding: 1rem;
+        margin-left: 2rem;
+    }
+
+    &__nav {
+        height: 7.2rem;
+        padding: 0 1rem;
         margin-right: 1rem;
         background-color: $bg-color;
         border: none;
@@ -46,14 +51,26 @@
         letter-spacing: .1rem;
     }
 
-    &__nav-active {
-        color: $color-neon_blue;
+    &__nav:hover {
+        cursor: pointer;
+    }
+
+    &__nav:hover + &__underline {
+        position: absolute;
+        bottom: 0;
+        width: 90%;
+        margin: 0 auto;
+        height: .3rem;
+        background-color: red;
     }
 
     &__underline {
         position: absolute;
-        width: 90%;
-        height: .5rem;
+        bottom: 0;
+        width: 0;
+        margin: 0 auto;
+        height: .3rem;
         background-color: red;
+        transition: all .2s;
     }
 }
