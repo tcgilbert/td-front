@@ -8,6 +8,10 @@
         position: relative;
     }
 
+    &__components:hover {
+        cursor: pointer;
+    }
+
     &__text {
         position: absolute;
         top: 50%;
@@ -23,7 +27,17 @@
         top: 50%;
         right: 2rem;
         transform: translateY(-50%);
+        transition: all .4s;
     }
-
-
+    
+    
+    
 }
+
+    #show:checked + .build__arrow {
+        width: 2rem;
+        position: absolute;
+        top: 50%;
+        right: 2rem;
+        transform: translateY(-50%) rotate(180deg);
+    }
