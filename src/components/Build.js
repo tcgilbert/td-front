@@ -11,9 +11,27 @@ const itemsFromBackend = [
 const columnsFromBackend = {
     [uuid()]: {
         name: "Todo",
-        items: [itemsFromBackend],
+        items: itemsFromBackend,
     },
 };
+
+const onDragEnd = (result, columns, setColumns) => {
+    if (!result.destination) {
+        return
+    }
+    const { source, destination} = result;
+    const column = columns[source.droppableId]
+    const copiedItems = [...column.items]
+    const [removed] = copiedItems.splice(source.index, 1)
+    copiedItems.splice(destination.index, 0, removed)
+    setColumns({
+        ...columns,
+        [source.droppableId]: {
+            ...columns,
+            items: copiedItems
+        }
+    })
+}
 
 const Build = () => {
     const [columns, setColumns] = useState(columnsFromBackend);
@@ -45,10 +63,10 @@ const Build = () => {
             </div>
             <div className="build__pillbox"></div>
             <div className="build__sandbox">
-                <DragDropContext onDragEnd={(result) => console.log(result)}>
+                <DragDropContext onDragEnd={(result) => onDragEnd(result, columns, setColumns)}>
                     {Object.entries(columns).map(([id, column]) => {
                         return (
-                            <Droppable droppableId={id}>
+                            <Droppable droppableId={id} key={id}>
                                 {(provided, snapshot) => {
                                     return (
                                         <div
@@ -79,13 +97,25 @@ const Build = () => {
                                                                         provided.innerRef
                                                                     }
                                                                     {...provided.draggableProps}
-                                                                    {...provided.draggableProps}
-                                                                ></div>
+                                                                    {...provided.dragHandleProps}
+                                                                    style={{
+                                                                        userSelect: 'none',
+                                                                        padding: 16,
+                                                                        margin: '0 0 8px 0',
+                                                                        minHeight: '50px',
+                                                                        backgroundColor: snapshot.isDragging ? '#263b4a' : "#456c86",
+                                                                        color: 'white',
+                                                                        ...provided.draggableProps.style
+                                                                    }}
+                                                                >
+                                                                    {item.content }
+                                                                </div>
                                                             );
                                                         }}
                                                     </Draggable>
                                                 );
                                             })}
+                                            {provided.placeholder}
                                         </div>
                                     );
                                 }}
