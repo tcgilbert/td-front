@@ -1,0 +1,59 @@
+.manage {
+    margin-left: 6rem;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 10fr;
+    // grid-area: "nav info" "dash display"
+
+    &__grid1 {
+        // grid-area: "nav";
+        padding: 1rem;
+        border-bottom: solid red .1rem;
+        border-right: solid red .1rem;
+    }
+
+    &__grid2 {
+        // grid-area: "dash";
+        padding: 1rem;
+        border-bottom: solid red .1rem;
+    }
+
+    &__grid3 {
+        padding: 1rem;
+        border-right: solid red .1rem;
+    }
+
+    &__grid4 {
+        padding: 1rem;
+
+    }
+
+    &__container {
+        position: relative;
+    }
+
+    &__nav {
+        display: flex;
+        flex-direction: row;
+        padding: 1rem;
+        margin-right: 1rem;
+        background-color: $bg-color;
+        border: none;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: .1rem;
+    }
+
+    &__nav-active {
+        color: $color-neon_blue;
+    }
+
+    &__underline {
+        position: absolute;
+        width: 90%;
+        height: .5rem;
+        background-color: red;
+    }
+}

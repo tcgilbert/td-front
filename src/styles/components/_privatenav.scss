@@ -50,7 +50,7 @@
     &__settings:hover ~ &__menu {
         display: block;
         position: absolute;
-        bottom: 3rem;
+        bottom: 2rem;
         left: 4rem;
         background-color:$bg-color;
         border: solid 2px $color-dark;
@@ -71,7 +71,7 @@
     &__menu:hover {
         position: absolute;
         display: block;
-        bottom: 3rem;
+        bottom: 2rem;
         left: 4rem;
         background-color:$bg-color;
         border: solid 2px $color-dark;
