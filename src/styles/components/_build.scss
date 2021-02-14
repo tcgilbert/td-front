@@ -32,6 +32,12 @@
         transform: translateY(-50%);
         transition: all 0.4s;
     }
+    
+    &__options {
+        visibility: visible;
+        opacity: 1;
+        position: relative;
+    }
 
     &__pillbox {
         visibility: visible;
@@ -48,11 +54,6 @@
         transition: all .3s;
     }
 
-    &__options {
-        visibility: visible;
-        opacity: 1;
-        position: relative;
-    }
 
     &__pill {
         margin: 1rem;
@@ -64,6 +65,24 @@
         text-transform: lowercase;
         transition: all .3s;
         color: black;
+    }
+
+
+    &__form-container {
+        // border-bottom: 1px solid $color-dark;
+        // border-right: 1px solid $color-dark;
+        background-color: $color-dark;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__form {
+        width: 80%;
+        margin: 1rem;
+        padding: 3rem;
+        background-color: #fff;
     }
 
     &__sandbox {

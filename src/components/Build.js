@@ -37,9 +37,11 @@ const Build = () => {
                     <p className="build__pill">Movie</p>
                     <p className="build__pill">Link</p>
                 </div>
-                <div build__form>
-                    <input type="text"/>
-                    <input type="text"/>
+                <div className="build__form-container">
+                    <div className="build__form">
+                        <input type="text"/>
+                        <input type="text"/>
+                    </div>
                 </div>
             </div>
             <div className="build__sandbox">
