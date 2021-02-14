@@ -5,7 +5,7 @@
     flex-direction: column;
 
     &__components {
-        height: 6rem;
+        min-height: 4rem;
         border-bottom: 1px solid lightgray;
         background-color: #fff;
         position: relative;
@@ -41,12 +41,10 @@
 
     &__pillbox {
         visibility: visible;
-        border-top: 1px solid $color-dark;
-        border-bottom: 1px solid $color-dark;
-        border-right: 1px solid $color-dark;
+        border-bottom: 1px solid lightgray;
         opacity: 1;
         display: flex;
-        padding: .5rem 3rem;
+        padding: .1rem 3rem;
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
@@ -56,9 +54,9 @@
 
 
     &__pill {
-        margin: 1rem;
+        margin: .2rem;
         opacity: 1;
-        padding: 1rem;
+        padding:  2rem 2.5rem;
         font-size: 1.4rem;
         font-weight: 500;
         border-radius: 1.3rem;
@@ -67,11 +65,20 @@
         color: black;
     }
 
+    &__pill:hover {
+        cursor: pointer;
+        background-color: rgba($color-neon_blue, .5);
+        color: darkblue;
+    }
+
+    &__selected {
+        background-color: rgba($color-neon_blue, .5);
+        color: darkblue;
+    }
+
 
     &__form-container {
-        // border-bottom: 1px solid $color-dark;
-        // border-right: 1px solid $color-dark;
-        background-color: $color-dark;
+        border-bottom: 1px solid lightgray;
         display: flex;
         flex-direction: column;
         justify-content: center;
