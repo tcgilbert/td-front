@@ -58,7 +58,11 @@ const ManageProfile = (props) => {
                 <p className="manage__text">Your link: <a className="manage__thelink" href={`https://thesedays.io/${props.user.username}`} target="_blank">{`https://thesedays.io/${props.user.username}`}</a></p>
             </div>
             <div className="grid manage__grid3">
-                <h1>Welcome to you're profileee!!man</h1>
+                <div className="build">
+                    <div className="build__components">
+                        <p className="build__text">Components</p>
+                    </div>
+                </div>
             </div>
             <div className="grid manage__grid4">
                 <div className="phone">

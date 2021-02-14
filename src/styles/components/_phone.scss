@@ -1,8 +1,5 @@
 .phone {
     position: relative;
-    // left: 50%;
-    // top: 50%;
-    // transform: translate(-50%, -50%);
     width: 60%;
     height: 0;
     padding-bottom: 110%;
@@ -12,9 +9,6 @@
     margin: 3rem auto;
     background-color: #fff;
     
-    &__content {
-        // padding-to÷p: 100%;
-    }
 
     &__username {
         position: absolute;
