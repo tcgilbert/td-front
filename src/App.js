@@ -1,13 +1,14 @@
 import "./styles/App.scss";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Route, Redirect, useHistory } from "react-router-dom";
 
 // pages
 import LandingPage from "./pages/LandingPage";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
+import ManageProfile from "./pages/ManageProfile"
 
 // components
 import Navigation from "./components/Navigation";
@@ -19,7 +20,7 @@ function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
     const [currentUser, setCurrentUser] = useState("");
     const SERVER = process.env.REACT_APP_SERVER;
-    const history = useHistory()
+    const history = useHistory();
 
     // Private Route
     const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -37,6 +38,33 @@ function App() {
             />
         );
     };
+
+    // Check for token in local storage
+    useEffect(() => {
+        const checkToken = async () => {
+            const token = localStorage.getItem("jwtToken")
+            if (token) {
+                try {
+                    const apiRes = await axios.post(`${SERVER}/users/check-token`, {
+                        token
+                    })
+                    if (apiRes.data.userFound) {
+                        const userInfo = jwt_decode(token)
+                        setCurrentUser(userInfo)
+                        setIsAuthenticated(true)
+                        setAuthToken(token)
+                        history.push("/manage")
+                    }
+                } catch (error) {
+                    handleLogout()
+                }
+            } else {
+                console.log("no token :(");
+            }
+        }
+        checkToken()
+    }, [])
+
 
     // Handle Login
     const handleLogin = async (values) => {
@@ -58,11 +86,13 @@ function App() {
             // set the current user
             setCurrentUser(userInfo);
             setIsAuthenticated(true);
+            history.push("/manage")
         } catch (error) {
             console.log(error);
         }
     };
 
+    //  Handle Log out
     const handleLogout = () => {
         setCurrentUser(null);
         setIsAuthenticated(false);
@@ -71,19 +101,17 @@ function App() {
         }
     };
 
+    // Handle Sign up
     const handleSignUp = async (values) => {
-        console.log("registeringgg!!!");
-
         try {
             const createdUser = await axios.post(`${SERVER}/users/signup`, {
                 username: values.username,
                 email: values.email,
                 password: values.password,
             });
-            console.log(createdUser);
-            // if (createdUser) {
-            //   handleLogin(values)
-            // }
+            if (createdUser) {
+              handleLogin(values)
+            }
         } catch (error) {
             console.log(error);
         }
@@ -91,7 +119,10 @@ function App() {
 
     return (
         <div className="App">
-            <Navigation isAuthenticated={isAuthenticated} handleLogout={handleLogout}/>
+            <Navigation
+                isAuthenticated={isAuthenticated}
+                handleLogout={handleLogout}
+            />
             <div>
                 <Route
                     exact
@@ -114,6 +145,13 @@ function App() {
                 render={() => {
                     return <LogIn handleLogin={handleLogin} />;
                 }}
+            />
+            <PrivateRoute
+                exact
+                path="/manage"
+                component={ManageProfile}
+                user={currentUser}
+                setUser={setCurrentUser}
             />
         </div>
     );
