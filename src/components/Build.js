@@ -58,6 +58,9 @@ const Build = () => {
                     <p onClick={() => setBuildOption("text")} id="text" className="build__pill">
                         Text
                     </p>
+                    <p onClick={() => setBuildOption("link")} id="link" className="build__pill">
+                        Link
+                    </p>
                     <p onClick={() => setBuildOption("sound")} id="sound" className="build__pill">
                         Soundtrack
                     </p>
@@ -69,9 +72,6 @@ const Build = () => {
                     </p>
                     <p onClick={() => setBuildOption("movie")} id="movie" className="build__pill">
                         Movie
-                    </p>
-                    <p onClick={() => setBuildOption("link")} id="link" className="build__pill">
-                        Link
                     </p>
                 </div>
                 <div className="build__form-container">
