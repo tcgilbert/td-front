@@ -41,6 +41,7 @@
 
     &__nav {
         height: 7.2rem;
+        outline: none;
         padding: 0 1rem;
         margin-right: 1rem;
         background-color: $bg-color;
@@ -60,8 +61,8 @@
         bottom: 0;
         width: 90%;
         margin: 0 auto;
-        height: .3rem;
-        background-color: red;
+        height: .2rem;
+        background-color: rgba($color-dark, .15);
     }
 
     &__underline {
@@ -69,8 +70,17 @@
         bottom: 0;
         width: 0;
         margin: 0 auto;
-        height: .3rem;
-        background-color: red;
-        transition: all .2s;
+        height: .2rem;
+        background-color: $color-red;
+        transition: all .1s;
+    }
+
+    &__selected {
+        position: absolute;
+        bottom: 0;
+        width: 90%;
+        margin: 0 auto;
+        height: .2rem;
+        background-color: $color-red;
     }
 }
