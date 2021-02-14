@@ -20,24 +20,56 @@
         font-size: 1.5rem;
         font-weight: 500;
     }
-    
+
     &__arrow {
         width: 2rem;
         position: absolute;
         top: 50%;
         right: 2rem;
         transform: translateY(-50%);
-        transition: all .4s;
+        transition: all 0.4s;
     }
-    
-    
-    
+
+    &__pillbox {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid lightgray;
+        width: 100%;
+        background-color: white;
+        transition: all .6s;
+    }
+
+    &__pill {
+        margin: 1rem;
+        padding: 1rem;
+        font-size: 1.4rem;
+        font-weight: 500;
+        border-radius: 1.3rem;
+        background-color: rgba($color-neon_blue, .5);
+        text-transform: lowercase;
+    }
 }
 
-    #show:checked + .build__arrow {
-        width: 2rem;
-        position: absolute;
-        top: 50%;
-        right: 2rem;
-        transform: translateY(-50%) rotate(180deg);
-    }
+#show {
+    position: fixed;
+    right: 10rem;
+    top: 1rem;
+}
+
+
+#show:checked + .build__components > .build__arrow {
+    width: 2rem;
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%) rotate(180deg);
+}
+
+#show:checked ~ .build__pillbox {
+    height: 0;
+}
+
+#show:checked ~ .build__pillbox > .build__pill {
+    display: none;
+}
