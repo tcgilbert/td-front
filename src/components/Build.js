@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Arrow from "../images/arrow.svg";
+import { DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
 
 const Build = () => {
     useEffect(() => {
@@ -34,6 +35,9 @@ const Build = () => {
                 <p className="build__pill">Podcast</p>
                 <p className="build__pill">Movie</p>
                 <p className="build__pill">Link</p>
+            </div>
+            <div className="build__sandbox">
+                <div className="build__element">Text</div>
             </div>
         </div>
     );

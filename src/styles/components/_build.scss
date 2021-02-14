@@ -1,5 +1,8 @@
 .build {
 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
     &__components {
         height: 6rem;
@@ -53,6 +56,20 @@
         text-transform: lowercase;
         transition: all .3s;
     }
+
+    &__sandbox {
+        border: solid 1px red;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    &__element {
+        width: 80%;
+        height: 10rem;
+        background-color: white;
+        margin-top: 2rem;
+    }
 }
 
 #show {
@@ -72,6 +89,7 @@
 
 #show:checked ~ .build__pillbox {
     visibility: hidden;
+    height: 0;
     opacity: 0;
 }
 
