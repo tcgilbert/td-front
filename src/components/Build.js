@@ -33,6 +33,7 @@ const Build = () => {
                 <p className="build__pill">Book</p>
                 <p className="build__pill">Podcast</p>
                 <p className="build__pill">Movie</p>
+                <p className="build__pill">Link</p>
             </div>
         </div>
     );
