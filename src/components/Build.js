@@ -1,21 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Arrow from "../images/arrow.svg";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 // components
 import Text from "../components/Text";
+import Sandbox from "../components/Sandbox"
 
-// dnd functions
-const onDragEnd = (result, colors, setColors) => {
-    if (!result.destination) {
-        return;
-    }
-    const { source, destination } = result;
-    const copiedColors = [...colors]
-    const [removed] = copiedColors.splice(source.index, 1)
-    copiedColors.splice(destination.index, 0, removed)
-    setColors(copiedColors)
-};
 
 const Build = () => {
     const [buildOption, setBuildOption] = useState("text");
@@ -122,72 +111,7 @@ const Build = () => {
                     <Text />
                 </div>
             </div>
-            <div className="build__sandbox">
-                <DragDropContext
-                    onDragEnd={(result) => onDragEnd(result, colors, setColors)}
-                >
-                    <Droppable droppableId="sandbox">
-                        {(provided, snapshot) => {
-                            return (
-                                <div
-                                    {...provided.droppableProps}
-                                    ref={provided.innerRef}
-                                    style={{
-                                        background: snapshot.isDraggingOver
-                                            ? "lightblue"
-                                            : "lightgrey",
-                                        padding: 4,
-                                        width: 250,
-                                        minHeight: 500,
-                                        marginRight: 10,
-                                    }}
-                                >
-                                    {colors.map((color, idx) => {
-                                        return (
-                                            <Draggable
-                                                key={color.id}
-                                                draggableId={color.id}
-                                                index={idx}
-                                            >
-                                                {(provided, snapshot) => {
-                                                    return (
-                                                        <div
-                                                            ref={
-                                                                provided.innerRef
-                                                            }
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            style={{
-                                                                userSelect:
-                                                                    "none",
-                                                                padding: 16,
-                                                                margin:
-                                                                    "0 0 8px 0",
-                                                                minHeight:
-                                                                    "50px",
-                                                                backgroundColor: snapshot.isDragging
-                                                                    ? "#263b4a"
-                                                                    : "#456c86",
-                                                                color: "white",
-                                                                ...provided
-                                                                    .draggableProps
-                                                                    .style,
-                                                            }}
-                                                        >
-                                                            {color.color}
-                                                        </div>
-                                                    );
-                                                }}
-                                            </Draggable>
-                                        );
-                                    })}
-                                    {provided.placeholder}
-                                </div>
-                            );
-                        }}
-                    </Droppable>
-                </DragDropContext>
-            </div>
+            <Sandbox content={colors} setContent={setColors}/>
         </div>
     );
 };

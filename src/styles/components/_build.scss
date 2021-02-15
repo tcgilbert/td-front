@@ -144,6 +144,7 @@
 
 #show:checked ~ .build__options {
     visibility: hidden;
+    display: none;
     height: 0;
     opacity: 0;
 }
