@@ -15,7 +15,7 @@ const onDragEnd = (result, content, setContent) => {
 
 const Sandbox = (props) => {
     return (
-        <div className="build__sandbox">
+        <div className="sandbox">
             <DragDropContext
                 onDragEnd={(result) => onDragEnd(result, props.content, props.setContent)}
             >
@@ -30,9 +30,9 @@ const Sandbox = (props) => {
                                         ? "lightblue"
                                         : "lightgrey",
                                     padding: 4,
-                                    width: 250,
-                                    minHeight: 500,
-                                    marginRight: 10,
+                                    width: "80%",
+                                    height: "auto",
+                                    margin: "2rem 0"
                                 }}
                             >
                                 {props.content.map((ele, idx) => {
