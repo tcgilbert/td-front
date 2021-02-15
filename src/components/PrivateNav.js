@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from 'react-router-dom'
 
 const PrivateNav = (props) => {
-    console.log(props.user);
     return (
         <div className="private-nav">
             <svg
