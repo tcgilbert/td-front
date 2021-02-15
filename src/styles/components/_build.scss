@@ -86,14 +86,34 @@
     }
 
     &__form {
-        width: 80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 90%;
         margin: 1rem;
-        padding: 3rem;
+        padding: 1.5rem;
         background-color: #fff;
+        border-radius: 1rem;
+        border: solid 2px lightgray;
+    }
+
+    &__submit {
+        margin-top: 1rem;
+        padding: 1rem 0;
+        border: none;
+        border-radius: 1rem;
+        background-color: $color-blue;
+        color: white;
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    &__submit:hover {
+        cursor: pointer;
+        background-color: rgba($color-blue, .9);
     }
 
     &__sandbox {
-        // border: solid 1px red;
         height: 100%;
         display: flex;
         justify-content: center;
