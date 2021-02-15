@@ -17,7 +17,9 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "300",
     },
     label: {
-        fontSize: "2rem",
+        fontSize: "1.7rem",
+        opacity: ".7",
+        fontWeight: "300"
     },
     textArea: {
         marginTop: '1rem',
@@ -26,12 +28,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Text = () => {
+const Blurb = () => {
     const classes = useStyles();
     const [values, handleChange] = useForm({ heading: "", content: "" });
 
     return (
         <div className="build__form">
+            <h1 className="build__prompt">What have you been up to?</h1>
             <TextField
                 className={classes.textField}
                 InputProps={{
@@ -60,9 +63,9 @@ const Text = () => {
                 name="content"
                 onChange={(e) => handleChange(e)}
             />
-            <button className="build__submit">Add Component</button>
+            <button className="build__submit">Add Blurb</button>
         </div>
     );
 };
 
-export default Text;
+export default Blurb;
