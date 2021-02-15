@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Arrow from "../images/arrow.svg";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
+// components
+import Text from "../components/Text"
+
 const Build = () => {
     const [buildOption, setBuildOption] = useState("text");
 
@@ -75,9 +78,7 @@ const Build = () => {
                     </p>
                 </div>
                 <div className="build__form-container">
-                    <div className="build__form">
-                        <input type="text" />
-                    </div>
+                    <Text />
                 </div>
             </div>
             <div className="build__sandbox">
