@@ -29,10 +29,7 @@ const About = (props) => {
     // Update about
     const handleSubmit = async () => {
         const apiRes = await axios.put(`${SERVER}/about/update`, {
-            // headers: {
-            //     "Accept": "application/json",
-            //     "Content-type": "application/json",
-            // }
+            id: props.about.id,
             name: name,
             nameShow: nameCheck,
             location: location,
@@ -40,7 +37,8 @@ const About = (props) => {
             work: work,
             workShow: workCheck
         })
-        console.log(apiRes);
+        props.setAbout(apiRes.data.updatedAbout)
+        console.log(apiRes.data);
     }
 
 
