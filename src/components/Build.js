@@ -3,11 +3,28 @@ import Arrow from "../images/arrow.svg";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 // components
-import Text from "../components/Text"
+import Text from "../components/Text";
+
+// dnd functions
+const onDragEnd = (result, colors, setColors) => {
+    if (!result.destination) {
+        return;
+    }
+    const { source, destination } = result;
+    const copiedColors = [...colors]
+    const [removed] = copiedColors.splice(source.index, 1)
+    copiedColors.splice(destination.index, 0, removed)
+    setColors(copiedColors)
+};
 
 const Build = () => {
     const [buildOption, setBuildOption] = useState("text");
-
+    const [colors, setColors] = useState([
+        { id: "1", color: "blue" },
+        { id: "2", color: "green" },
+        { id: "3", color: "orange" },
+        { id: "4", color: "red" },
+    ]);
 
     // For build options
     useEffect(() => {
@@ -58,22 +75,46 @@ const Build = () => {
             </div>
             <div className="build__options">
                 <div className="build__pillbox">
-                    <p onClick={() => setBuildOption("text")} id="text" className="build__pill">
+                    <p
+                        onClick={() => setBuildOption("text")}
+                        id="text"
+                        className="build__pill"
+                    >
                         Text
                     </p>
-                    <p onClick={() => setBuildOption("link")} id="link" className="build__pill">
+                    <p
+                        onClick={() => setBuildOption("link")}
+                        id="link"
+                        className="build__pill"
+                    >
                         Link
                     </p>
-                    <p onClick={() => setBuildOption("sound")} id="sound" className="build__pill">
+                    <p
+                        onClick={() => setBuildOption("sound")}
+                        id="sound"
+                        className="build__pill"
+                    >
                         Soundtrack
                     </p>
-                    <p onClick={() => setBuildOption("book")} id="book" className="build__pill">
+                    <p
+                        onClick={() => setBuildOption("book")}
+                        id="book"
+                        className="build__pill"
+                    >
                         Book
                     </p>
-                    <p onClick={() => setBuildOption("pod")} id="pod" className="build__pill">
+                    <p
+                        onClick={() => setBuildOption("pod")}
+                        id="pod"
+                        className="build__pill"
+                    >
                         Podcast
                     </p>
-                    <p onClick={() => setBuildOption("movie")} id="movie" className="build__pill">
+                    <p
+                        onClick={() => setBuildOption("movie")}
+                        id="movie"
+                        className="build__pill"
+                    >
                         Movie
                     </p>
                 </div>
@@ -82,7 +123,70 @@ const Build = () => {
                 </div>
             </div>
             <div className="build__sandbox">
-                <div className="build__element">Text</div>
+                <DragDropContext
+                    onDragEnd={(result) => onDragEnd(result, colors, setColors)}
+                >
+                    <Droppable droppableId="sandbox">
+                        {(provided, snapshot) => {
+                            return (
+                                <div
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                    style={{
+                                        background: snapshot.isDraggingOver
+                                            ? "lightblue"
+                                            : "lightgrey",
+                                        padding: 4,
+                                        width: 250,
+                                        minHeight: 500,
+                                        marginRight: 10,
+                                    }}
+                                >
+                                    {colors.map((color, idx) => {
+                                        return (
+                                            <Draggable
+                                                key={color.id}
+                                                draggableId={color.id}
+                                                index={idx}
+                                            >
+                                                {(provided, snapshot) => {
+                                                    return (
+                                                        <div
+                                                            ref={
+                                                                provided.innerRef
+                                                            }
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                            style={{
+                                                                userSelect:
+                                                                    "none",
+                                                                padding: 16,
+                                                                margin:
+                                                                    "0 0 8px 0",
+                                                                minHeight:
+                                                                    "50px",
+                                                                backgroundColor: snapshot.isDragging
+                                                                    ? "#263b4a"
+                                                                    : "#456c86",
+                                                                color: "white",
+                                                                ...provided
+                                                                    .draggableProps
+                                                                    .style,
+                                                            }}
+                                                        >
+                                                            {color.color}
+                                                        </div>
+                                                    );
+                                                }}
+                                            </Draggable>
+                                        );
+                                    })}
+                                    {provided.placeholder}
+                                </div>
+                            );
+                        }}
+                    </Droppable>
+                </DragDropContext>
             </div>
         </div>
     );
