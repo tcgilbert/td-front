@@ -44,6 +44,24 @@ const ManageProfile = (props) => {
         handleLocation();
     }, [location]);
 
+    const handleAbout = () => {
+        let display = []
+        if (about.workShow) {
+            display.push(about.work)
+        }
+        if (about.locationShow) {
+            display.push(about.location)
+        }
+        if (about.nameShow) {
+            display.push(about.name)
+        }
+        display.map((ele, idx) => {
+            return (
+                <p key={idx}>{ele}</p>
+            )
+        })
+    }
+
     return (
         <div className="manage">
             <PrivateNav user={props.user} handleLogout={props.handleLogout} />
@@ -75,12 +93,13 @@ const ManageProfile = (props) => {
                 <p className="manage__text">Your link: <a className="manage__thelink" href={`https://thesedays.io/${props.user.username}`} target="_blank">{`https://thesedays.io/${props.user.username}`}</a></p>
             </div>
             <div className="grid manage__grid3">
-                <Build />
+                <Build about={about} setAbout={setAbout}/>
             </div>
             <div className="grid manage__grid4">
                 <div className="phone">
                     <div className="phone__content">
                         <p className="phone__username">@{props.user.username}</p>
+                        {handleAbout()}
                     </div>
                 </div>
             </div>

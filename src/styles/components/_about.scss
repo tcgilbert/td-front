@@ -48,4 +48,14 @@
         cursor: pointer;
         background-color: rgba($color-blue, .9);
     }
+
+    &__container {
+        background-color: white;
+        padding: 1rem;
+        width: 90%;
+        margin-bottom: 1rem;
+    }
+
+
+
 }

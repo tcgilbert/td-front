@@ -17,7 +17,9 @@ const Sandbox = (props) => {
     return (
         <div className="sandbox">
             <DragDropContext
-                onDragEnd={(result) => onDragEnd(result, props.content, props.setContent)}
+                onDragEnd={(result) =>
+                    onDragEnd(result, props.content, props.setContent)
+                }
             >
                 <Droppable droppableId="sandbox">
                     {(provided, snapshot) => {
@@ -32,7 +34,7 @@ const Sandbox = (props) => {
                                     padding: 4,
                                     width: "80%",
                                     height: "auto",
-                                    margin: "2rem 0"
+                                    margin: "2rem 0",
                                 }}
                             >
                                 {props.content.map((ele, idx) => {

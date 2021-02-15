@@ -6,8 +6,10 @@ import Blurb from "./Blurb";
 import About from "./About";
 import Sandbox from "../components/Sandbox";
 
-const Build = () => {
+const Build = (props) => {
+
     const [buildOption, setBuildOption] = useState("about");
+
     const [colors, setColors] = useState([
         { id: "1", color: "blue" },
         { id: "2", color: "green" },
@@ -18,7 +20,7 @@ const Build = () => {
     const handleForms = () => {
         switch (buildOption) {
             case "about":
-                return <About />;
+                return <About about={props.about} setAbout={props.setAbout}/>;
             case "blurbs":
                 return <Blurb />;
             case "links":
@@ -108,7 +110,8 @@ const Build = () => {
                     {handleForms()}
                 </div>
             </div>
-            <Sandbox content={colors} setContent={setColors} />
+
+            <Sandbox content={colors} setContent={setColors} about={props.about}/>
         </div>
     );
 };
