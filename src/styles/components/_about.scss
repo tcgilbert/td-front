@@ -1,0 +1,51 @@
+.about { 
+
+    &__input-div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__input-label {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 55%;
+    }
+
+    &__label {
+        font-size: 1.7rem;
+        font-weight: 500;
+        margin-right: 1rem;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 60%;
+        margin: 1rem;
+        padding: 1.5rem;
+        background-color: #fff;
+        border-radius: 1rem;
+        border: solid 2px lightgray;
+    }
+
+    &__submit {
+        margin-top: 2rem;
+        padding: 1rem 0;
+        border: none;
+        border-radius: 1rem;
+        background-color: $color-blue;
+        color: white;
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    &__submit:hover {
+        cursor: pointer;
+        background-color: rgba($color-blue, .9);
+    }
+}

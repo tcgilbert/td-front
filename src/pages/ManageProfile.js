@@ -1,10 +1,26 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios"
+
+//  Components
 import PrivateNav from "../components/PrivateNav";
 import Build from "../components/Build"
 
 const ManageProfile = (props) => {
-    const [location, setLocation] = useState("build");
 
+    const [location, setLocation] = useState("build");
+    const [about, setAbout] = useState("")
+    const SERVER = process.env.REACT_APP_SERVER;
+
+    // Fetching user content
+    useEffect(() => {
+        const fetchContent = async () => {
+            const content = await axios.get(`${SERVER}/about/${props.user.id}`)
+            setAbout(content.data.about)
+        }
+        fetchContent()
+    }, [])
+
+    // DOM elements for nav
     useEffect(() => {
         const build = document.getElementById("line-one");
         const settings = document.getElementById("line-two");

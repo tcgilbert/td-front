@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import Arrow from "../images/arrow.svg";
 
 // components
-import Text from "../components/Text";
-import Sandbox from "../components/Sandbox"
-
+import Blurb from "./Blurb";
+import About from "./About";
+import Sandbox from "../components/Sandbox";
 
 const Build = () => {
-    const [buildOption, setBuildOption] = useState("text");
+    const [buildOption, setBuildOption] = useState("about");
     const [colors, setColors] = useState([
         { id: "1", color: "blue" },
         { id: "2", color: "green" },
@@ -15,16 +15,27 @@ const Build = () => {
         { id: "4", color: "red" },
     ]);
 
+    const handleForms = () => {
+        switch (buildOption) {
+            case "about":
+                return <About />;
+            case "blurbs":
+                return <Blurb />;
+            case "links":
+                return <Blurb />;
+            case "soundtrack":
+                return <Blurb />;
+        }
+    };
+
     // For build options
     useEffect(() => {
-        const text = document.getElementById("text");
-        const sound = document.getElementById("sound");
-        const book = document.getElementById("book");
-        const pod = document.getElementById("pod");
-        const movie = document.getElementById("movie");
-        const link = document.getElementById("link");
+        const about = document.getElementById("about");
+        const blurbs = document.getElementById("blurbs");
+        const soundtrack = document.getElementById("soundtrack");
+        const links = document.getElementById("links");
 
-        const buildOptions = [text, sound, book, pod, movie, link];
+        const buildOptions = [about, blurbs, soundtrack, links];
         buildOptions.forEach((opt) => {
             if (opt.id === buildOption) {
                 opt.classList.add("build__selected");
@@ -65,53 +76,39 @@ const Build = () => {
             <div className="build__options">
                 <div className="build__pillbox">
                     <p
-                        onClick={() => setBuildOption("text")}
-                        id="text"
+                        onClick={() => setBuildOption("about")}
+                        id="about"
                         className="build__pill"
                     >
-                        Text
+                        About
                     </p>
                     <p
-                        onClick={() => setBuildOption("link")}
-                        id="link"
+                        onClick={() => setBuildOption("blurbs")}
+                        id="blurbs"
                         className="build__pill"
                     >
-                        Link
+                        Blurbs
                     </p>
                     <p
-                        onClick={() => setBuildOption("sound")}
-                        id="sound"
+                        onClick={() => setBuildOption("links")}
+                        id="links"
+                        className="build__pill"
+                    >
+                        Links
+                    </p>
+                    <p
+                        onClick={() => setBuildOption("soundtrack")}
+                        id="soundtrack"
                         className="build__pill"
                     >
                         Soundtrack
                     </p>
-                    <p
-                        onClick={() => setBuildOption("book")}
-                        id="book"
-                        className="build__pill"
-                    >
-                        Book
-                    </p>
-                    <p
-                        onClick={() => setBuildOption("pod")}
-                        id="pod"
-                        className="build__pill"
-                    >
-                        Podcast
-                    </p>
-                    <p
-                        onClick={() => setBuildOption("movie")}
-                        id="movie"
-                        className="build__pill"
-                    >
-                        Movie
-                    </p>
                 </div>
                 <div className="build__form-container">
-                    <Text />
+                    {handleForms()}
                 </div>
             </div>
-            <Sandbox content={colors} setContent={setColors}/>
+            <Sandbox content={colors} setContent={setColors} />
         </div>
     );
 };

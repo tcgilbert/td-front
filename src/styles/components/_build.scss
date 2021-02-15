@@ -46,7 +46,7 @@
         display: flex;
         padding: .1rem 3rem;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: space-around;
         width: 100%;
         background-color: white;
         transition: all .3s;
@@ -95,6 +95,11 @@
         background-color: #fff;
         border-radius: 1rem;
         border: solid 2px lightgray;
+    }
+
+    &__prompt {
+        font-weight: 400;
+        margin-bottom: 1.5rem;
     }
 
     &__submit {

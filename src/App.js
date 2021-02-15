@@ -10,9 +10,6 @@ import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import ManageProfile from "./pages/ManageProfile"
 
-// components
-import Navigation from "./components/Navigation";
-
 // utils
 import setAuthToken from "./utils/setAuthToken";
 
@@ -74,7 +71,6 @@ function App() {
                 username: values.username,
                 password: values.password,
             });
-            console.log(requestedUser);
             // extract token
             const { token } = requestedUser.data;
             // add to local storage
@@ -114,15 +110,12 @@ function App() {
             }
         } catch (error) {
             console.log(error);
+            
         }
     };
 
     return (
         <div className="App">
-            {/* <Navigation
-                isAuthenticated={isAuthenticated}
-                handleLogout={handleLogout}
-            /> */}
             <div>
                 <Route
                     exact
