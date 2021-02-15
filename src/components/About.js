@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Switch from "@material-ui/core/Switch";
@@ -17,30 +17,72 @@ const useStyles = makeStyles((theme) => ({
 const About = (props) => {
     const classes = useStyles();
     const SERVER = process.env.REACT_APP_SERVER;
-    const [name, setName] = useState(props.about.name)
-    const [location, setLocation] = useState(props.about.location)
-    const [work, setWork] = useState(props.about.work)
 
-
-    const [nameCheck, setNameCheck] = useState(props.about.nameShow)
-    const [locationCheck, setLocationCheck] = useState(props.about.locationShow)
-    const [workCheck, setWorkCheck] = useState(props.about.workShow)
+    const [name, setName] = useState(props.about.name);
+    const [location, setLocation] = useState(props.about.location);
+    const [work, setWork] = useState(props.about.work);
+    const [nameCheck, setNameCheck] = useState(props.about.nameShow);
+    const [locationCheck, setLocationCheck] = useState(
+        props.about.locationShow
+    );
+    const [workCheck, setWorkCheck] = useState(props.about.workShow);
 
     // Update about
     const handleSubmit = async () => {
-        const apiRes = await axios.put(`${SERVER}/about/update`, {
-            id: props.about.id,
-            name: name,
-            nameShow: nameCheck,
-            location: location,
-            locationShow: locationCheck,
-            work: work,
-            workShow: workCheck
-        })
-        props.setAbout(apiRes.data.updatedAbout)
-        console.log(apiRes.data);
-    }
+        if (checkForChange()) {
+            const apiRes = await axios.put(`${SERVER}/about/update`, {
+                id: props.about.id,
+                name: name,
+                nameShow: nameCheck,
+                location: location,
+                locationShow: locationCheck,
+                work: work,
+                workShow: workCheck,
+            });
+            props.setAbout(apiRes.data.updatedAbout);
+        }
+    };
 
+    // For submit button
+    const checkForChange = () => {
+        let changeMade = false;
+        if (props.about.name !== name) {
+            changeMade = true;
+        }
+        if (props.about.location !== location) {
+            changeMade = true;
+        }
+        if (props.about.work !== work) {
+            changeMade = true;
+        }
+        if (props.about.nameShow !== nameCheck) {
+            changeMade = true;
+        }
+        if (props.about.locationShow !== locationCheck) {
+            changeMade = true;
+        }
+        if (props.about.workShow !== workCheck) {
+            changeMade = true;
+        }
+        return changeMade;
+    };
+
+    useEffect(() => {
+        const button = document.getElementById("about-btn");
+        if (checkForChange()) {
+            if (button.classList.contains("about__submit")) {
+                return;
+            } else {
+                button.classList.add("about__submit");
+            }
+        } else {
+            if (button.classList.contains("about__submit")) {
+                button.classList.remove("about__submit");
+            } else {
+                return;
+            }
+        }
+    }, [name, nameCheck, location, locationCheck, work, workCheck]);
 
     return (
         <div className="about__form">
@@ -110,7 +152,13 @@ const About = (props) => {
                     inputProps={{ "aria-label": "primary checkbox" }}
                 />
             </div>
-            <button onClick={handleSubmit} className="about__submit">Save Changes</button>
+            <button
+                id="about-btn"
+                onClick={handleSubmit}
+                className="about__btn"
+            >
+                Save Changes
+            </button>
         </div>
     );
 };
