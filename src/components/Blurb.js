@@ -34,7 +34,7 @@ const Blurb = () => {
 
     return (
         <div className="build__form">
-            <h1 className="build__prompt">What have you been up to?</h1>
+            <h1 className="build__prompt">What have you been up to these days?</h1>
             <TextField
                 className={classes.textField}
                 InputProps={{

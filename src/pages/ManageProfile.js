@@ -8,13 +8,22 @@ import Build from "../components/Build";
 const ManageProfile = (props) => {
     const [location, setLocation] = useState("build");
     const [about, setAbout] = useState("");
+    const [content, setContent] = useState(null)
     const SERVER = process.env.REACT_APP_SERVER;
 
     // Fetching user content
     useEffect(() => {
         const fetchContent = async () => {
-            const content = await axios.get(`${SERVER}/about/${props.user.id}`);
-            setAbout(content.data.about);
+            try {                
+                const apiRes = await axios.get(`${SERVER}/about/${props.user.id}`);
+                const about = apiRes.data.about
+                setAbout(about);
+                const apiRes2 = await axios.get(`${SERVER}/content/getall/${props.user.id}`)
+                const content = apiRes2.data.userContent
+                setContent(content)
+            } catch (error) {
+                console.log(error);
+            }
         };
         fetchContent();
     }, []);
