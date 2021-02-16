@@ -22,7 +22,7 @@ const Build = (props) => {
             case "about":
                 return <About about={props.about} setAbout={props.setAbout}/>;
             case "blurbs":
-                return <Blurb />;
+                return <Blurb user={props.user} />;
             case "links":
                 return <Blurb />;
             case "soundtrack":

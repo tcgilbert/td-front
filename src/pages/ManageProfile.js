@@ -108,7 +108,7 @@ const ManageProfile = (props) => {
                 </p>
             </div>
             <div className="grid manage__grid3">
-                <Build about={about} setAbout={setAbout} />
+                <Build about={about} setAbout={setAbout} user={props.user} />
             </div>
             <div className="grid manage__grid4">
                 <div className="phone">

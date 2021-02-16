@@ -102,6 +102,18 @@
         margin-bottom: 1.5rem;
     }
 
+    &__btn {
+        margin-top: 1rem;
+        padding: 1rem 0;
+        border: none;
+        border-radius: 1rem;
+        background-color: rgb(198, 198, 198);
+        color: white;
+        font-weight: 600;
+        font-size: 1.5rem;
+        outline: none;
+    }
+
     &__submit {
         margin-top: 1rem;
         padding: 1rem 0;
