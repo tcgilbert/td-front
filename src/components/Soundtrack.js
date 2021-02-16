@@ -102,7 +102,13 @@ const Soundtrack = (props) => {
             });
             return results;
         } else {
-            return <p>No Results</p>;
+            let text;
+            if (query === "") {
+                text = "Enter Search"
+            } else {
+                text = "No Results"
+            }
+            return <h1 className="soundtrack__noresults">{text}</h1>;
         }
     };
 
@@ -125,6 +131,8 @@ const Soundtrack = (props) => {
                         onChange={(e) => {
                             setSearchType(e.target.value);
                             setQuery("");
+                            setResultsTrack([])
+                            setResultsAlbum([])
                         }}
                     >
                         <MenuItem className={classes.menuItem} value="album">

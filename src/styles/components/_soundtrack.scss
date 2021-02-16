@@ -4,13 +4,22 @@
     align-items: top;
 
     &__results {
+        position: relative;
         height: 20rem;
         overflow: scroll;
         width: 98%;
         margin: 1rem auto;
         border-radius: .5rem;
-        // border: solid 2px rgb(176, 176, 176);
         background-color: rgb(238, 238, 238);
+    }
+
+    &__noresults {
+        position: absolute;
+        top: 50%;
+        left: 48%;
+        transform: translate(-50%, -50%);
+        font-size: 3rem;
+        color: rgba(black, .3)
     }
 
     &__result {
