@@ -4,6 +4,7 @@ import Arrow from "../images/arrow.svg";
 // components
 import Blurb from "./Blurb";
 import About from "./About";
+import Link from './Link'
 import Sandbox from "../components/Sandbox";
 
 const Build = (props) => {
@@ -16,7 +17,7 @@ const Build = (props) => {
             case "blurbs":
                 return <Blurb user={props.user} />;
             case "links":
-                return <Blurb />;
+                return <Link user={props.user}/>;
             case "soundtrack":
                 return <Blurb />;
         }
