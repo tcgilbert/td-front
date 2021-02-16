@@ -7,21 +7,12 @@ import About from "./About";
 import Sandbox from "../components/Sandbox";
 
 const Build = (props) => {
-
     const [buildOption, setBuildOption] = useState("about");
-
-    const [colors, setColors] = useState([
-        { id: "1", color: "blue" },
-        { id: "2", color: "green" },
-        { id: "3", color: "orange" },
-        { id: "4", color: "red" },
-    ]);
-
 
     const handleForms = () => {
         switch (buildOption) {
             case "about":
-                return <About about={props.about} setAbout={props.setAbout}/>;
+                return <About about={props.about} setAbout={props.setAbout} />;
             case "blurbs":
                 return <Blurb user={props.user} />;
             case "links":
@@ -56,10 +47,10 @@ const Build = (props) => {
         const container = document.getElementById("build-container");
 
         container.addEventListener("click", () => {
-            if (check.getAttribute("checked")) {
-                check.removeAttribute("checked");
+            if (check.checked) {
+                check.checked = false;
             } else {
-                check.setAttribute("checked", true);
+                check.checked = true;
             }
         });
     }, []);
@@ -107,11 +98,13 @@ const Build = (props) => {
                         Soundtrack
                     </p>
                 </div>
-                <div className="build__form-container">
-                    {handleForms()}
-                </div>
+                <div className="build__form-container">{handleForms()}</div>
             </div>
-            <Sandbox content={props.content} setContent={props.setContent} about={props.about}/>
+            <Sandbox
+                content={props.content}
+                setContent={props.setContent}
+                about={props.about}
+            />
         </div>
     );
 };
