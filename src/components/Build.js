@@ -5,19 +5,21 @@ import Arrow from "../images/arrow.svg";
 import Blurb from "./Blurb";
 import About from "./About";
 import Link from "./Link";
+import Soundtrack from "./Soundtrack";
 import Sandbox from "../components/Sandbox";
 
 const Build = (props) => {
     const [buildOption, setBuildOption] = useState("about");
 
     const handleForms = () => {
-
         if (props.contentLoading) {
             return;
         } else {
             switch (buildOption) {
                 case "about":
-                    return <About about={props.about} setAbout={props.setAbout} />;
+                    return (
+                        <About about={props.about} setAbout={props.setAbout} />
+                    );
                 case "blurbs":
                     return (
                         <Blurb
@@ -33,10 +35,15 @@ const Build = (props) => {
                         />
                     );
                 case "soundtrack":
-                    return <Blurb />;
+                    return (
+                        <Soundtrack
+                            user={props.user}
+                            setContentLoading={props.setContentLoading}
+                            spotifyToken={props.spotifyToken}
+                        />
+                    );
             }
         }
-       
     };
 
     // For build options

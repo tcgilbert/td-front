@@ -173,6 +173,7 @@ const ManageProfile = (props) => {
                     setContent={setContent}
                     setContentLoading={setContentLoading}
                     contentLoading={contentLoading}
+                    spotifyToken={spotifyToken}
                 />
             </div>
             <div className="grid manage__grid4">
