@@ -7,6 +7,7 @@ const onDragEnd = (result, content, setContent) => {
         return;
     }
     const { source, destination } = result;
+    console.log(result);
     const copiedContent = [...content];
     const [removed] = copiedContent.splice(source.index, 1);
     copiedContent.splice(destination.index, 0, removed);
@@ -14,6 +15,10 @@ const onDragEnd = (result, content, setContent) => {
 };
 
 const Sandbox = (props) => {
+    const mapped = props.content.map((ele, idx) => {
+        return ele
+    })
+    console.log(mapped);
     return (
         <div className="sandbox">
             <DragDropContext
@@ -41,7 +46,7 @@ const Sandbox = (props) => {
                                     return (
                                         <Draggable
                                             key={ele.id}
-                                            draggableId={ele.id}
+                                            draggableId={ele.id.toString()}
                                             index={idx}
                                         >
                                             {(provided, snapshot) => {
@@ -64,7 +69,8 @@ const Sandbox = (props) => {
                                                                 .style,
                                                         }}
                                                     >
-                                                        {ele.color}
+                                                        {ele.content.heading}
+                                                        {ele.content.content}
                                                     </div>
                                                 );
                                             }}

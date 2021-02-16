@@ -8,7 +8,8 @@ import Build from "../components/Build";
 const ManageProfile = (props) => {
     const [location, setLocation] = useState("build");
     const [about, setAbout] = useState("");
-    const [content, setContent] = useState(null)
+    const [content, setContent] = useState(null);
+    const [contentLoading, setContentLoading] = useState(true)
     const SERVER = process.env.REACT_APP_SERVER;
 
     // Fetching user content
@@ -21,6 +22,7 @@ const ManageProfile = (props) => {
                 const apiRes2 = await axios.get(`${SERVER}/content/getall/${props.user.id}`)
                 const content = apiRes2.data.userContent
                 setContent(content)
+                setContentLoading(false)
             } catch (error) {
                 console.log(error);
             }
@@ -64,11 +66,18 @@ const ManageProfile = (props) => {
             display.push(about.name);
         }
         const returnInfo = display.map((ele, idx) => {
-            console.log(ele);
             return <p key={idx}>{ele}</p>;
         });
         return returnInfo;
     };
+
+    const handleLoading = () => {
+        if (contentLoading) {
+            return
+        } else {
+            return <Build about={about} setAbout={setAbout} user={props.user} content={content} setContent={setContent}/>
+        }
+    }
 
     return (
         <div className="manage">
@@ -108,7 +117,7 @@ const ManageProfile = (props) => {
                 </p>
             </div>
             <div className="grid manage__grid3">
-                <Build about={about} setAbout={setAbout} user={props.user} />
+                {handleLoading()}
             </div>
             <div className="grid manage__grid4">
                 <div className="phone">

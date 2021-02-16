@@ -17,6 +17,8 @@ const Build = (props) => {
         { id: "4", color: "red" },
     ]);
 
+    console.log(props.content);
+
     const handleForms = () => {
         switch (buildOption) {
             case "about":
@@ -111,7 +113,7 @@ const Build = (props) => {
                 </div>
             </div>
 
-            <Sandbox content={colors} setContent={setColors} about={props.about}/>
+            <Sandbox content={props.content} setContent={props.setContent} about={props.about}/>
         </div>
     );
 };
