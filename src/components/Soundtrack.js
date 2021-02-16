@@ -61,6 +61,7 @@ const Soundtrack = (props) => {
                         },
                     }
                 );
+                console.log(apiRes);
                 let searchData;
                 switch (searchType) {
                     case "album":
@@ -136,6 +137,34 @@ const Soundtrack = (props) => {
                     }
                 });
                 return results;
+            } else if (searchType === "track" && resultsTrack.length > 0) {
+                const results = resultsTrack.map((track, idx) => {
+                    if (track.album.artists && track.album.images[0]) {
+                        return (
+                            <div key={idx} className="soundtrack__result">
+                                <div>
+                                    <div className="soundtrack__img-info">
+                                        <img
+                                            className="soundtrack__result-img"
+                                            src={track.album.images[0].url}
+                                            alt="Album Image"
+                                        />
+                                        <div>
+                                            {handleArtists(track.album.artists)}
+                                            <p className="soundtrack__album-name">
+                                                {track.name}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button className="soundtrack__btn">Select</button>
+                            </div>
+                        );
+                    } else {
+                        return;
+                    }
+                });
+                return results
             } else {
                 let text;
                 if (query === "") {
