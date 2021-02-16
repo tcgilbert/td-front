@@ -74,10 +74,10 @@ const Soundtrack = (props) => {
 
     const handleArtists = (array) => {
         if (array.length === 1) {
-            return <p>{array[0].name}</p>;
+            return <p className="soundtrack__artist-name">{array[0].name}</p>;
         } else {
             array.forEach((artist) => {
-                return <p>{artist.name}</p>;
+                return <p className="soundtrack__artist-name">{artist.name}</p>;
             });
         }
     };

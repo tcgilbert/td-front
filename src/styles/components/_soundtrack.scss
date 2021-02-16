@@ -6,16 +6,23 @@
     &__results {
         height: 20rem;
         overflow: scroll;
+        width: 98%;
+        margin: 1rem auto;
+        border-radius: .5rem;
+        // border: solid 2px rgb(176, 176, 176);
+        background-color: rgb(238, 238, 238);
     }
 
     &__result {
+        width: 98%;
+        margin: 1rem auto;
         display: flex;
         flex-direction: row;
         margin-bottom: 1rem;
-        // background-color: lightgrey;
+        background-color: $bg-color;
         padding: .5rem;
         border-radius: 1rem;
-        border: solid 1px $color-blue;
+        border: solid 1.5px $color-dark;
 
     }
 
@@ -28,5 +35,11 @@
         font-size: 1.8rem;
         margin-left: 1rem;
         font-weight: 600;
+    }
+
+    &__album-name {
+        font-size: 1.5rem;
+        margin-left: 1rem;
+        font-weight: 500;
     }
 }
