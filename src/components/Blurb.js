@@ -53,12 +53,14 @@ const Blurb = (props) => {
 
     const handleSubmit = async () => {
         if (heading !== "" || content !== "") {
-            const apiRes = axios.post(`${SERVER}/blurb/create`, {
+            const apiRes = await axios.post(`${SERVER}/blurb/create`, {
                 userId: props.user.id,
                 heading: heading,
                 content: content
             })
-            console.log(apiRes);
+            if (apiRes) {
+                props.setContentLoading(true)
+            }
         } else {
             return;
         }

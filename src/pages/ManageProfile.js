@@ -15,24 +15,26 @@ const ManageProfile = (props) => {
     // Fetching user content
     useEffect(() => {
         const fetchContent = async () => {
-            try {
-                const apiRes = await axios.get(
-                    `${SERVER}/about/${props.user.id}`
-                );
-                const about = apiRes.data.about;
-                setAbout(about);
-                const apiRes2 = await axios.get(
-                    `${SERVER}/content/getall/${props.user.id}`
-                );
-                const content = apiRes2.data.userContent;
-                setContent(content);
-                setContentLoading(false);
-            } catch (error) {
-                console.log(error);
+            if (contentLoading) {
+                try {
+                    const apiRes = await axios.get(
+                        `${SERVER}/about/${props.user.id}`
+                    );
+                    const about = apiRes.data.about;
+                    setAbout(about);
+                    const apiRes2 = await axios.get(
+                        `${SERVER}/content/getall/${props.user.id}`
+                    );
+                    const content = apiRes2.data.userContent;
+                    setContent(content);
+                    setContentLoading(false);
+                } catch (error) {
+                    console.log(error);
+                }
             }
         };
         fetchContent();
-    }, []);
+    }, [contentLoading]);
 
     // DOM elements for nav
     useEffect(() => {
@@ -62,19 +64,16 @@ const ManageProfile = (props) => {
     useEffect(() => {
         const updateContent = async () => {
             try {
-                const apiRes = await axios.put(
-                    `${SERVER}/content/update`,
-                    {
-                        content,
-                        userId: props.user.id
-                    }
-                );
+                const apiRes = await axios.put(`${SERVER}/content/update`, {
+                    content,
+                    userId: props.user.id,
+                });
             } catch (error) {
                 console.log(error);
             }
         };
         if (content !== null) {
-            updateContent()
+            updateContent();
         }
     }, [content]);
 
@@ -95,6 +94,24 @@ const ManageProfile = (props) => {
         return returnInfo;
     };
 
+    // const reFetchContent = () => {
+    //     try {
+    //         const apiRes = await axios.get(
+    //             `${SERVER}/about/${props.user.id}`
+    //         );
+    //         const about = apiRes.data.about;
+    //         setAbout(about);
+    //         const apiRes2 = await axios.get(
+    //             `${SERVER}/content/getall/${props.user.id}`
+    //         );
+    //         const content = apiRes2.data.userContent;
+    //         setContent(content);
+    //         setContentLoading(false);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+
     const handleLoading = () => {
         if (contentLoading) {
             return;
@@ -106,6 +123,7 @@ const ManageProfile = (props) => {
                     user={props.user}
                     content={content}
                     setContent={setContent}
+                    setContentLoading={setContentLoading}
                 />
             );
         }
@@ -148,7 +166,17 @@ const ManageProfile = (props) => {
                     >{`https://thesedays.io/${props.user.username}`}</a>
                 </p>
             </div>
-            <div className="grid manage__grid3">{handleLoading()}</div>
+            <div className="grid manage__grid3">
+                <Build
+                    about={about}
+                    setAbout={setAbout}
+                    user={props.user}
+                    content={content}
+                    setContent={setContent}
+                    setContentLoading={setContentLoading}
+                    contentLoading={contentLoading}
+                />
+            </div>
             <div className="grid manage__grid4">
                 <div className="phone">
                     <div className="phone__content">

@@ -66,7 +66,9 @@ const Link = (props) => {
                 comment: comment,
                 userId: props.user.id
             })
-            console.log(apiRes);
+            if (apiRes) {
+                props.setContentLoading(true)
+            }
         }
     };
 

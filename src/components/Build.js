@@ -4,7 +4,7 @@ import Arrow from "../images/arrow.svg";
 // components
 import Blurb from "./Blurb";
 import About from "./About";
-import Link from './Link'
+import Link from "./Link";
 import Sandbox from "../components/Sandbox";
 
 const Build = (props) => {
@@ -15,9 +15,19 @@ const Build = (props) => {
             case "about":
                 return <About about={props.about} setAbout={props.setAbout} />;
             case "blurbs":
-                return <Blurb user={props.user} />;
+                return (
+                    <Blurb
+                        user={props.user}
+                        setContentLoading={props.setContentLoading}
+                    />
+                );
             case "links":
-                return <Link user={props.user}/>;
+                return (
+                    <Link
+                        user={props.user}
+                        setContentLoading={props.setContentLoading}
+                    />
+                );
             case "soundtrack":
                 return <Blurb />;
         }
@@ -55,6 +65,20 @@ const Build = (props) => {
             }
         });
     }, []);
+
+    const handleLoading = () => {
+        if (props.contentLoading) {
+            return;
+        } else {
+            return (
+                <Sandbox
+                    content={props.content}
+                    setContent={props.setContent}
+                    about={props.about}
+                />
+            );
+        }
+    };
 
     return (
         <div className="build">
@@ -101,11 +125,7 @@ const Build = (props) => {
                 </div>
                 <div className="build__form-container">{handleForms()}</div>
             </div>
-            <Sandbox
-                content={props.content}
-                setContent={props.setContent}
-                about={props.about}
-            />
+            {handleLoading()}
         </div>
     );
 };
