@@ -29,35 +29,82 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         fontSize: "1.5rem",
         marginTop: ".4rem",
-        alignSelf: "bottom"
+        alignSelf: "bottom",
     },
     menuItem: {
-        fontSize: "1.5rem"
-    }
-
+        fontSize: "1.5rem",
+    },
 }));
 
 const Soundtrack = (props) => {
     const classes = useStyles();
     const [query, setQuery] = useState("");
+    const [searchType, setSearchType] = useState("album");
+    const [resultsAlbum, setResultsAlbum] = useState([]);
+    const [resultsTrack, setResultsTrack] = useState([]);
     const SERVER = process.env.REACT_APP_SERVER;
+    const spotifyEndpoint = "https://api.spotify.com/v1/search";
 
-    // useEffect(() => {
-    //     const button = document.getElementById("blurb-btn");
-    //     if (heading !== "" || content !== "") {
-    //         if (button.classList.contains("build__submit")) {
-    //             return;
-    //         } else {
-    //             button.classList.add("build__submit");
-    //         }
-    //     } else {
-    //         if (button.classList.contains("build__submit")) {
-    //             button.classList.remove("build__submit");
-    //         } else {
-    //             return;
-    //         }
-    //     }
-    // }, [heading, content]);
+    const handleSearch = async () => {
+        try {
+            const apiRes = await axios.get(
+                `${spotifyEndpoint}?q=${query}&type=${searchType}&limit=15 `,
+                {
+                    method: "GET",
+                    headers: { Authorization: "Bearer " + props.spotifyToken },
+                }
+            );
+            console.log(apiRes);
+            let searchData;
+            switch (searchType) {
+                case "album":
+                    searchData = await apiRes.data.albums.items;
+                    setResultsAlbum(searchData);
+                    break;
+                case "track":
+                    searchData = await apiRes.data.tracks.items;
+                    setResultsTrack(searchData);
+                    break;
+            }
+        } catch (error) {
+            setResultsAlbum([]);
+            setResultsTrack([]);
+        }
+    };
+
+    const handleArtists = (array) => {
+        if (array.length === 1) {
+            return <p>{array[0].name}</p>;
+        } else {
+            array.forEach((artist) => {
+                return <p>{artist.name}</p>;
+            });
+        }
+    };
+
+    const resultsDisplayed = () => {
+        if (searchType === "album" && resultsAlbum.length > 0) {
+            console.log("calledddd");
+            const results = resultsAlbum.map((album, idx) => {
+                if (album.images[0] && album.artists) {
+                    return (
+                        <div key={idx} className="soundtrack__result">
+                            <img className="soundtrack__result-img" src={album.images[0].url} alt="album Image"/>
+                            <div>
+                                {handleArtists(album.artists)}
+                                <p className="soundtrack__album-name">{album.name}</p>
+                            </div>
+                        </div>
+                    );
+                } else {
+                    return;
+                }
+            });
+            return results;
+        } else {
+            return <p>No Results</p>;
+        }
+    };
 
     const handleSubmit = async () => {
         return;
@@ -73,12 +120,19 @@ const Soundtrack = (props) => {
                     <Select
                         variant="outlined"
                         id="select-menu"
-                        defaultValue="Artist"
+                        defaultValue="album"
                         className={classes.select}
+                        onChange={(e) => {
+                            setSearchType(e.target.value);
+                            setQuery("");
+                        }}
                     >
-                        <MenuItem className={classes.menuItem} value="Artist">Artist</MenuItem>
-                        <MenuItem className={classes.menuItem} value="Album">Album</MenuItem>
-                        <MenuItem className={classes.menuItem} value="Song">Song</MenuItem>
+                        <MenuItem className={classes.menuItem} value="album">
+                            Album
+                        </MenuItem>
+                        <MenuItem className={classes.menuItem} value="track">
+                            Song
+                        </MenuItem>
                     </Select>
                 </FormControl>
                 <TextField
@@ -96,11 +150,9 @@ const Soundtrack = (props) => {
                     onChange={(e) => setQuery(e.target.value)}
                 />
             </div>
-            <div className="soundtrack__results">
-                
-            </div>
+            <div className="soundtrack__results">{resultsDisplayed()}</div>
             <button
-                onClick={handleSubmit}
+                onClick={handleSearch}
                 id="sound-btn"
                 className="build__btn"
             >

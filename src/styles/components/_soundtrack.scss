@@ -2,4 +2,31 @@
     display: flex;
     flex-direction: row;
     align-items: top;
+
+    &__results {
+        height: 20rem;
+        overflow: scroll;
+    }
+
+    &__result {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1rem;
+        // background-color: lightgrey;
+        padding: .5rem;
+        border-radius: 1rem;
+        border: solid 1px $color-blue;
+
+    }
+
+    &__result-img {
+        width: 10rem;
+        height: 10rem;
+    }
+
+    &__artist-name {
+        font-size: 1.8rem;
+        margin-left: 1rem;
+        font-weight: 600;
+    }
 }
