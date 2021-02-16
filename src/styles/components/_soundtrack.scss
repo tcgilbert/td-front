@@ -32,7 +32,12 @@
         padding: .5rem;
         border-radius: 1rem;
         border: solid 1.5px $color-dark;
+        justify-content: space-between;
+    }
 
+    &__img-info {
+        display: flex;
+        flex-direction: row;
     }
 
     &__result-img {
@@ -50,5 +55,20 @@
         font-size: 1.5rem;
         margin-left: 1rem;
         font-weight: 500;
+    }
+
+    &__btn {
+        padding: 0 2.5rem;
+        border: none;
+        border-radius: 1rem;
+        background-color: $color-blue;
+        color: white;
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    &__btn:hover {
+        cursor: pointer;
+        background-color: rgba($color-blue, .9);
     }
 }

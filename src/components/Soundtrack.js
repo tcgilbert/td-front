@@ -4,6 +4,8 @@ import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
+import useDeBounce from "../utils/useDeBouce";
+import Loading from "./Loading";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -42,35 +44,55 @@ const Soundtrack = (props) => {
     const [searchType, setSearchType] = useState("album");
     const [resultsAlbum, setResultsAlbum] = useState([]);
     const [resultsTrack, setResultsTrack] = useState([]);
+    const [loading, setLoading] = useState(false);
     const SERVER = process.env.REACT_APP_SERVER;
     const spotifyEndpoint = "https://api.spotify.com/v1/search";
+    const searchDebounced = useDeBounce(query, 1000);
 
-    const handleSearch = async () => {
-        try {
-            const apiRes = await axios.get(
-                `${spotifyEndpoint}?q=${query}&type=${searchType}&limit=15 `,
-                {
-                    method: "GET",
-                    headers: { Authorization: "Bearer " + props.spotifyToken },
+    useEffect(() => {
+        const handleSearch = async () => {
+            try {
+                const apiRes = await axios.get(
+                    `${spotifyEndpoint}?q=${query}&type=${searchType}&limit=15 `,
+                    {
+                        method: "GET",
+                        headers: {
+                            Authorization: "Bearer " + props.spotifyToken,
+                        },
+                    }
+                );
+                let searchData;
+                switch (searchType) {
+                    case "album":
+                        searchData = await apiRes.data.albums.items;
+                        setResultsAlbum(searchData);
+                        break;
+                    case "track":
+                        searchData = await apiRes.data.tracks.items;
+                        setResultsTrack(searchData);
+                        break;
                 }
-            );
-            console.log(apiRes);
-            let searchData;
-            switch (searchType) {
-                case "album":
-                    searchData = await apiRes.data.albums.items;
-                    setResultsAlbum(searchData);
-                    break;
-                case "track":
-                    searchData = await apiRes.data.tracks.items;
-                    setResultsTrack(searchData);
-                    break;
+                setLoading(false);
+            } catch (error) {
+                setResultsAlbum([]);
+                setResultsTrack([]);
             }
-        } catch (error) {
+        };
+
+        if (searchDebounced) {
+            handleSearch();
+        }
+    }, [searchDebounced]);
+
+    useEffect(() => {
+        if (query === "") {
             setResultsAlbum([]);
             setResultsTrack([]);
+            setLoading(false);
+        } else {
+            setLoading(true);
         }
-    };
+    }, [query]);
 
     const handleArtists = (array) => {
         if (array.length === 1) {
@@ -83,38 +105,52 @@ const Soundtrack = (props) => {
     };
 
     const resultsDisplayed = () => {
-        if (searchType === "album" && resultsAlbum.length > 0) {
-            console.log("calledddd");
-            const results = resultsAlbum.map((album, idx) => {
-                if (album.images[0] && album.artists) {
-                    return (
-                        <div key={idx} className="soundtrack__result">
-                            <img className="soundtrack__result-img" src={album.images[0].url} alt="album Image"/>
-                            <div>
-                                {handleArtists(album.artists)}
-                                <p className="soundtrack__album-name">{album.name}</p>
-                            </div>
-                        </div>
-                    );
-                } else {
-                    return;
-                }
-            });
-            return results;
+        if (loading) {
+            return <Loading />;
         } else {
-            let text;
-            if (query === "") {
-                text = "Enter Search"
+            if (searchType === "album" && resultsAlbum.length > 0) {
+                const results = resultsAlbum.map((album, idx) => {
+                    if (album.images[0] && album.artists) {
+                        return (
+                            <div key={idx} className="soundtrack__result">
+                                <div>
+                                    <div className="soundtrack__img-info">
+                                        <img
+                                            className="soundtrack__result-img"
+                                            src={album.images[0].url}
+                                            alt="album Image"
+                                        />
+                                        <div>
+                                            {handleArtists(album.artists)}
+                                            <p className="soundtrack__album-name">
+                                                {album.name}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button className="soundtrack__btn">Select</button>
+                            </div>
+                        );
+                    } else {
+                        return;
+                    }
+                });
+                return results;
             } else {
-                text = "No Results"
+                let text;
+                if (query === "") {
+                    text = "Enter Search";
+                } else {
+                    text = "No Results";
+                }
+                return <h1 className="soundtrack__noresults">{text}</h1>;
             }
-            return <h1 className="soundtrack__noresults">{text}</h1>;
         }
     };
 
-    const handleSubmit = async () => {
-        return;
-    };
+    // const handleSubmit = async () => {
+    //     return;
+    // };
 
     return (
         <div className="build__form">
@@ -131,8 +167,8 @@ const Soundtrack = (props) => {
                         onChange={(e) => {
                             setSearchType(e.target.value);
                             setQuery("");
-                            setResultsTrack([])
-                            setResultsAlbum([])
+                            setResultsTrack([]);
+                            setResultsAlbum([]);
                         }}
                     >
                         <MenuItem className={classes.menuItem} value="album">
@@ -159,13 +195,6 @@ const Soundtrack = (props) => {
                 />
             </div>
             <div className="soundtrack__results">{resultsDisplayed()}</div>
-            <button
-                onClick={handleSearch}
-                id="sound-btn"
-                className="build__btn"
-            >
-                Add Soundtrack
-            </button>
         </div>
     );
 };
