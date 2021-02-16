@@ -17,7 +17,6 @@ const Build = (props) => {
         { id: "4", color: "red" },
     ]);
 
-    console.log(props.content);
 
     const handleForms = () => {
         switch (buildOption) {
@@ -112,7 +111,6 @@ const Build = (props) => {
                     {handleForms()}
                 </div>
             </div>
-
             <Sandbox content={props.content} setContent={props.setContent} about={props.about}/>
         </div>
     );

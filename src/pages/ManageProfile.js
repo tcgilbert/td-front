@@ -9,20 +9,24 @@ const ManageProfile = (props) => {
     const [location, setLocation] = useState("build");
     const [about, setAbout] = useState("");
     const [content, setContent] = useState(null);
-    const [contentLoading, setContentLoading] = useState(true)
+    const [contentLoading, setContentLoading] = useState(true);
     const SERVER = process.env.REACT_APP_SERVER;
 
     // Fetching user content
     useEffect(() => {
         const fetchContent = async () => {
-            try {                
-                const apiRes = await axios.get(`${SERVER}/about/${props.user.id}`);
-                const about = apiRes.data.about
+            try {
+                const apiRes = await axios.get(
+                    `${SERVER}/about/${props.user.id}`
+                );
+                const about = apiRes.data.about;
                 setAbout(about);
-                const apiRes2 = await axios.get(`${SERVER}/content/getall/${props.user.id}`)
-                const content = apiRes2.data.userContent
-                setContent(content)
-                setContentLoading(false)
+                const apiRes2 = await axios.get(
+                    `${SERVER}/content/getall/${props.user.id}`
+                );
+                const content = apiRes2.data.userContent;
+                setContent(content);
+                setContentLoading(false);
             } catch (error) {
                 console.log(error);
             }
@@ -54,6 +58,26 @@ const ManageProfile = (props) => {
         handleLocation();
     }, [location]);
 
+    // update content order on change
+    useEffect(() => {
+        const updateContent = async () => {
+            try {
+                const apiRes = await axios.put(
+                    `${SERVER}/content/update`,
+                    {
+                        content,
+                        userId: props.user.id
+                    }
+                );
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        if (content !== null) {
+            updateContent()
+        }
+    }, [content]);
+
     const handleAbout = () => {
         let display = [];
         if (about.workShow) {
@@ -73,11 +97,19 @@ const ManageProfile = (props) => {
 
     const handleLoading = () => {
         if (contentLoading) {
-            return
+            return;
         } else {
-            return <Build about={about} setAbout={setAbout} user={props.user} content={content} setContent={setContent}/>
+            return (
+                <Build
+                    about={about}
+                    setAbout={setAbout}
+                    user={props.user}
+                    content={content}
+                    setContent={setContent}
+                />
+            );
         }
-    }
+    };
 
     return (
         <div className="manage">
@@ -116,9 +148,7 @@ const ManageProfile = (props) => {
                     >{`https://thesedays.io/${props.user.username}`}</a>
                 </p>
             </div>
-            <div className="grid manage__grid3">
-                {handleLoading()}
-            </div>
+            <div className="grid manage__grid3">{handleLoading()}</div>
             <div className="grid manage__grid4">
                 <div className="phone">
                     <div className="phone__content">

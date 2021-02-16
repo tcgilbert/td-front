@@ -7,18 +7,17 @@ const onDragEnd = (result, content, setContent) => {
         return;
     }
     const { source, destination } = result;
-    console.log(result);
     const copiedContent = [...content];
     const [removed] = copiedContent.splice(source.index, 1);
     copiedContent.splice(destination.index, 0, removed);
+    for (let i = 0; i < copiedContent.length; i++) {
+        copiedContent[i].index = i
+    }
     setContent(copiedContent);
 };
 
 const Sandbox = (props) => {
-    const mapped = props.content.map((ele, idx) => {
-        return ele
-    })
-    console.log(mapped);
+    // console.log(props.content);
     return (
         <div className="sandbox">
             <DragDropContext
