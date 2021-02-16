@@ -10,12 +10,43 @@ const ManageProfile = (props) => {
     const [about, setAbout] = useState("");
     const [content, setContent] = useState(null);
     const [contentLoading, setContentLoading] = useState(true);
+    const [spotifyToken, setSpotifyToken] = useState(null);
     const SERVER = process.env.REACT_APP_SERVER;
+    const spotifyId = process.env.REACT_APP_SPOTIFY_ID;
+    const spotifySecret = process.env.REACT_APP_SPOTIFY_SECRET;
+
+    // Fetch spotify token
+    useEffect(() => {
+        const getToken = async () => {
+            try {
+                const apiRes = await fetch(
+                    "https://accounts.spotify.com/api/token",
+                    {   
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "Authorization": "Basic " + btoa(spotifyId + ":" + spotifySecret)
+                        },
+                        body: "grant_type=client_credentials",
+                    }
+                );
+                const data = await apiRes.json()
+                setSpotifyToken(data.access_token)
+                
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        if (!spotifyToken) {
+            getToken();
+        }
+    }, []);
 
     // Fetching user content
     useEffect(() => {
         const fetchContent = async () => {
-            if (contentLoading) {
+            if (contentLoading && props.user.id) {
                 try {
                     const apiRes = await axios.get(
                         `${SERVER}/about/${props.user.id}`
@@ -94,40 +125,7 @@ const ManageProfile = (props) => {
         return returnInfo;
     };
 
-    // const reFetchContent = () => {
-    //     try {
-    //         const apiRes = await axios.get(
-    //             `${SERVER}/about/${props.user.id}`
-    //         );
-    //         const about = apiRes.data.about;
-    //         setAbout(about);
-    //         const apiRes2 = await axios.get(
-    //             `${SERVER}/content/getall/${props.user.id}`
-    //         );
-    //         const content = apiRes2.data.userContent;
-    //         setContent(content);
-    //         setContentLoading(false);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
 
-    const handleLoading = () => {
-        if (contentLoading) {
-            return;
-        } else {
-            return (
-                <Build
-                    about={about}
-                    setAbout={setAbout}
-                    user={props.user}
-                    content={content}
-                    setContent={setContent}
-                    setContentLoading={setContentLoading}
-                />
-            );
-        }
-    };
 
     return (
         <div className="manage">

@@ -11,26 +11,32 @@ const Build = (props) => {
     const [buildOption, setBuildOption] = useState("about");
 
     const handleForms = () => {
-        switch (buildOption) {
-            case "about":
-                return <About about={props.about} setAbout={props.setAbout} />;
-            case "blurbs":
-                return (
-                    <Blurb
-                        user={props.user}
-                        setContentLoading={props.setContentLoading}
-                    />
-                );
-            case "links":
-                return (
-                    <Link
-                        user={props.user}
-                        setContentLoading={props.setContentLoading}
-                    />
-                );
-            case "soundtrack":
-                return <Blurb />;
+
+        if (props.contentLoading) {
+            return;
+        } else {
+            switch (buildOption) {
+                case "about":
+                    return <About about={props.about} setAbout={props.setAbout} />;
+                case "blurbs":
+                    return (
+                        <Blurb
+                            user={props.user}
+                            setContentLoading={props.setContentLoading}
+                        />
+                    );
+                case "links":
+                    return (
+                        <Link
+                            user={props.user}
+                            setContentLoading={props.setContentLoading}
+                        />
+                    );
+                case "soundtrack":
+                    return <Blurb />;
+            }
         }
+       
     };
 
     // For build options
