@@ -70,6 +70,7 @@ const ManageProfile = (props) => {
                                 },
                             })
                             let newContent = await apiRes.data
+                            console.log(newContent);
                             if (ele.content.type === "album") {
                                 ele.content["artists"] = newContent.artists
                                 ele.content["name"] = newContent.name
@@ -77,7 +78,7 @@ const ManageProfile = (props) => {
                             } else {
                                 ele.content["artists"] = newContent.artists
                                 ele.content["name"] = newContent.name
-                                ele.content["images"] = newContent.images
+                                ele.content["images"] = newContent.album.images
                                 ele.content["album"] = newContent.album.name
                             }
                             return ele

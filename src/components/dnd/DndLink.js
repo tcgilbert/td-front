@@ -18,16 +18,16 @@ const DndLink = (props) => {
                 ...props.provided.draggableProps.style,
             }}
         >
-            <div className="blurb__tag">
-                <p className="blurb__label">Link</p>
+            <div className="link__tag">
+                <p className="sandbox__label">Link</p>
                 <div>
                     <img className="sandbox__icon" src={Edit} alt="delete" />
                     <img className="sandbox__icon" src={Trash} alt="delete" />
                 </div>
             </div>
             <div className="link__container">
-                <p>{props.ele.content.url}</p>
-                <p>{props.ele.content.title}</p>
+                <p className="link__text">{props.ele.content.url}</p>
+                <p className="link__text">{props.ele.content.title}</p>
             </div>
         </div>
     );
