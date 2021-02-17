@@ -3,7 +3,7 @@ import React from "react";
 const DeleteDiv = (props) => {
 
 
-    
+
 
 
     const handleDisplay = () => {
@@ -13,7 +13,7 @@ const DeleteDiv = (props) => {
                     <p className="sandbox__rusure">
                         Are you sure you want to delete?
                     </p>
-                    <button className="sandbox__cancel-btn">Cancel</button>
+                    <button onClick={() => props.setDeleteSelected(false)} className="sandbox__cancel-btn">Cancel</button>
                     <button className="sandbox__delete-btn">Delete</button>
                 </div>
             );

@@ -56,8 +56,9 @@
         font-weight: 600;
         text-transform: uppercase;
         animation: fadeIn .3s;
+        outline: none;
     }
-
+    
     &__cancel-btn {
         width: 47%;
         padding: .5rem;
@@ -70,6 +71,7 @@
         font-weight: 600;
         text-transform: uppercase;
         animation: fadeIn .3s;
+        outline: none;
     }
 
     &__delete-btn:hover {

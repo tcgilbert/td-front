@@ -1,16 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Trash from "../../images/trash.svg";
+import DeleteDiv from "./DeleteDiv";
 
 const handleArtists = (array) => {
     if (array.length === 1) {
         return <p className="spotify__artist">{array[0].name}</p>;
     } else {
         const artists = array.map((artist, idx) => {
-            return (
-                <p key={idx}>
-                    {artist.name}
-                </p>
-            );
+            return <p key={idx}>{artist.name}</p>;
         });
         return artists;
     }
@@ -18,6 +15,14 @@ const handleArtists = (array) => {
 
 const DndSpotify = (props) => {
     const { artists, name, images, type } = props.ele.content;
+    const [deleteSelected, setDeleteSelected] = useState(false);
+    const handleDisplay = () => {
+        if (deleteSelected) {
+            setDeleteSelected(false);
+        } else {
+            setDeleteSelected(true);
+        }
+    };
 
     return (
         <div
@@ -37,16 +42,30 @@ const DndSpotify = (props) => {
             <div className="spotify__tag">
                 <p className="sandbox__label">Soundtrack - {type}</p>
                 <div>
-                    <img className="sandbox__icon" src={Trash} alt="delete" />
+                    <button
+                        className="sandbox__btn-wrap"
+                        onClick={handleDisplay}
+                    >
+                        <img
+                            className="sandbox__icon"
+                            src={Trash}
+                            alt="delete"
+                        />
+                    </button>
                 </div>
             </div>
             <div className="spotify__container">
-                <img className="spotify__img" src={images[0].url} alt="Album Art"/>
+                <img
+                    className="spotify__img"
+                    src={images[0].url}
+                    alt="Album Art"
+                />
                 <div>
                     <p className="spotify__lead">{name}</p>
                     <p>{handleArtists(artists)}</p>
                 </div>
             </div>
+            <DeleteDiv deleteSelected={deleteSelected} ele={props.ele} setDeleteSelected={setDeleteSelected}/>
         </div>
     );
 };
