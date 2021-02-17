@@ -23,4 +23,84 @@
         font-weight: 500;
         font-size: 1.5rem;
     }
+
+    &__delete {
+        text-align: center;
+        animation: drawerDown .2s;
+    }
+    
+    &__rusure {
+        border-top: solid 1px lightgray;
+        margin-top: .5rem;
+        font-size: 1.5rem;
+        font-weight: 500;
+        padding: .3rem;
+        animation: fadeIn .3s;
+    }
+
+    &__btn-wrap {
+        background: none;
+        border: none;
+        outline: none;
+    }
+
+    &__delete-btn {
+        width: 47%;
+        padding: .5rem;
+        margin: .5rem;
+        background-color: rgb(252, 72, 40);
+        border: none;
+        border-radius: 1rem;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        animation: fadeIn .3s;
+    }
+
+    &__cancel-btn {
+        width: 47%;
+        padding: .5rem;
+        margin: .5rem;
+        background-color: rgb(150, 150, 150);
+        border: none;
+        border-radius: 1rem;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        animation: fadeIn .3s;
+    }
+
+    &__delete-btn:hover {
+        cursor: pointer;
+        background-color: rgba(rgb(252, 72, 40),.9);
+    }
+
+    &__cancel-btn:hover {
+        cursor: pointer;
+        background-color: rgba(rgb(150, 150, 150),.9);
+    }
+}
+
+
+@keyframes drawerDown {
+    0% {
+        height: 0;
+    }
+    99% {
+        height: 6rem;
+    }
+    100% {
+        height: auto;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
