@@ -18,6 +18,9 @@ const DeleteDiv = (props) => {
             data: deleteInfo
         })
         console.log(apiRes);
+        if (apiRes) {
+            props.setContentLoading(true)
+        }
     }
 
 

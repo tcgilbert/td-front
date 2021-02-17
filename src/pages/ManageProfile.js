@@ -123,7 +123,7 @@ const ManageProfile = (props) => {
     useEffect(() => {
         const updateContent = async () => {
             try {
-                const apiRes = await axios.put(`${SERVER}/content/update`, {
+                await axios.put(`${SERVER}/content/update`, {
                     content,
                     userId: props.user.id,
                 });
@@ -152,8 +152,6 @@ const ManageProfile = (props) => {
         });
         return returnInfo;
     };
-
-
 
     return (
         <div className="manage">

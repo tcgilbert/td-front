@@ -65,7 +65,7 @@ const DndSpotify = (props) => {
                     <p>{handleArtists(artists)}</p>
                 </div>
             </div>
-            <DeleteDiv deleteSelected={deleteSelected} ele={props.ele} setDeleteSelected={setDeleteSelected}/>
+            <DeleteDiv deleteSelected={deleteSelected} ele={props.ele} setDeleteSelected={setDeleteSelected} setContentLoading={props.setContentLoading}/>
         </div>
     );
 };

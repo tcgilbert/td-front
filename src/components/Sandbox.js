@@ -21,18 +21,20 @@ const onDragEnd = (result, content, setContent) => {
     setContent(copiedContent);
 };
 
-// handle content type
-const handleContent = (ele, provided, snapshot) => {
-    if (ele.type === "blurb") {
-        return <DndBlurb provided={provided} snapshot={snapshot} ele={ele} />;
-    } else if (ele.type === "link") {
-        return <DndLink provided={provided} snapshot={snapshot} ele={ele} />;
-    } else if (ele.type === "soundtrack") {
-        return <DndSpotify provided={provided} snapshot={snapshot} ele={ele} />;
-    }
-};
 
 const Sandbox = (props) => {
+    
+    // handle content type
+    const handleContent = (ele, provided, snapshot) => {
+        if (ele.type === "blurb") {
+            return <DndBlurb provided={provided} snapshot={snapshot} ele={ele} setContentLoading={props.setContentLoading}/>;
+        } else if (ele.type === "link") {
+            return <DndLink provided={provided} snapshot={snapshot} ele={ele} setContentLoading={props.setContentLoading}/>;
+        } else if (ele.type === "soundtrack") {
+            return <DndSpotify provided={provided} snapshot={snapshot} ele={ele} setContentLoading={props.setContentLoading}/>;
+        }
+    };
+    
     // console.log(props.content);
     return (
         <div className="sandbox">

@@ -51,7 +51,7 @@ const DndLink = (props) => {
                 <p className="link__text">{props.ele.content.url}</p>
                 <p className="link__text">{props.ele.content.title}</p>
             </div>
-            <DeleteDiv deleteSelected={deleteSelected} ele={props.ele} setDeleteSelected={setDeleteSelected}/>
+            <DeleteDiv deleteSelected={deleteSelected} ele={props.ele} setDeleteSelected={setDeleteSelected} setContentLoading={props.setContentLoading}/>
         </div>
     );
 };

@@ -54,7 +54,7 @@ const DndBlurb = (props) => {
                 <p className="blurb__heading">{props.ele.content.heading}</p>
                 <p className="blurb__content">{props.ele.content.content}</p>
             </div>
-            <DeleteDiv deleteSelected={deleteSelected} ele={props.ele} setDeleteSelected={setDeleteSelected}/>
+            <DeleteDiv deleteSelected={deleteSelected} ele={props.ele} setDeleteSelected={setDeleteSelected} setContentLoading={props.setContentLoading}/>
         </div>
     );
 };

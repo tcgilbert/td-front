@@ -86,6 +86,7 @@ const Build = (props) => {
             return (
                 <Sandbox
                     content={props.content}
+                    setContentLoading={props.setContentLoading}
                     setContent={props.setContent}
                     about={props.about}
                 />
