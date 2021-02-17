@@ -45,6 +45,7 @@ const Soundtrack = (props) => {
     const [resultsAlbum, setResultsAlbum] = useState([]);
     const [resultsTrack, setResultsTrack] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [selectionMade, setSelectionMade] = useState(false);
     const SERVER = process.env.REACT_APP_SERVER;
     const spotifyEndpoint = "https://api.spotify.com/v1/search";
     const searchDebounced = useDeBounce(query, 1000);
@@ -99,10 +100,25 @@ const Soundtrack = (props) => {
         if (array.length === 1) {
             return <p className="soundtrack__artist-name">{array[0].name}</p>;
         } else {
-            array.forEach((artist) => {
-                return <p className="soundtrack__artist-name">{artist.name}</p>;
+            const artists = array.map((artist, idx) => {
+                return <p className="soundtrack__artist-name" key={idx}>{artist.name}</p>;
             });
+            return artists
         }
+    };
+
+    const handleSelection = async (ele, type) => {
+        console.log(ele);
+        const apiRes = await axios.post(`${SERVER}/soundtrack/create`, {
+            userId: props.user.id,
+            type: type,
+            spotifyId: ele.id,
+            comment: ""
+        })
+        if (apiRes) {
+            props.setContentLoading(true)
+        }
+        return;
     };
 
     const resultsDisplayed = () => {
@@ -129,7 +145,15 @@ const Soundtrack = (props) => {
                                         </div>
                                     </div>
                                 </div>
-                                <button className="soundtrack__btn">Select</button>
+                                <button
+                                    onClick={() =>
+                                        handleSelection(album, "album")
+                                    }
+                                    className="soundtrack__btn"
+                                >
+                                    <p>Add</p>
+                                    <p>Album</p>
+                                </button>
                             </div>
                         );
                     } else {
@@ -157,14 +181,22 @@ const Soundtrack = (props) => {
                                         </div>
                                     </div>
                                 </div>
-                                <button className="soundtrack__btn">Select</button>
+                                <button
+                                    onClick={() =>
+                                        handleSelection(track, "track")
+                                    }
+                                    className="soundtrack__btn"
+                                >
+                                    <p>Add</p>
+                                    <p>Track</p>
+                                </button>
                             </div>
                         );
                     } else {
                         return;
                     }
                 });
-                return results
+                return results;
             } else {
                 let text;
                 if (query === "") {
@@ -177,8 +209,43 @@ const Soundtrack = (props) => {
         }
     };
 
-    // const handleSubmit = async () => {
-    //     return;
+    // const selectionDisplayed = () => {
+    //     setQuery("");
+    //     setResultsTrack([]);
+    //     setResultsAlbum([]);
+    //     if (selection !== null && selection[0].type === "track") {
+    //         return (
+    //             <div className="soundtrack__selection">
+    //                 <div className="soundtrack__img-info">
+    //                     <img
+    //                         className="soundtrack__selection-img"
+    //                         src={selection[0].data.album.images[0].url}
+    //                         alt="Album Image"
+    //                     />
+    //                     <div>
+    //                         {handleArtists(selection[0].data.album.artists)}
+    //                         <p className="soundtrack__album-name">{selection[0].data.name}</p>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         );
+    //     } else if (selection !== null){
+    //         return (
+    //             <div className="soundtrack__selection">
+    //                 <div className="soundtrack__img-info">
+    //                     <img
+    //                         className="soundtrack__selection-img"
+    //                         src={selection[0].data.images[0].url}
+    //                         alt="Album Image"
+    //                     />
+    //                     <div>
+    //                         {handleArtists(selection[0].data.artists)}
+    //                         <p className="soundtrack__album-name">{selection[0].data.name}</p>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         );
+    //     }
     // };
 
     return (
@@ -204,7 +271,7 @@ const Soundtrack = (props) => {
                             Album
                         </MenuItem>
                         <MenuItem className={classes.menuItem} value="track">
-                            Song
+                            Track
                         </MenuItem>
                     </Select>
                 </FormControl>
