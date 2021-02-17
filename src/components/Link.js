@@ -7,7 +7,11 @@ const useStyles = makeStyles((theme) => ({
     textField: {
         width: "100%",
         alignSelf: "center",
-        marginBottom: "1.5rem"
+    },
+    textFieldTwo: {
+        width: "100%",
+        alignSelf: "center",
+        marginTop: "1rem"
     },
     inputHeading: {
         fontSize: "2rem",
@@ -22,11 +26,6 @@ const useStyles = makeStyles((theme) => ({
         opacity: ".7",
         fontWeight: "300",
     },
-    textArea: {
-        marginTop: "1rem",
-        width: "100%",
-        alignSelf: "center",
-    },
 }));
 
 
@@ -35,7 +34,6 @@ const Link = (props) => {
     const classes = useStyles();
     const [link, setLink] = useState("");
     const [title, setTitle] = useState("");
-    const [comment, setComment] = useState("");
     const SERVER = process.env.REACT_APP_SERVER;
 
     // Classes for btn
@@ -63,7 +61,6 @@ const Link = (props) => {
             const apiRes = await axios.post(`${SERVER}/link/create`, {
                 url: link,
                 title: title,
-                comment: comment,
                 userId: props.user.id
             })
             if (apiRes) {
@@ -94,7 +91,7 @@ const Link = (props) => {
                 onChange={(e) => setLink(e.target.value)}
             />
             <TextField
-                className={classes.textField}
+                className={classes.textFieldTwo}
                 InputProps={{
                     className: classes.inputHeading,
                 }}
@@ -107,21 +104,6 @@ const Link = (props) => {
                 label="Title"
                 name="title"
                 onChange={(e) => setTitle(e.target.value)}
-            />
-            <TextField
-                className={classes.textField}
-                InputProps={{
-                    className: classes.inputHeading,
-                }}
-                InputLabelProps={{
-                    className: classes.label,
-                }}
-                size="small"
-                variant="outlined"
-                value={comment}
-                label="Comment (optional)"
-                name="title"
-                onChange={(e) => setComment(e.target.value)}
             />
             <button onClick={handleSubmit} id="link-btn" className="build__btn">
                 Add Link

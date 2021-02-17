@@ -12,6 +12,7 @@ const ManageProfile = (props) => {
     const [contentLoading, setContentLoading] = useState(true);
     const [spotifyToken, setSpotifyToken] = useState(null);
     const SERVER = process.env.REACT_APP_SERVER;
+    const spotifyEndpoint = "https://api.spotify.com/v1/";
     const spotifyId = process.env.REACT_APP_SPOTIFY_ID;
     const spotifySecret = process.env.REACT_APP_SPOTIFY_SECRET;
 
@@ -46,7 +47,7 @@ const ManageProfile = (props) => {
     // Fetching user content
     useEffect(() => {
         const fetchContent = async () => {
-            if (contentLoading && props.user.id) {
+            if (contentLoading && props.user.id && spotifyToken) {
                 try {
                     const apiRes = await axios.get(
                         `${SERVER}/about/${props.user.id}`
@@ -57,6 +58,32 @@ const ManageProfile = (props) => {
                         `${SERVER}/content/getall/${props.user.id}`
                     );
                     const content = apiRes2.data.userContent;
+                    const contentWithSpotify = await Promise.all(content.map(async (ele) => {
+                        if (ele.type !== "soundtrack") {
+                            return ele
+                        } else {
+                            let apiRes = await axios.get(`${spotifyEndpoint}${ele.content.type}s/${ele.content.spotifyId}`, 
+                            {
+                                method: "GET",
+                                headers: {
+                                    Authorization: "Bearer " + spotifyToken,
+                                },
+                            })
+                            let newContent = await apiRes.data
+                            if (ele.content.type === "album") {
+                                ele.content["artists"] = newContent.artists
+                                ele.content["name"] = newContent.name
+                                ele.content["images"] = newContent.images
+                            } else {
+                                ele.content["artists"] = newContent.artists
+                                ele.content["name"] = newContent.name
+                                ele.content["images"] = newContent.images
+                                ele.content["album"] = newContent.album.name
+                            }
+                            return ele
+                        }
+                    }))
+                    console.log(contentWithSpotify);
                     setContent(content);
                     setContentLoading(false);
                 } catch (error) {
@@ -65,7 +92,7 @@ const ManageProfile = (props) => {
             }
         };
         fetchContent();
-    }, [contentLoading]);
+    }, [contentLoading, spotifyToken]);
 
     // DOM elements for nav
     useEffect(() => {

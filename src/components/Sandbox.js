@@ -16,6 +16,84 @@ const onDragEnd = (result, content, setContent) => {
     setContent(copiedContent);
 };
 
+// handle content type
+const handleContent = (ele, provided, snapshot) => {
+    if (ele.type === "blurb") {
+        return (
+            <div
+                ref={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                style={{
+                    userSelect: "none",
+                    padding: 16,
+                    margin: "0 0 8px 0",
+                    minHeight: "50px",
+                    backgroundColor: snapshot.isDragging
+                        ? "#263b4a"
+                        : "#456c86",
+                    color: "white",
+                    ...provided
+                        .draggableProps
+                        .style,
+                }}
+            >
+                <p>{ele.content.heading}</p>
+                <p>{ele.content.content}</p>
+            </div>
+        );
+    } else if (ele.type === "link") {
+        return (
+            <div
+                ref={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                style={{
+                    userSelect: "none",
+                    padding: 16,
+                    margin: "0 0 8px 0",
+                    minHeight: "50px",
+                    backgroundColor: snapshot.isDragging
+                        ? "#263b4a"
+                        : "#456c86",
+                    color: "white",
+                    ...provided
+                        .draggableProps
+                        .style,
+                }}
+            >
+                <p>{ele.content.url}</p>
+                <p>{ele.content.title}</p>
+            </div>
+        );
+    } else if (ele.type === "soundtrack") {
+        return (
+            <div
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            style={{
+                userSelect: "none",
+                padding: 16,
+                margin: "0 0 8px 0",
+                minHeight: "50px",
+                backgroundColor: snapshot.isDragging
+                    ? "#263b4a"
+                    : "#456c86",
+                color: "white",
+                ...provided
+                    .draggableProps
+                    .style,
+            }}
+        >
+            <p>{ele.content.spotifyId}</p>
+            <p>{ele.content.userId}</p>
+        </div>
+        )
+    }
+   
+}
+
 const Sandbox = (props) => {
     // console.log(props.content);
     return (
@@ -42,6 +120,7 @@ const Sandbox = (props) => {
                                 }}
                             >
                                 {props.content.map((ele, idx) => {
+                                    console.log(ele.type);
                                     return (
                                         <Draggable
                                             key={ele.id}
@@ -49,29 +128,7 @@ const Sandbox = (props) => {
                                             index={idx}
                                         >
                                             {(provided, snapshot) => {
-                                                return (
-                                                    <div
-                                                        ref={provided.innerRef}
-                                                        {...provided.draggableProps}
-                                                        {...provided.dragHandleProps}
-                                                        style={{
-                                                            userSelect: "none",
-                                                            padding: 16,
-                                                            margin: "0 0 8px 0",
-                                                            minHeight: "50px",
-                                                            backgroundColor: snapshot.isDragging
-                                                                ? "#263b4a"
-                                                                : "#456c86",
-                                                            color: "white",
-                                                            ...provided
-                                                                .draggableProps
-                                                                .style,
-                                                        }}
-                                                    >
-                                                        {ele.content.heading}
-                                                        {ele.content.content}
-                                                    </div>
-                                                );
+                                                return handleContent(ele, provided, snapshot)
                                             }}
                                         </Draggable>
                                     );

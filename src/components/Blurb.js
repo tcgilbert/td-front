@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "300",
     },
     label: {
-        fontSize: "1.7rem",
+        fontSize: "1.5rem",
         opacity: ".7",
         fontWeight: "300",
     },
@@ -83,6 +83,7 @@ const Blurb = (props) => {
                 label="Heading"
                 type="text"
                 name="heading"
+                size="small"
                 value={heading}
                 onChange={(e) => setHeading(e.target.value)}
             />
