@@ -1,6 +1,11 @@
 import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
+// components
+import DndBlurb from "./dnd/DndBlurb";
+import DndLink from "./dnd/DndLink";
+import DndSpotify from "./dnd/DndSpotify";
+
 // dnd functions
 const onDragEnd = (result, content, setContent) => {
     if (!result.destination) {
@@ -11,7 +16,7 @@ const onDragEnd = (result, content, setContent) => {
     const [removed] = copiedContent.splice(source.index, 1);
     copiedContent.splice(destination.index, 0, removed);
     for (let i = 0; i < copiedContent.length; i++) {
-        copiedContent[i].index = i
+        copiedContent[i].index = i;
     }
     setContent(copiedContent);
 };
@@ -19,80 +24,13 @@ const onDragEnd = (result, content, setContent) => {
 // handle content type
 const handleContent = (ele, provided, snapshot) => {
     if (ele.type === "blurb") {
-        return (
-            <div
-                ref={provided.innerRef}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-                style={{
-                    userSelect: "none",
-                    padding: 16,
-                    margin: "0 0 8px 0",
-                    minHeight: "50px",
-                    backgroundColor: snapshot.isDragging
-                        ? "#263b4a"
-                        : "#456c86",
-                    color: "white",
-                    ...provided
-                        .draggableProps
-                        .style,
-                }}
-            >
-                <p>{ele.content.heading}</p>
-                <p>{ele.content.content}</p>
-            </div>
-        );
+        return <DndBlurb provided={provided} snapshot={snapshot} ele={ele} />;
     } else if (ele.type === "link") {
-        return (
-            <div
-                ref={provided.innerRef}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-                style={{
-                    userSelect: "none",
-                    padding: 16,
-                    margin: "0 0 8px 0",
-                    minHeight: "50px",
-                    backgroundColor: snapshot.isDragging
-                        ? "#263b4a"
-                        : "#456c86",
-                    color: "white",
-                    ...provided
-                        .draggableProps
-                        .style,
-                }}
-            >
-                <p>{ele.content.url}</p>
-                <p>{ele.content.title}</p>
-            </div>
-        );
+        return <DndLink provided={provided} snapshot={snapshot} ele={ele} />;
     } else if (ele.type === "soundtrack") {
-        return (
-            <div
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            style={{
-                userSelect: "none",
-                padding: 16,
-                margin: "0 0 8px 0",
-                minHeight: "50px",
-                backgroundColor: snapshot.isDragging
-                    ? "#263b4a"
-                    : "#456c86",
-                color: "white",
-                ...provided
-                    .draggableProps
-                    .style,
-            }}
-        >
-            <p>{ele.content.spotifyId}</p>
-            <p>{ele.content.userId}</p>
-        </div>
-        )
+        return <DndSpotify provided={provided} snapshot={snapshot} ele={ele} />;
     }
-   
-}
+};
 
 const Sandbox = (props) => {
     // console.log(props.content);
@@ -128,7 +66,11 @@ const Sandbox = (props) => {
                                             index={idx}
                                         >
                                             {(provided, snapshot) => {
-                                                return handleContent(ele, provided, snapshot)
+                                                return handleContent(
+                                                    ele,
+                                                    provided,
+                                                    snapshot
+                                                );
                                             }}
                                         </Draggable>
                                     );
