@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     textFieldTwo: {
         width: "100%",
         alignSelf: "center",
-        marginTop: "1rem"
+        marginTop: "1.3rem"
     },
     inputHeading: {
         fontSize: "2rem",
@@ -84,7 +84,7 @@ const Link = (props) => {
                 }}
                 size="small"
                 variant="outlined"
-                label="Link"
+                label="Url"
                 type="text"
                 name="link"
                 value={link}
