@@ -15,12 +15,19 @@
     }
 
     &__container {
+        display: flex;
+        flex-direction: column;
         padding: .5rem;
         cursor: default;
     }
 
     &__text {
         font-size: 1.5rem;
+        margin-bottom: .5rem;
+    }
+
+    &__pretext {
+        font-weight: 600;
     }
 
 }
