@@ -60,7 +60,6 @@ const Sandbox = (props) => {
                                 }}
                             >
                                 {props.content.map((ele, idx) => {
-                                    console.log(ele.type);
                                     return (
                                         <Draggable
                                             key={ele.id}

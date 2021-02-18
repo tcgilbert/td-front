@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Trash from "../../images/trash.svg";
 import Edit from "../../images/edit.svg";
 import DeleteDiv from "./DeleteDiv";
@@ -35,6 +35,26 @@ const DndBlurb = (props) => {
     const [content, setContent] = useState(props.ele.content.content);
     const SERVER = process.env.REACT_APP_SERVER;
 
+
+    // Update save btn onchange
+    useEffect(() => {
+        if (document.getElementById("save-btn") && editSelected) {
+            const save = document.getElementById("save-btn");
+            if (save.classList.contains("blurb__nochange")) {
+                if (content !== props.ele.content.content || heading !== props.ele.content.heading) { 
+                    save.classList.remove("blurb__nochange");
+                    save.classList.add("blurb__save");
+                }
+            }
+            if (save.classList.contains("blurb__save")) {
+                if (content === props.ele.content.content && heading === props.ele.content.heading) {
+                    save.classList.remove("blurb__save");
+                    save.classList.add("blurb__nochange");
+                }
+            }
+        }
+    }, [content, heading, editSelected])
+
     const handleDisplay = () => {
         if (deleteSelected) {
             setDeleteSelected(false);
@@ -43,23 +63,12 @@ const DndBlurb = (props) => {
         }
     };
 
-    const contentChange = (e) => {
-        const save = document.getElementById("save-btn");
-        setContent(e.target.value);
-        if (save.classList.contains("blurb__nochange")) {
-            save.classList.remove("blurb__nochange");
-            save.classList.add("blurb__save");
-        }
-        if (save.classList.contains("blurb__save")) {
-            if (content === props.ele.content.content) {
-                save.classList.remove("blurb__save");
-                save.classList.add("blurb__nochange");
-            }
-        }
+    const contentChange = (e, type) => {
+        type === "heading" ? setHeading(e.target.value) : setContent(e.target.value)
     };
     
     const handleSubmit = async () => {
-        if (content === props.ele.content.content) {
+        if (content === props.ele.content.content && heading === props.ele.content.heading) {
             return 
         } else {
             const apiRes = await axios.put(`${SERVER}/blurb/update`, {
@@ -81,6 +90,7 @@ const DndBlurb = (props) => {
                         type="text"
                         value={heading}
                         inputProps={{ className: classes.heading }}
+                        onChange={(e) => contentChange(e, "heading")}
                     />
                     <TextareaAutosize
                         className={classes.content}
@@ -90,13 +100,14 @@ const DndBlurb = (props) => {
                         rowsMin={3}
                         variant="outlined"
                         value={content}
-                        onChange={(e) => contentChange(e)}
+                        onChange={(e) => contentChange(e, "content")}
                     />
                     <div className="blurb__btns">
                         <button
                             onClick={() => {
                                 setEditSelected(!editSelected);
                                 setContent(props.ele.content.content);
+                                setHeading(props.ele.content.heading);
                             }}
                             className="blurb__cancel"
                         >
