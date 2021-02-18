@@ -20,6 +20,8 @@
     }
 
     &__container {
+        display: flex;
+        flex-direction: column;
         padding: .5rem;
         cursor: default;
     }
@@ -31,5 +33,66 @@
 
     &__content {
         font-size: 1.5rem;
+    }
+
+    &__btns {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    &__cancel {
+        width: 48%;
+        padding: .5rem;
+        margin: .5rem;
+        background-color: rgb(150, 150, 150);
+        border: none;
+        border-radius: 1rem;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        animation: fadeIn .3s;
+        outline: none;
+    }
+
+    &__nochange {
+        width: 48%;
+        padding: .5rem;
+        margin: .5rem;
+        background-color: rgb(210, 210, 210);
+        border: none;
+        border-radius: 1rem;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        animation: fadeIn .3s;
+        outline: none;
+    }
+
+    &__save {
+        width: 48%;
+        padding: .5rem;
+        margin: .5rem;
+        background-color: $color-blue;
+        border: none;
+        border-radius: 1rem;
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        animation: fadeIn .3s;
+        outline: none;
+    }
+
+    // &__cancel:hover {
+    //     cursor: pointer;
+    //     background-color: rgba(rgb(252, 72, 40),.9);
+    // }
+
+    &__cancel:hover {
+        cursor: pointer;
+        background-color: rgba(rgb(150, 150, 150),.9);
     }
 }
