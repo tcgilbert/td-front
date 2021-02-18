@@ -83,6 +83,12 @@
         cursor: pointer;
         background-color: rgba(rgb(150, 150, 150),.9);
     }
+
+    &__options-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
 }
 
 

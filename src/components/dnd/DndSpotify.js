@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Trash from "../../images/trash.svg";
 import DeleteDiv from "./DeleteDiv";
+import Switch from "@material-ui/core/Switch";
 
 const handleArtists = (array) => {
     if (array.length === 1) {

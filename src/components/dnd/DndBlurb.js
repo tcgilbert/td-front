@@ -5,7 +5,30 @@ import DeleteDiv from "./DeleteDiv";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { TextareaAutosize } from "@material-ui/core";
-import axios from "axios"
+import { grey } from "@material-ui/core/colors";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { withStyles } from '@material-ui/core/styles';
+import Switch from "@material-ui/core/Switch";
+import axios from "axios";
+
+const SwitchBtn = withStyles({
+    root: {
+        // width: 42,
+    },
+    switchBase: {
+        color: grey[300],
+        opacity: .75,
+        "&$checked": {
+            color: "white",
+            opacity: 1,
+        },
+        "&$checked + $track": {
+            backgroundColor: grey[50],
+        },
+    },
+    checked: {},
+    track: {},
+})(Switch);
 
 const useStyles = makeStyles((theme) => ({
     blurb: {
@@ -33,27 +56,33 @@ const DndBlurb = (props) => {
     const [editSelected, setEditSelected] = useState(false);
     const [heading, setHeading] = useState(props.ele.content.heading);
     const [content, setContent] = useState(props.ele.content.content);
+    const [show, setShow] = useState(props.ele.show);
     const SERVER = process.env.REACT_APP_SERVER;
-
 
     // Update save btn onchange
     useEffect(() => {
         if (document.getElementById("save-btn") && editSelected) {
             const save = document.getElementById("save-btn");
             if (save.classList.contains("blurb__nochange")) {
-                if (content !== props.ele.content.content || heading !== props.ele.content.heading) { 
+                if (
+                    content !== props.ele.content.content ||
+                    heading !== props.ele.content.heading
+                ) {
                     save.classList.remove("blurb__nochange");
                     save.classList.add("blurb__save");
                 }
             }
             if (save.classList.contains("blurb__save")) {
-                if (content === props.ele.content.content && heading === props.ele.content.heading) {
+                if (
+                    content === props.ele.content.content &&
+                    heading === props.ele.content.heading
+                ) {
                     save.classList.remove("blurb__save");
                     save.classList.add("blurb__nochange");
                 }
             }
         }
-    }, [content, heading, editSelected])
+    }, [content, heading, editSelected]);
 
     const handleDisplay = () => {
         if (deleteSelected) {
@@ -64,23 +93,28 @@ const DndBlurb = (props) => {
     };
 
     const contentChange = (e, type) => {
-        type === "heading" ? setHeading(e.target.value) : setContent(e.target.value)
+        type === "heading"
+            ? setHeading(e.target.value)
+            : setContent(e.target.value);
     };
-    
+
     const handleSubmit = async () => {
-        if (content === props.ele.content.content && heading === props.ele.content.heading) {
-            return 
+        if (
+            content === props.ele.content.content &&
+            heading === props.ele.content.heading
+        ) {
+            return;
         } else {
             const apiRes = await axios.put(`${SERVER}/blurb/update`, {
                 id: props.ele.content.id,
                 newContent: content,
-                newHeading: heading
-            })
+                newHeading: heading,
+            });
             if (apiRes) {
-                props.setContentLoading(true)
+                props.setContentLoading(true);
             }
         }
-    }
+    };
 
     const handleEdit = () => {
         if (editSelected) {
@@ -113,7 +147,11 @@ const DndBlurb = (props) => {
                         >
                             Cancel
                         </button>
-                        <button onClick={handleSubmit} id="save-btn" className="blurb__nochange">
+                        <button
+                            onClick={handleSubmit}
+                            id="save-btn"
+                            className="blurb__nochange"
+                        >
                             Save
                         </button>
                     </div>
@@ -150,7 +188,16 @@ const DndBlurb = (props) => {
         >
             <div className="blurb__tag">
                 <p className="blurb__label">Blurb</p>
-                <div>
+                <div className="sandbox__options-container">
+                    <FormControlLabel
+                        control={
+                            <SwitchBtn
+                                checked={show}
+                                onChange={() => setShow(!show)}
+                                name="checkedA"
+                            />
+                        }
+                    />
                     <button
                         className="sandbox__btn-wrap"
                         onClick={() => {
