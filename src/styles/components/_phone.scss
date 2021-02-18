@@ -3,27 +3,55 @@
     width: 60%;
     height: 0;
     padding-bottom: 110%;
-    border: solid 1.5rem black;
+    border: solid 1.1vw black;
     border-radius: 3.5rem;
     overflow: auto;
     margin: 3rem auto;
     background-color: #fff;
     
 
-    &__username {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
+    &__content {
+        text-align: center;
+        margin-top: 1rem;
+        margin-right: .5rem;
+    }
+
+    &__name {
         font-size: 1.5rem;
         font-size: 1.2vw;
+        font-weight: 500;
+    }
+    
+    &__username {
+        font-size: 1.5rem;
+        font-size: 1.2vw;
+        font-weight: 500;
     }
 
     &__about {
-        position: absolute;
-        top: 3rem;
-        left: 1rem;
+        margin: .5rem .5rem;
         font-size: 1.5rem;
         font-size: 1.2vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
     }
+
+    &__icon-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    &__icon {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: .5rem;
+    }
+
+    &__text {
+
+    }
+
 
 }

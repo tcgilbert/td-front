@@ -4,6 +4,7 @@ import axios from "axios";
 //  Components
 import PrivateNav from "../components/PrivateNav";
 import Build from "../components/Build";
+import Phone from "../components/Phone"
 
 const ManageProfile = (props) => {
     const [location, setLocation] = useState("build");
@@ -136,22 +137,6 @@ const ManageProfile = (props) => {
         }
     }, [content]);
 
-    const handleAbout = () => {
-        let display = [];
-        if (about.workShow) {
-            display.push(about.work);
-        }
-        if (about.locationShow) {
-            display.push(about.location);
-        }
-        if (about.nameShow) {
-            display.push(about.name);
-        }
-        const returnInfo = display.map((ele, idx) => {
-            return <p key={idx}>{ele}</p>;
-        });
-        return returnInfo;
-    };
 
     return (
         <div className="manage">
@@ -203,14 +188,15 @@ const ManageProfile = (props) => {
                 />
             </div>
             <div className="grid manage__grid4">
-                <div className="phone">
+                <Phone user={props.user} about={about}/>
+                {/* <div className="phone">
                     <div className="phone__content">
                         <p className="phone__username">
                             @{props.user.username}
                         </p>
                         <div className="phone__about">{handleAbout()}</div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );
