@@ -86,10 +86,10 @@
         outline: none;
     }
 
-    // &__cancel:hover {
-    //     cursor: pointer;
-    //     background-color: rgba(rgb(252, 72, 40),.9);
-    // }
+    &__save:hover {
+        cursor: pointer;
+        background-color: rgba($color-blue,.9);
+    }
 
     &__cancel:hover {
         cursor: pointer;

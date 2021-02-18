@@ -5,6 +5,7 @@ import DeleteDiv from "./DeleteDiv";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { TextareaAutosize } from "@material-ui/core";
+import axios from "axios"
 
 const useStyles = makeStyles((theme) => ({
     blurb: {
@@ -32,6 +33,7 @@ const DndBlurb = (props) => {
     const [editSelected, setEditSelected] = useState(false);
     const [heading, setHeading] = useState(props.ele.content.heading);
     const [content, setContent] = useState(props.ele.content.content);
+    const SERVER = process.env.REACT_APP_SERVER;
 
     const handleDisplay = () => {
         if (deleteSelected) {
@@ -48,7 +50,28 @@ const DndBlurb = (props) => {
             save.classList.remove("blurb__nochange");
             save.classList.add("blurb__save");
         }
+        if (save.classList.contains("blurb__save")) {
+            if (content === props.ele.content.content) {
+                save.classList.remove("blurb__save");
+                save.classList.add("blurb__nochange");
+            }
+        }
     };
+    
+    const handleSubmit = async () => {
+        if (content === props.ele.content.content) {
+            return 
+        } else {
+            const apiRes = await axios.put(`${SERVER}/blurb/update`, {
+                id: props.ele.content.id,
+                newContent: content,
+                newHeading: heading
+            })
+            if (apiRes) {
+                props.setContentLoading(true)
+            }
+        }
+    }
 
     const handleEdit = () => {
         if (editSelected) {
@@ -79,7 +102,7 @@ const DndBlurb = (props) => {
                         >
                             Cancel
                         </button>
-                        <button id="save-btn" className="blurb__nochange">
+                        <button onClick={handleSubmit} id="save-btn" className="blurb__nochange">
                             Save
                         </button>
                     </div>
