@@ -59,7 +59,7 @@ const ManageProfile = (props) => {
                         `${SERVER}/content/getall/${props.user.id}`
                     );
                     const content = apiRes2.data.userContent;
-                    const contentWithSpotify = await Promise.all(content.map(async (ele) => {
+                    await Promise.all(content.map(async (ele) => {
                         if (ele.type !== "soundtrack") {
                             return ele
                         } else {
@@ -71,7 +71,6 @@ const ManageProfile = (props) => {
                                 },
                             })
                             let newContent = await apiRes.data
-                            console.log(newContent);
                             if (ele.content.type === "album") {
                                 ele.content["artists"] = newContent.artists
                                 ele.content["name"] = newContent.name
@@ -85,7 +84,6 @@ const ManageProfile = (props) => {
                             return ele
                         }
                     }))
-                    console.log(contentWithSpotify);
                     setContent(content);
                     setContentLoading(false);
                 } catch (error) {
@@ -189,14 +187,6 @@ const ManageProfile = (props) => {
             </div>
             <div className="grid manage__grid4">
                 <Phone user={props.user} about={about}/>
-                {/* <div className="phone">
-                    <div className="phone__content">
-                        <p className="phone__username">
-                            @{props.user.username}
-                        </p>
-                        <div className="phone__about">{handleAbout()}</div>
-                    </div>
-                </div> */}
             </div>
         </div>
     );

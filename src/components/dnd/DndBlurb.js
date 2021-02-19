@@ -10,10 +10,12 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { withStyles } from '@material-ui/core/styles';
 import Switch from "@material-ui/core/Switch";
 import axios from "axios";
+import useDidMount from "../../utils/useDidMount"
 
 const SwitchBtn = withStyles({
     root: {
-        // width: 42,
+        position: "absolute",
+        right: "3.6rem"
     },
     switchBase: {
         color: grey[300],
@@ -83,6 +85,24 @@ const DndBlurb = (props) => {
             }
         }
     }, [content, heading, editSelected]);
+
+    // Update show value on switch change
+    const handleShowChange = async (bool, id) => {
+        try {
+            const apiRes = await axios.put(`${SERVER}/content/update/show`, {
+                id: props.ele.id,
+                show: bool,
+            });
+            console.log(apiRes);
+        } catch (error) {
+            console.log(error);            
+        }
+    }
+
+    useDidMount(() => {
+        handleShowChange(show, props.ele.id)
+    }, [show])
+
 
     const handleDisplay = () => {
         if (deleteSelected) {
@@ -195,6 +215,7 @@ const DndBlurb = (props) => {
                                 checked={show}
                                 onChange={() => setShow(!show)}
                                 name="checkedA"
+                                className="sandbox__switch"
                             />
                         }
                     />
