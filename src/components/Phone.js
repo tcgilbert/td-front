@@ -1,22 +1,11 @@
 import React from "react";
 import Work from "../images/portfolio.svg";
 import Location from "../images/placeholder.svg";
+import FeedBlurb from "./feed/FeedBlurb";
+import FeedLink from "./feed/FeedLink";
+import FeedSoundtrack from "./feed/FeedSoundtrack";
 
 const Phone = (props) => {
-    const handleAbout = () => {
-        let display = [];
-        if (props.about.workShow) {
-            display.push(props.about.work);
-        }
-        if (props.about.locationShow) {
-            display.push(props.about.location);
-        }
-        const returnInfo = display.map((ele, idx) => {
-            return <p key={idx}>{ele}</p>;
-        });
-        return returnInfo;
-    };
-
     const handleWork = () => {
         if (props.about.workShow) {
             return (
@@ -43,6 +32,21 @@ const Phone = (props) => {
         }
     };
 
+    const handleContent = () => {
+        if (props.content !== null) {
+            const feed = props.content.map((ele, idx) => {
+                if (ele.type === "soundtrack") {
+                    return <FeedSoundtrack ele={ele} key={idx} />;
+                } else if (ele.type === "link") {
+                    return <FeedLink ele={ele} key={idx} />;
+                } else {
+                    return <FeedBlurb ele={ele} key={idx} />;
+                }
+            });
+            return feed;
+        }
+    };
+
     return (
         <div className="phone">
             <div className="phone__content">
@@ -56,9 +60,7 @@ const Phone = (props) => {
                     {handleWork()}
                     {handleLocation()}
                 </div>
-                <div className="phone__content">
-                    
-                </div>
+                <div className="phone__content">{handleContent()}</div>
             </div>
         </div>
     );

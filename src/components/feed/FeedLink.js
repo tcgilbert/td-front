@@ -2,8 +2,8 @@ import React from 'react'
 
 const FeedLink = (props) => {
     return (
-        <div>
-            
+        <div className="feedlink">
+            {props.ele.type}
         </div>
     )
 }

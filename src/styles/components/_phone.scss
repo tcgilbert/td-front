@@ -13,17 +13,15 @@
     &__content {
         text-align: center;
         margin-top: 1rem;
-        margin-right: .5rem;
+        // margin-right: .5rem;
     }
 
     &__name {
-        font-size: 1.5rem;
         font-size: 1.2vw;
         font-weight: 500;
     }
     
     &__username {
-        font-size: 1.5rem;
         font-size: 1.2vw;
         font-weight: 500;
     }
@@ -49,9 +47,6 @@
         margin-right: .5rem;
     }
 
-    &__text {
-
-    }
 
 
 }

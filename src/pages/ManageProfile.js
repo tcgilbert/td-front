@@ -186,7 +186,7 @@ const ManageProfile = (props) => {
                 />
             </div>
             <div className="grid manage__grid4">
-                <Phone user={props.user} about={about}/>
+                <Phone user={props.user} about={about} content={content} contentLoading={contentLoading}/>
             </div>
         </div>
     );
