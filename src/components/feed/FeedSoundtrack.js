@@ -15,6 +15,7 @@ const FeedSoundtrack = (props) => {
     const {content} = props.ele
     return (
         <div className="feedsound">
+            <span className="feedsound__heading">Listening to...</span>
             <img className="feedsound__image" src={content.images[0].url} alt="Album Art"/>
             <p className="feedsound__name">{content.name}</p>
             {handleArtists(content.artists)}

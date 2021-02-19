@@ -1,4 +1,5 @@
 .feedsound {
+    position: relative;
     border: solid 1px $color-dark;
     margin: 1vw;
     padding: 1vw;
@@ -7,8 +8,26 @@
     flex-direction: column;
     align-items: center;
 
+    &__heading {
+        position: absolute;
+        font-size: .8vw;
+        top: .2vw;
+        left: .3vw;
+    }
+
     &__image {
+        margin-top: .5rem;
         width: 11vw;
         height: 11vw;
+    }
+
+    &__name  {
+        font-size: 1.3vw;
+        font-weight: 500;
+        margin-top: .2rem;
+    }
+
+    &__artist {
+        font-size: 1vw;
     }
 }
