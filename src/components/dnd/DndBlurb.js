@@ -214,8 +214,6 @@ const DndBlurb = (props) => {
                             <SwitchBtn
                                 checked={show}
                                 onChange={() => setShow(!show)}
-                                name="checkedA"
-                                className="sandbox__switch"
                             />
                         }
                     />

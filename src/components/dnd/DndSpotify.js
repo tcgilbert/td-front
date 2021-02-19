@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import Trash from "../../images/trash.svg";
 import DeleteDiv from "./DeleteDiv";
+import { grey } from "@material-ui/core/colors";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { withStyles } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
+import axios from "axios";
+import useDidMount from "../../utils/useDidMount";
 
 const handleArtists = (array) => {
     if (array.length === 1) {
@@ -14,9 +19,32 @@ const handleArtists = (array) => {
     }
 };
 
+const SwitchBtn = withStyles({
+    root: {
+        position: "absolute",
+        right: "1rem",
+    },
+    switchBase: {
+        color: grey[300],
+        opacity: 0.75,
+        "&$checked": {
+            color: "white",
+            opacity: 1,
+        },
+        "&$checked + $track": {
+            backgroundColor: grey[50],
+        },
+    },
+    checked: {},
+    track: {},
+})(Switch);
+
 const DndSpotify = (props) => {
     const { artists, name, images, type } = props.ele.content;
     const [deleteSelected, setDeleteSelected] = useState(false);
+    const [show, setShow] = useState(props.ele.show);
+    const SERVER = process.env.REACT_APP_SERVER;
+
     const handleDisplay = () => {
         if (deleteSelected) {
             setDeleteSelected(false);
@@ -24,6 +52,23 @@ const DndSpotify = (props) => {
             setDeleteSelected(true);
         }
     };
+
+    // Update show value on switch change
+    const handleShowChange = async (bool, id) => {
+        try {
+            const apiRes = await axios.put(`${SERVER}/content/update/show`, {
+                id: props.ele.id,
+                show: bool,
+            });
+            console.log(apiRes);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useDidMount(() => {
+        handleShowChange(show, props.ele.id);
+    }, [show]);
 
     return (
         <div
@@ -42,7 +87,15 @@ const DndSpotify = (props) => {
         >
             <div className="spotify__tag">
                 <p className="sandbox__label">Soundtrack - {type}</p>
-                <div>
+                <div className="sandbox__options-container">
+                    <FormControlLabel
+                        control={
+                            <SwitchBtn
+                                checked={show}
+                                onChange={() => setShow(!show)}
+                            />
+                        }
+                    />
                     <button
                         className="sandbox__btn-wrap"
                         onClick={handleDisplay}
@@ -66,7 +119,12 @@ const DndSpotify = (props) => {
                     <p>{handleArtists(artists)}</p>
                 </div>
             </div>
-            <DeleteDiv deleteSelected={deleteSelected} ele={props.ele} setDeleteSelected={setDeleteSelected} setContentLoading={props.setContentLoading}/>
+            <DeleteDiv
+                deleteSelected={deleteSelected}
+                ele={props.ele}
+                setDeleteSelected={setDeleteSelected}
+                setContentLoading={props.setContentLoading}
+            />
         </div>
     );
 };

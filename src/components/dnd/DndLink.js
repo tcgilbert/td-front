@@ -215,8 +215,6 @@ const DndLink = (props) => {
                             <SwitchBtn
                                 checked={show}
                                 onChange={() => setShow(!show)}
-                                name="checkedA"
-                                className="sandbox__switch"
                             />
                         }
                     />
@@ -245,16 +243,6 @@ const DndLink = (props) => {
                 </div>
             </div>
             {handleEdit()}
-            {/* <div className="link__container">
-                <p className="link__text">
-                    <span className="link__pretext">Url: </span>
-                    {props.ele.content.url}
-                </p>
-                <p className="link__text">
-                    <span className="link__pretext">Title: </span>
-                    {props.ele.content.title}
-                </p>
-            </div> */}
             <DeleteDiv
                 deleteSelected={deleteSelected}
                 ele={props.ele}
