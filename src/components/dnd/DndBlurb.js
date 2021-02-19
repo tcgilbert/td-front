@@ -93,7 +93,9 @@ const DndBlurb = (props) => {
                 id: props.ele.id,
                 show: bool,
             });
-            console.log(apiRes);
+            if (apiRes) {
+                props.setContentLoading(true);
+            }
         } catch (error) {
             console.log(error);            
         }
