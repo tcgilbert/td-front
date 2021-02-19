@@ -5,8 +5,12 @@ import DeleteDiv from "./DeleteDiv";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import { grey } from "@material-ui/core/colors";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { withStyles } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
 import axios from "axios";
+import useDidMount from "../../utils/useDidMount";
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -14,9 +18,29 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "400",
     },
     adornedStart: {
-        fontWeight: "600"
-    }
+        fontWeight: "600",
+    },
 }));
+
+const SwitchBtn = withStyles({
+    root: {
+        position: "absolute",
+        right: "3.6rem",
+    },
+    switchBase: {
+        color: grey[300],
+        opacity: 0.75,
+        "&$checked": {
+            color: "white",
+            opacity: 1,
+        },
+        "&$checked + $track": {
+            backgroundColor: grey[50],
+        },
+    },
+    checked: {},
+    track: {},
+})(Switch);
 
 const DndLink = (props) => {
     const classes = useStyles();
@@ -24,29 +48,36 @@ const DndLink = (props) => {
     const [editSelected, setEditSelected] = useState(false);
     const [url, setUrl] = useState(props.ele.content.url);
     const [title, setTitle] = useState(props.ele.content.title);
+    const [show, setShow] = useState(props.ele.show);
     const SERVER = process.env.REACT_APP_SERVER;
 
 
+    // Button logic and styling for save btn
     useEffect(() => {
         if (document.getElementById("save-btn") && editSelected) {
             const save = document.getElementById("save-btn");
             if (save.classList.contains("blurb__nochange")) {
-                if (url !== props.ele.content.url || title !== props.ele.content.title) { 
+                if (
+                    url !== props.ele.content.url ||
+                    title !== props.ele.content.title
+                ) {
                     save.classList.remove("blurb__nochange");
                     save.classList.add("blurb__save");
                 }
             }
             if (save.classList.contains("blurb__save")) {
-                if (url === props.ele.content.url && title === props.ele.content.title) {
+                if (
+                    url === props.ele.content.url &&
+                    title === props.ele.content.title
+                ) {
                     save.classList.remove("blurb__save");
                     save.classList.add("blurb__nochange");
                 }
             }
         }
-    }, [url, title, editSelected])
+    }, [url, title, editSelected]);
 
-
-
+    // toggle for delete div
     const handleDisplay = () => {
         if (deleteSelected) {
             setDeleteSelected(false);
@@ -55,20 +86,40 @@ const DndLink = (props) => {
         }
     };
 
+    // Update show value on switch change
+    const handleShowChange = async (bool, id) => {
+        try {
+            const apiRes = await axios.put(`${SERVER}/content/update/show`, {
+                id: props.ele.id,
+                show: bool,
+            });
+            console.log(apiRes);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useDidMount(() => {
+        handleShowChange(show, props.ele.id);
+    }, [show]);
+
     const handleSubmit = async () => {
-        if (url === props.ele.content.url && title === props.ele.content.title) {
-            return 
+        if (
+            url === props.ele.content.url &&
+            title === props.ele.content.title
+        ) {
+            return;
         } else {
             const apiRes = await axios.put(`${SERVER}/link/update`, {
                 id: props.ele.content.id,
                 newUrl: url,
-                newTitle: title
-            })
+                newTitle: title,
+            });
             if (apiRes) {
-                props.setContentLoading(true)
+                props.setContentLoading(true);
             }
         }
-    }
+    };
 
     const handleEdit = () => {
         if (editSelected) {
@@ -83,7 +134,7 @@ const DndLink = (props) => {
                             startAdornment: (
                                 <InputAdornment position="start">
                                     <span className={classes.adornedStart}>
-                                        Url: 
+                                        Url:
                                     </span>
                                 </InputAdornment>
                             ),
@@ -98,7 +149,7 @@ const DndLink = (props) => {
                             startAdornment: (
                                 <InputAdornment position="start">
                                     <span className={classes.adornedStart}>
-                                        Title: 
+                                        Title:
                                     </span>
                                 </InputAdornment>
                             ),
@@ -158,8 +209,23 @@ const DndLink = (props) => {
         >
             <div className="link__tag">
                 <p className="sandbox__label">Link</p>
-                <div>
-                    <button onClick={() => {setEditSelected(!editSelected)}} className="sandbox__btn-wrap">
+                <div className="sandbox__options-container">
+                    <FormControlLabel
+                        control={
+                            <SwitchBtn
+                                checked={show}
+                                onChange={() => setShow(!show)}
+                                name="checkedA"
+                                className="sandbox__switch"
+                            />
+                        }
+                    />
+                    <button
+                        onClick={() => {
+                            setEditSelected(!editSelected);
+                        }}
+                        className="sandbox__btn-wrap"
+                    >
                         <img
                             className="sandbox__icon"
                             src={Edit}
