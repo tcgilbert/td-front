@@ -1,0 +1,17 @@
+.feedblurb {
+    text-align: left;
+    border: solid 1px $color-dark;
+    margin: 1vw .5vw;
+    padding: .5vw;
+    border-radius: .5vw;
+
+    &__heading {
+        font-size: 1.3vw;
+        font-weight: 500;
+    }
+    
+    &__content {
+        font-size: 1vw;
+        font-weight: 400;
+    }
+}
