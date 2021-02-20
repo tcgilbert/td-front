@@ -95,11 +95,11 @@ const DndLink = (props) => {
             if (apiRes) {
                 const updatedContent = props.content.map((ele) => {
                     if (ele.id === props.ele.id) {
-                        ele.show = show
+                        ele.show = show;
                     }
-                    return ele 
-                })
-                props.setContent(updatedContent)
+                    return ele;
+                });
+                props.setContent(updatedContent);
             }
         } catch (error) {
             console.log(error);
@@ -123,15 +123,15 @@ const DndLink = (props) => {
                 newTitle: title,
             });
             if (apiRes) {
-                const updatedLink = await apiRes.data.link
+                const updatedLink = await apiRes.data.link;
                 const updatedContent = props.content.map((ele) => {
                     if (ele.id === props.ele.id) {
-                        ele.content = updatedLink
+                        ele.content = updatedLink;
                     }
-                    return ele 
-                })
-                props.setContent(updatedContent)
-                setEditSelected(false)
+                    return ele;
+                });
+                props.setContent(updatedContent);
+                setEditSelected(false);
             }
         }
     };
@@ -259,6 +259,8 @@ const DndLink = (props) => {
             </div>
             {handleEdit()}
             <DeleteDiv
+                content={props.content}
+                setContent={props.setContent}
                 deleteSelected={deleteSelected}
                 ele={props.ele}
                 setDeleteSelected={setDeleteSelected}

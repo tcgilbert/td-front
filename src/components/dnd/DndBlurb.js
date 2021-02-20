@@ -96,16 +96,16 @@ const DndBlurb = (props) => {
             if (apiRes) {
                 const updatedContent = props.content.map((ele) => {
                     if (ele.id === props.ele.id) {
-                        ele.show = show
+                        ele.show = show;
                     }
-                    return ele 
-                })
-                props.setContent(updatedContent)
+                    return ele;
+                });
+                props.setContent(updatedContent);
             }
         } catch (error) {
             console.log(error);
         }
-        return
+        return;
     };
 
     useDidMount(() => {
@@ -139,15 +139,15 @@ const DndBlurb = (props) => {
                 newHeading: heading,
             });
             if (apiRes) {
-                const updatedBlurb = await apiRes.data.blurb
+                const updatedBlurb = await apiRes.data.blurb;
                 const updatedContent = props.content.map((ele) => {
                     if (ele.id === props.ele.id) {
-                        ele.content = updatedBlurb
+                        ele.content = updatedBlurb;
                     }
-                    return ele 
-                })
-                props.setContent(updatedContent)
-                setEditSelected(false)
+                    return ele;
+                });
+                props.setContent(updatedContent);
+                setEditSelected(false);
             }
         }
     };
@@ -260,6 +260,8 @@ const DndBlurb = (props) => {
             </div>
             {handleEdit()}
             <DeleteDiv
+                content={props.content}
+                setContent={props.setContent}
                 deleteSelected={deleteSelected}
                 ele={props.ele}
                 setDeleteSelected={setDeleteSelected}

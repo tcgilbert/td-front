@@ -17,9 +17,10 @@ const DeleteDiv = (props) => {
         const apiRes = await axios.delete(`${SERVER}/content/delete`, {
             data: deleteInfo
         })
-        console.log(apiRes);
         if (apiRes) {
-            props.setContentLoading(true)
+            const updatedContent = props.content.filter((ele) => ele.id !== props.ele.id)
+            console.log(updatedContent);
+            props.setContent(updatedContent);
         }
     }
 

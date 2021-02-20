@@ -63,11 +63,11 @@ const DndSpotify = (props) => {
             if (apiRes) {
                 const updatedContent = props.content.map((ele) => {
                     if (ele.id === props.ele.id) {
-                        ele.show = show
+                        ele.show = show;
                     }
-                    return ele 
-                })
-                props.setContent(updatedContent)
+                    return ele;
+                });
+                props.setContent(updatedContent);
             }
         } catch (error) {
             console.log(error);
@@ -128,6 +128,8 @@ const DndSpotify = (props) => {
                 </div>
             </div>
             <DeleteDiv
+                content={props.content}
+                setContent={props.setContent}
                 deleteSelected={deleteSelected}
                 ele={props.ele}
                 setDeleteSelected={setDeleteSelected}
