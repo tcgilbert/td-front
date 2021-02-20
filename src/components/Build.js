@@ -25,6 +25,8 @@ const Build = (props) => {
                         <Blurb
                             user={props.user}
                             setContentLoading={props.setContentLoading}
+                            setContent={props.setContent}
+                            content={props.content}
                         />
                     );
                 case "links":
@@ -32,6 +34,8 @@ const Build = (props) => {
                         <Link
                             user={props.user}
                             setContentLoading={props.setContentLoading}
+                            setContent={props.setContent}
+                            content={props.content}
                         />
                     );
                 case "soundtrack":
@@ -40,6 +44,8 @@ const Build = (props) => {
                             user={props.user}
                             setContentLoading={props.setContentLoading}
                             spotifyToken={props.spotifyToken}
+                            setContent={props.setContent}
+                            content={props.content}
                         />
                     );
             }

@@ -52,15 +52,22 @@ const Blurb = (props) => {
     }, [heading, content]);
 
     const handleSubmit = async () => {
+        console.log(props.content);
         if (heading !== "" || content !== "") {
-            const apiRes = await axios.post(`${SERVER}/blurb/create`, {
-                userId: props.user.id,
-                heading: heading,
-                content: content
-            })
-            if (apiRes) {
-                props.setContentLoading(true)
+            try {                
+                const apiRes = await axios.post(`${SERVER}/blurb/create`, {
+                    userId: props.user.id,
+                    heading: heading,
+                    content: content
+                })
+                const newContent = await apiRes.data.reformatted
+                console.log(newContent);
+                const copiedContent = [...props.content, newContent]
+                props.setContent(copiedContent)
+            } catch (error) {
+                console.log(error);
             }
+
         } else {
             return;
         }

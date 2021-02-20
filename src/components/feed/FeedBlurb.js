@@ -3,7 +3,6 @@ import React from 'react'
 const FeedBlurb = (props) => {
 
     const { content } = props.ele
-    console.log(content);
 
     return (
         <div className="feedblurb">
