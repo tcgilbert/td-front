@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     textFieldTwo: {
         width: "100%",
         alignSelf: "center",
-        marginTop: "1.3rem"
+        marginTop: "1.3rem",
     },
     inputHeading: {
         fontSize: "2rem",
@@ -28,9 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
 const Link = (props) => {
-
     const classes = useStyles();
     const [link, setLink] = useState("");
     const [title, setTitle] = useState("");
@@ -56,24 +54,28 @@ const Link = (props) => {
 
     const handleSubmit = async () => {
         if (link === "" || title === "") {
-            return
+            return;
         } else {
-            const apiRes = await axios.post(`${SERVER}/link/create`, {
-                url: link,
-                title: title,
-                userId: props.user.id
-            })
-            if (apiRes) {
-                props.setContentLoading(true)
+            try {
+                const apiRes = await axios.post(`${SERVER}/link/create`, {
+                    url: link,
+                    title: title,
+                    userId: props.user.id,
+                });
+                const newContent = await apiRes.data.reformatted;
+                const copiedContent = [...props.content, newContent];
+                props.setContent(copiedContent);
+                setLink("")
+                setTitle("")
+            } catch (error) {
+                console.log(error);
             }
         }
     };
 
     return (
         <div className="build__form">
-            <h1 className="build__prompt">
-                Link to something cool.
-            </h1>
+            <h1 className="build__prompt">Link to something cool.</h1>
             <TextField
                 className={classes.textField}
                 InputProps={{
@@ -109,7 +111,7 @@ const Link = (props) => {
                 Add Link
             </button>
         </div>
-    )
-}
+    );
+};
 
-export default Link
+export default Link;

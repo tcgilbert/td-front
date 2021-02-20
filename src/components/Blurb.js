@@ -64,6 +64,8 @@ const Blurb = (props) => {
                 console.log(newContent);
                 const copiedContent = [...props.content, newContent]
                 props.setContent(copiedContent)
+                setHeading("")
+                setContent("")
             } catch (error) {
                 console.log(error);
             }
