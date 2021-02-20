@@ -139,7 +139,15 @@ const DndBlurb = (props) => {
                 newHeading: heading,
             });
             if (apiRes) {
-                props.setContentLoading(true);
+                const updatedBlurb = await apiRes.data.blurb
+                const updatedContent = props.content.map((ele) => {
+                    if (ele.id === props.ele.id) {
+                        ele.content = updatedBlurb
+                    }
+                    return ele 
+                })
+                props.setContent(updatedContent)
+                setEditSelected(false)
             }
         }
     };

@@ -123,7 +123,15 @@ const DndLink = (props) => {
                 newTitle: title,
             });
             if (apiRes) {
-                props.setContentLoading(true);
+                const updatedLink = await apiRes.data.link
+                const updatedContent = props.content.map((ele) => {
+                    if (ele.id === props.ele.id) {
+                        ele.content = updatedLink
+                    }
+                    return ele 
+                })
+                props.setContent(updatedContent)
+                setEditSelected(false)
             }
         }
     };
