@@ -15,7 +15,7 @@ import useDidMount from "../../utils/useDidMount";
 const SwitchBtn = withStyles({
     root: {
         position: "absolute",
-        right: "-4.7rem",
+        right: "-4.9rem",
     },
     switchBase: {
         color: grey[300],
@@ -94,11 +94,18 @@ const DndBlurb = (props) => {
                 show: bool,
             });
             if (apiRes) {
-                props.setContentLoading(true);
+                const updatedContent = props.content.map((ele) => {
+                    if (ele.id === props.ele.id) {
+                        ele.show = show
+                    }
+                    return ele 
+                })
+                props.setContent(updatedContent)
             }
         } catch (error) {
             console.log(error);
         }
+        return
     };
 
     useDidMount(() => {
