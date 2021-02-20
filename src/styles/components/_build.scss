@@ -32,6 +32,10 @@
         transform: translateY(-50%);
         transition: all 0.4s;
     }
+
+    &__arrow-down {
+        transform: translateY(-50%) rotate(180deg);
+    }
     
     &__options {
         visibility: visible;
@@ -138,12 +142,6 @@
     }
 }
 
-#show {
-    position: fixed;
-    right: 10rem;
-    top: 1rem;
-}
-
 
 #show:checked + .build__components > .build__arrow {
     width: 2rem;
@@ -153,14 +151,3 @@
     transform: translateY(-50%) rotate(180deg);
 }
 
-#show:checked ~ .build__options {
-    visibility: hidden;
-    display: none;
-    height: 0;
-    opacity: 0;
-}
-
-#show:checked ~ .build__pillbox > .build__pill {
-    visibility: hidden;
-    opacity: 0;
-}

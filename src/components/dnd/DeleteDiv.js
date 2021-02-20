@@ -19,7 +19,6 @@ const DeleteDiv = (props) => {
         })
         if (apiRes) {
             const updatedContent = props.content.filter((ele) => ele.id !== props.ele.id)
-            console.log(updatedContent);
             props.setContent(updatedContent);
         }
     }

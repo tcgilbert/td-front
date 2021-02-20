@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     textField: {
         display: "inline",
+        width: "80%"
     },
     input: {
         fontSize: "1.5rem",
