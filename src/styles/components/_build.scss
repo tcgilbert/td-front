@@ -38,24 +38,19 @@
     }
     
     &__options {
-        visibility: visible;
-        opacity: 1;
-        position: relative;
+        animation: drawyerDown 1s;
     }
 
     &__pillbox {
-        visibility: visible;
         border-bottom: 1px solid lightgray;
-        opacity: 1;
         display: flex;
         padding: .1rem 3rem;
         flex-direction: row;
         justify-content: space-around;
         width: 100%;
         background-color: white;
-        transition: all .3s;
+        animation: fadeIn .5s;
     }
-
 
     &__pill {
         margin: .2rem;
@@ -87,6 +82,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        animation: fadeIn .5s;
     }
 
     &__form {
@@ -143,11 +139,20 @@
 }
 
 
-#show:checked + .build__components > .build__arrow {
-    width: 2rem;
-    position: absolute;
-    top: 50%;
-    right: 2rem;
-    transform: translateY(-50%) rotate(180deg);
+@keyframes drawyerDown {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 100%;
+    }
 }
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
