@@ -22,7 +22,7 @@ const handleArtists = (array) => {
 const SwitchBtn = withStyles({
     root: {
         position: "absolute",
-        right: "1rem",
+        right: "-4.7rem",
     },
     switchBase: {
         color: grey[300],
@@ -90,14 +90,6 @@ const DndSpotify = (props) => {
             <div className="spotify__tag">
                 <p className="sandbox__label">Soundtrack - {type}</p>
                 <div className="sandbox__options-container">
-                    <FormControlLabel
-                        control={
-                            <SwitchBtn
-                                checked={show}
-                                onChange={() => setShow(!show)}
-                            />
-                        }
-                    />
                     <button
                         className="sandbox__btn-wrap"
                         onClick={handleDisplay}
@@ -108,6 +100,14 @@ const DndSpotify = (props) => {
                             alt="delete"
                         />
                     </button>
+                    <FormControlLabel
+                        control={
+                            <SwitchBtn
+                                checked={show}
+                                onChange={() => setShow(!show)}
+                            />
+                        }
+                    />
                 </div>
             </div>
             <div className="spotify__container">

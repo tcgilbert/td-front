@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 const SwitchBtn = withStyles({
     root: {
         position: "absolute",
-        right: "3.6rem",
+        right: "-4.7rem",
     },
     switchBase: {
         color: grey[300],
@@ -50,7 +50,6 @@ const DndLink = (props) => {
     const [title, setTitle] = useState(props.ele.content.title);
     const [show, setShow] = useState(props.ele.show);
     const SERVER = process.env.REACT_APP_SERVER;
-
 
     // Button logic and styling for save btn
     useEffect(() => {
@@ -212,14 +211,6 @@ const DndLink = (props) => {
             <div className="link__tag">
                 <p className="sandbox__label">Link</p>
                 <div className="sandbox__options-container">
-                    <FormControlLabel
-                        control={
-                            <SwitchBtn
-                                checked={show}
-                                onChange={() => setShow(!show)}
-                            />
-                        }
-                    />
                     <button
                         onClick={() => {
                             setEditSelected(!editSelected);
@@ -242,6 +233,14 @@ const DndLink = (props) => {
                             alt="delete"
                         />
                     </button>
+                    <FormControlLabel
+                        control={
+                            <SwitchBtn
+                                checked={show}
+                                onChange={() => setShow(!show)}
+                            />
+                        }
+                    />
                 </div>
             </div>
             {handleEdit()}

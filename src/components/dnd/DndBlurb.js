@@ -7,19 +7,19 @@ import { makeStyles } from "@material-ui/core/styles";
 import { TextareaAutosize } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
 import axios from "axios";
-import useDidMount from "../../utils/useDidMount"
+import useDidMount from "../../utils/useDidMount";
 
 const SwitchBtn = withStyles({
     root: {
         position: "absolute",
-        right: "3.6rem"
+        right: "-4.7rem",
     },
     switchBase: {
         color: grey[300],
-        opacity: .75,
+        opacity: 0.75,
         "&$checked": {
             color: "white",
             opacity: 1,
@@ -97,14 +97,13 @@ const DndBlurb = (props) => {
                 props.setContentLoading(true);
             }
         } catch (error) {
-            console.log(error);            
+            console.log(error);
         }
-    }
+    };
 
     useDidMount(() => {
-        handleShowChange(show, props.ele.id)
-    }, [show])
-
+        handleShowChange(show, props.ele.id);
+    }, [show]);
 
     const handleDisplay = () => {
         if (deleteSelected) {
@@ -211,14 +210,6 @@ const DndBlurb = (props) => {
             <div className="blurb__tag">
                 <p className="blurb__label">Blurb</p>
                 <div className="sandbox__options-container">
-                    <FormControlLabel
-                        control={
-                            <SwitchBtn
-                                checked={show}
-                                onChange={() => setShow(!show)}
-                            />
-                        }
-                    />
                     <button
                         className="sandbox__btn-wrap"
                         onClick={() => {
@@ -242,6 +233,14 @@ const DndBlurb = (props) => {
                             alt="delete"
                         />
                     </button>
+                    <FormControlLabel
+                        control={
+                            <SwitchBtn
+                                checked={show}
+                                onChange={() => setShow(!show)}
+                            />
+                        }
+                    />
                 </div>
             </div>
             {handleEdit()}
