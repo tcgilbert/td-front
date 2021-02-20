@@ -35,12 +35,14 @@ const Phone = (props) => {
     const handleContent = () => {
         if (props.content !== null) {
             const feed = props.content.map((ele, idx) => {
-                if (ele.type === "soundtrack") {
+                if (ele.type === "soundtrack" && ele.show) {
                     return <FeedSoundtrack ele={ele} key={idx} />;
-                } else if (ele.type === "link") {
+                } else if (ele.type === "link" && ele.show) {
                     return <FeedLink ele={ele} key={idx} />;
-                } else {
+                } else if (ele.type === "blurb" && ele.show){
                     return <FeedBlurb ele={ele} key={idx} />;
+                } else {
+                    return
                 }
             });
             return feed;
