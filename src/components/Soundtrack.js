@@ -48,6 +48,7 @@ const Soundtrack = (props) => {
     const [selectionMade, setSelectionMade] = useState(false);
     const SERVER = process.env.REACT_APP_SERVER;
     const spotifyEndpoint = "https://api.spotify.com/v1/search";
+    const spotifyById = "https://api.spotify.com/v1/";
     const searchDebounced = useDeBounce(query, 1000);
 
     useEffect(() => {
@@ -108,17 +109,37 @@ const Soundtrack = (props) => {
     };
 
     const handleSelection = async (ele, type) => {
-        console.log(ele);
-        const apiRes = await axios.post(`${SERVER}/soundtrack/create`, {
-            userId: props.user.id,
-            type: type,
-            spotifyId: ele.id,
-            comment: ""
-        })
-        if (apiRes) {
-            props.setContentLoading(true)
+        try {            
+            const apiRes = await axios.post(`${SERVER}/soundtrack/create`, {
+                userId: props.user.id,
+                type: type,
+                spotifyId: ele.id,
+                comment: ""
+            })
+            const newContent = await apiRes.data.reformatted;
+            let spotifyRes = await axios.get(`${spotifyById}${newContent.content.type}s/${newContent.content.spotifyId}`, 
+            {
+                method: "GET",
+                headers: {
+                    Authorization: "Bearer " + props.spotifyToken,
+                },
+            })
+            let soundData = await spotifyRes.data
+            if (newContent.content.type === "album") {
+                newContent.content["artists"] = soundData.artists
+                newContent.content["name"] = soundData.name
+                newContent.content["images"] = soundData.images
+            } else {
+                newContent.content["artists"] = soundData.artists
+                newContent.content["name"] = soundData.name
+                newContent.content["images"] = soundData.album.images
+                newContent.content["album"] = soundData.album.name
+            }
+            const copiedContent = [...props.content, newContent]
+            props.setContent(copiedContent)
+        } catch (error) {
+            console.log(error);
         }
-        return;
     };
 
     const resultsDisplayed = () => {
@@ -209,44 +230,6 @@ const Soundtrack = (props) => {
         }
     };
 
-    // const selectionDisplayed = () => {
-    //     setQuery("");
-    //     setResultsTrack([]);
-    //     setResultsAlbum([]);
-    //     if (selection !== null && selection[0].type === "track") {
-    //         return (
-    //             <div className="soundtrack__selection">
-    //                 <div className="soundtrack__img-info">
-    //                     <img
-    //                         className="soundtrack__selection-img"
-    //                         src={selection[0].data.album.images[0].url}
-    //                         alt="Album Image"
-    //                     />
-    //                     <div>
-    //                         {handleArtists(selection[0].data.album.artists)}
-    //                         <p className="soundtrack__album-name">{selection[0].data.name}</p>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         );
-    //     } else if (selection !== null){
-    //         return (
-    //             <div className="soundtrack__selection">
-    //                 <div className="soundtrack__img-info">
-    //                     <img
-    //                         className="soundtrack__selection-img"
-    //                         src={selection[0].data.images[0].url}
-    //                         alt="Album Image"
-    //                     />
-    //                     <div>
-    //                         {handleArtists(selection[0].data.artists)}
-    //                         <p className="soundtrack__album-name">{selection[0].data.name}</p>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         );
-    //     }
-    // };
 
     return (
         <div className="build__form">
