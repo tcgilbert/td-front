@@ -30,6 +30,7 @@ const About = (props) => {
     const [workCheck, setWorkCheck] = useState(props.about.workShow);
     const [profilePictureFile, setProfilePictureFile] = useState(null);
 
+
     // Update about
     const handleSubmit = async () => {
         if (checkForChange()) {
@@ -84,6 +85,7 @@ const About = (props) => {
                     base64EncodedImage,
                     fileName,
                     userId: props.user.id,
+                    publicId: props.about.pictureId
                 }
             );
             return apiRes;
