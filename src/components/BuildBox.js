@@ -5,7 +5,6 @@ import Link from "./Link";
 import Soundtrack from "./Soundtrack";
 
 const BuildBox = (props) => {
-
     const [buildOption, setBuildOption] = useState("about");
 
     // For build options
@@ -36,7 +35,13 @@ const BuildBox = (props) => {
             switch (buildOption) {
                 case "about":
                     return (
-                        <About about={props.about} setAbout={props.setAbout} />
+                        <About
+                            phoneLoading={props.phoneLoading}
+                            setPhoneLoading={props.setPhoneLoading}
+                            user={props.user}
+                            about={props.about}
+                            setAbout={props.setAbout}
+                        />
                     );
                 case "blurbs":
                     return (
@@ -69,7 +74,6 @@ const BuildBox = (props) => {
             }
         }
     };
-
 
     return (
         <div className="build__options">

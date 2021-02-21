@@ -69,6 +69,35 @@
         margin-bottom: 1rem;
     }
 
+    &__change-pic {
+        margin-top: 1rem;
+        background-color: gainsboro;
+        outline: none;
+        padding: .4rem;
+        border: none;
+        border-radius: .5rem;
+        color: black;
+        font-weight: 600;
+        transition: all .2s;
+    }
+    
+    &__change-pic:hover {
+        background-color: rgba($color-neon_blue, .5);
+        color: darkblue;
+        cursor: pointer;
+    }
+
+    &__file-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    &__filename {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+    }
 
 
 }

@@ -5,6 +5,7 @@ import FeedBlurb from "./feed/FeedBlurb";
 import FeedLink from "./feed/FeedLink";
 import FeedSoundtrack from "./feed/FeedSoundtrack";
 import User from "../images/user.svg"
+import LoadingPhone from "./LoadingPhone"
 
 const Phone = (props) => {
     const handleWork = () => {
@@ -50,8 +51,15 @@ const Phone = (props) => {
         }
     };
 
+    const handleLoading = () => {
+        if (props.phoneLoading) {
+            return <LoadingPhone />
+        }
+    }
+
     return (
         <div className="phone">
+            {handleLoading()}
             <div className="phone__content">
                 <div className="phone__top">
                     <img className="phone__profile-pic" src={User} alt="Profile Picture"/>
