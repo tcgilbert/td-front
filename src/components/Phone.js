@@ -4,6 +4,7 @@ import Location from "../images/placeholder.svg";
 import FeedBlurb from "./feed/FeedBlurb";
 import FeedLink from "./feed/FeedLink";
 import FeedSoundtrack from "./feed/FeedSoundtrack";
+import User from "../images/user.svg"
 
 const Phone = (props) => {
     const handleWork = () => {
@@ -53,6 +54,7 @@ const Phone = (props) => {
         <div className="phone">
             <div className="phone__content">
                 <div className="phone__top">
+                    <img className="phone__profile-pic" src={User} alt="Profile Picture"/>
                     <p className="phone__name">
                         {props.about.nameShow ? props.about.name : ""}
                     </p>

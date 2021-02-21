@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     textField: {
         display: "inline",
-        width: "80%"
+        width: "80%",
     },
     input: {
         fontSize: "1.5rem",
@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 const About = (props) => {
     const classes = useStyles();
     const SERVER = process.env.REACT_APP_SERVER;
-
     const [name, setName] = useState(props.about.name);
     const [location, setLocation] = useState(props.about.location);
     const [work, setWork] = useState(props.about.work);
@@ -27,6 +26,9 @@ const About = (props) => {
         props.about.locationShow
     );
     const [workCheck, setWorkCheck] = useState(props.about.workShow);
+    const [fileInput, setFileInput] = useState("");
+    const [selectedFile, setSelectedFile] = useState("");
+    const [previewSource, setPreviewSource] = useState(null)
 
     // Update about
     const handleSubmit = async () => {
@@ -43,6 +45,37 @@ const About = (props) => {
             props.setAbout(apiRes.data.updatedAbout);
         }
     };
+
+    const handleFileInput = (e) => {
+        const file = e.target.files[0];
+        previewFile(file);
+        return;
+    };
+
+    const previewFile = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+           setPreviewSource(reader.result) 
+        }
+    };
+
+    const handleSubmitFile = (e) => {
+        e.preventDefault()
+        uploadImage(previewSource)
+        return
+    }
+
+    const uploadImage = async (base64EncodedImage) => {
+        try {
+            const apiRes = await axios.post(`${SERVER}/cloudinary/profile-pic`, {
+                base64EncodedImage
+            })
+            console.log(apiRes);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     // For submit button
     const checkForChange = () => {
@@ -153,6 +186,31 @@ const About = (props) => {
                     inputProps={{ "aria-label": "primary checkbox" }}
                 />
             </div>
+            <div className="about__input-div">
+                <div className="about__input-label">
+                    <label className="about__label">Profile Picture</label>
+                    <form onSubmit={handleSubmitFile}>
+                        <input
+                            type="file"
+                            name="profile-pic"
+                            onChange={handleFileInput}
+                            value={fileInput}
+                            className="about__profile-pic"
+                        />
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+                <Switch
+                    checked={workCheck}
+                    onChange={() => setWorkCheck(!workCheck)}
+                    color="primary"
+                    name="showName"
+                    inputProps={{ "aria-label": "primary checkbox" }}
+                />
+            </div>
+            {previewSource && (
+                <img src={previewSource} style={{height: "10rem", width: "10rem"}} alt="Picture Preview"/>
+            )}
             <button
                 id="about-btn"
                 onClick={handleSubmit}

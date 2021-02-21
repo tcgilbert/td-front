@@ -9,6 +9,14 @@
     margin: 3rem auto;
     background-color: #fff;
     
+    &__profile-pic {
+        width: 4vw;
+        height: 4vw;
+        border: solid $color-dark 1px;
+
+        border-radius: 10%;
+        padding: .5vw;
+    }
 
     &__content {
         text-align: center;
