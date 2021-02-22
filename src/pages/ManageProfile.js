@@ -12,6 +12,7 @@ const ManageProfile = (props) => {
     const [content, setContent] = useState(null);
     const [contentLoading, setContentLoading] = useState(true);
     const [spotifyToken, setSpotifyToken] = useState(null);
+    const [phoneLoading, setPhoneLoading] = useState(false)
     const SERVER = process.env.REACT_APP_SERVER;
     const spotifyEndpoint = "https://api.spotify.com/v1/";
     const spotifyId = process.env.REACT_APP_SPOTIFY_ID;
@@ -183,10 +184,12 @@ const ManageProfile = (props) => {
                     setContentLoading={setContentLoading}
                     contentLoading={contentLoading}
                     spotifyToken={spotifyToken}
+                    setPhoneLoading={setPhoneLoading}
+                    phoneLoading={phoneLoading}
                 />
             </div>
             <div className="grid manage__grid4">
-                <Phone user={props.user} about={about} content={content} contentLoading={contentLoading}/>
+                <Phone phoneLoading={phoneLoading} user={props.user} about={about} content={content} contentLoading={contentLoading}/>
             </div>
         </div>
     );

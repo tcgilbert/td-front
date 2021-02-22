@@ -32,7 +32,10 @@ const Build = (props) => {
                     setContentLoading={props.setContentLoading}
                     user={props.user}
                     about={props.about}
+                    setAbout={props.setAbout}
                     show={show}
+                    setPhoneLoading={props.setPhoneLoading}
+                    phoneLoading={props.phoneLoading}
                 />
             );
         } else {

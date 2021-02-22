@@ -3,11 +3,12 @@ import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Switch from "@material-ui/core/Switch";
 import { makeStyles } from "@material-ui/core/styles";
+import LoadingBar from "./LoadingBar"
 
 const useStyles = makeStyles((theme) => ({
     textField: {
         display: "inline",
-        width: "80%"
+        width: "80%",
     },
     input: {
         fontSize: "1.5rem",
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 const About = (props) => {
     const classes = useStyles();
     const SERVER = process.env.REACT_APP_SERVER;
-
+    const [fileName, setFileName] = useState(props.about.fileName);
     const [name, setName] = useState(props.about.name);
     const [location, setLocation] = useState(props.about.location);
     const [work, setWork] = useState(props.about.work);
@@ -27,25 +28,101 @@ const About = (props) => {
         props.about.locationShow
     );
     const [workCheck, setWorkCheck] = useState(props.about.workShow);
+    const [profilePictureFile, setProfilePictureFile] = useState(null);
 
     // Update about
     const handleSubmit = async () => {
         if (checkForChange()) {
-            const apiRes = await axios.put(`${SERVER}/about/update`, {
-                id: props.about.id,
-                name: name,
-                nameShow: nameCheck,
-                location: location,
-                locationShow: locationCheck,
-                work: work,
-                workShow: workCheck,
-            });
-            props.setAbout(apiRes.data.updatedAbout);
+            if (checkForChangeText()) {
+                props.setPhoneLoading(true)
+                try {
+                    const apiRes = await axios.put(`${SERVER}/about/update`, {
+                        id: props.about.id,
+                        name: name,
+                        nameShow: nameCheck,
+                        location: location,
+                        locationShow: locationCheck,
+                        work: work,
+                        workShow: workCheck,
+                    });
+                    if (apiRes) {
+                        props.setAbout(apiRes.data.updatedAbout);
+                        props.setPhoneLoading(false)
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            if (profilePictureFile) {
+                props.setPhoneLoading(true)
+                const cloudinaryRes = await uploadImage(profilePictureFile);
+                if (cloudinaryRes) {
+                    setFileName(cloudinaryRes.about.fileName)
+                    props.setAbout(cloudinaryRes.about)
+                    setProfilePictureFile(null)
+                    props.setPhoneLoading(false)
+                }
+            }
+        }
+    };
+
+    const handleFileInput = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setProfilePictureFile(reader.result);
+            setFileName(e.target.files[0].name);
+        };
+        return;
+    };
+
+    const uploadImage = async (base64EncodedImage) => {
+        try {
+            const apiRes = await axios.post(
+                `${SERVER}/cloudinary/profile-pic`,
+                {
+                    base64EncodedImage,
+                    fileName,
+                    userId: props.user.id,
+                    publicId: props.about.pictureId
+                }
+            );
+            const data = await apiRes.data
+            return data;
+        } catch (error) {
+            console.log(error);
         }
     };
 
     // For submit button
     const checkForChange = () => {
+        let changeMade = false;
+        if (props.about.name !== name) {
+            changeMade = true;
+        }
+        if (props.about.location !== location) {
+            changeMade = true;
+        }
+        if (props.about.work !== work) {
+            changeMade = true;
+        }
+        if (props.about.nameShow !== nameCheck) {
+            changeMade = true;
+        }
+        if (props.about.locationShow !== locationCheck) {
+            changeMade = true;
+        }
+        if (props.about.workShow !== workCheck) {
+            changeMade = true;
+        }
+        if (profilePictureFile) {
+            changeMade = true;
+        }
+        return changeMade;
+    };
+
+    const checkForChangeText = () => {
         let changeMade = false;
         if (props.about.name !== name) {
             changeMade = true;
@@ -83,7 +160,21 @@ const About = (props) => {
                 return;
             }
         }
-    }, [name, nameCheck, location, locationCheck, work, workCheck]);
+    }, [
+        name,
+        nameCheck,
+        location,
+        locationCheck,
+        work,
+        workCheck,
+        profilePictureFile,
+    ]);
+
+    const handleLoading = () => {
+        if (props.phoneLoading) {
+            return <LoadingBar />
+        }
+    }
 
     return (
         <div className="about__form">
@@ -103,7 +194,11 @@ const About = (props) => {
                 </div>
                 <Switch
                     checked={nameCheck}
-                    onChange={() => setNameCheck(!nameCheck)}
+                    onChange={() => {
+                        name !== ""
+                            ? setNameCheck(!nameCheck)
+                            : setNameCheck(nameCheck);
+                    }}
                     color="primary"
                     name="showName"
                     inputProps={{ "aria-label": "primary checkbox" }}
@@ -125,7 +220,11 @@ const About = (props) => {
                 </div>
                 <Switch
                     checked={locationCheck}
-                    onChange={() => setLocationCheck(!locationCheck)}
+                    onChange={() => {
+                        location !== ""
+                            ? setLocationCheck(!locationCheck)
+                            : setLocationCheck(locationCheck);
+                    }}
                     color="primary"
                     name="showName"
                     inputProps={{ "aria-label": "primary checkbox" }}
@@ -147,11 +246,39 @@ const About = (props) => {
                 </div>
                 <Switch
                     checked={workCheck}
-                    onChange={() => setWorkCheck(!workCheck)}
+                    onChange={() => {
+                        work !== ""
+                            ? setWorkCheck(!workCheck)
+                            : setWorkCheck(workCheck);
+                    }}
                     color="primary"
                     name="showName"
                     inputProps={{ "aria-label": "primary checkbox" }}
                 />
+            </div>
+            <div className="about__input-div">
+                <div className="about__file-container">
+                    <label htmlFor="profile-pic" className="about__label">
+                        Profile Picture -
+                    </label>
+                    <p className="about__filename">( {fileName} )</p>
+                    <input
+                        type="file"
+                        name="profile-pic"
+                        id="profile-pic"
+                        onChange={handleFileInput}
+                        className="about__profile-pic"
+                        style={{ display: "none" }}
+                    />
+                </div>
+                <button
+                    onClick={() => {
+                        document.getElementById("profile-pic").click();
+                    }}
+                    className="about__change-pic"
+                >
+                    Choose File
+                </button>
             </div>
             <button
                 id="about-btn"
@@ -160,6 +287,7 @@ const About = (props) => {
             >
                 Save Changes
             </button>
+            {handleLoading()}
         </div>
     );
 };
