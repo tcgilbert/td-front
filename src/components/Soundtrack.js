@@ -50,7 +50,7 @@ const Soundtrack = (props) => {
     const spotifyEndpoint = "https://api.spotify.com/v1/search";
     const spotifyById = "https://api.spotify.com/v1/";
     const searchDebounced = useDeBounce(query, 1000);
-
+    console.log(props.spotifyToken);
     useEffect(() => {
         const handleSearch = async () => {
             try {
@@ -77,6 +77,8 @@ const Soundtrack = (props) => {
                 }
                 setLoading(false);
             } catch (error) {
+                console.dir(error)
+                setLoading(false);
                 setResultsAlbum([]);
                 setResultsTrack([]);
             }
