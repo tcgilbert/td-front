@@ -106,6 +106,27 @@ const BuildBox = (props) => {
                 >
                     Soundtrack
                 </p>
+                <p
+                    onClick={() => setBuildOption("soundtrack")}
+                    id="soundtrack"
+                    className="build__pill"
+                >
+                    book
+                </p>
+                <p
+                    onClick={() => setBuildOption("soundtrack")}
+                    id="soundtrack"
+                    className="build__pill"
+                >
+                    podcast
+                </p>
+                <p
+                    onClick={() => setBuildOption("soundtrack")}
+                    id="soundtrack"
+                    className="build__pill"
+                >
+                    subtext
+                </p>
             </div>
             <div className="build__form-container">{handleForms()}</div>
         </div>

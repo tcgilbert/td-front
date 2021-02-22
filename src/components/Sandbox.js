@@ -53,10 +53,12 @@ const Sandbox = (props) => {
                                     background: snapshot.isDraggingOver
                                         ? "lightblue"
                                         : "lightgrey",
-                                    padding: 4,
+                                    paddingLeft: 4,
+                                    paddingRight: 4,
                                     width: "80%",
                                     height: "auto",
                                     margin: "2rem 0",
+                                    borderRadius: '1rem'
                                 }}
                             >
                                 {props.content.map((ele, idx) => {
