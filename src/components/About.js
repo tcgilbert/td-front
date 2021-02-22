@@ -57,7 +57,8 @@ const About = (props) => {
                 props.setPhoneLoading(true)
                 const cloudinaryRes = await uploadImage(profilePictureFile);
                 if (cloudinaryRes) {
-                    setFileName(cloudinaryRes.data.about.fileName)
+                    setFileName(cloudinaryRes.about.fileName)
+                    props.setAbout(cloudinaryRes.about)
                     setProfilePictureFile(null)
                     props.setPhoneLoading(false)
                 }
@@ -87,7 +88,8 @@ const About = (props) => {
                     publicId: props.about.pictureId
                 }
             );
-            return apiRes;
+            const data = await apiRes.data
+            return data;
         } catch (error) {
             console.log(error);
         }
