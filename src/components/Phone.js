@@ -62,7 +62,7 @@ const Phone = (props) => {
             {handleLoading()}
             <div className="phone__content">
                 <div className="phone__top">
-                    <img className="phone__profile-pic" src={User} alt="Profile Picture"/>
+                    <img className="phone__profile-pic" src={props.about.picture ? props.about.picture : User} alt="Profile Picture"/>
                     <p className="phone__name">
                         {props.about.nameShow ? props.about.name : ""}
                     </p>

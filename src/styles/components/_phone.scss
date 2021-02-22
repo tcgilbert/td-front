@@ -10,12 +10,10 @@
     background-color: #fff;
     
     &__profile-pic {
-        width: 4vw;
-        height: 4vw;
-        border: solid $color-dark 1px;
-
+        width: 6vw;
+        height: 6vw;
+        border: solid $color-dark 2px;
         border-radius: 10%;
-        padding: .5vw;
     }
 
     &__content {
