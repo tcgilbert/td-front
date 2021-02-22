@@ -4,8 +4,8 @@ import Location from "../images/placeholder.svg";
 import FeedBlurb from "./feed/FeedBlurb";
 import FeedLink from "./feed/FeedLink";
 import FeedSoundtrack from "./feed/FeedSoundtrack";
-import User from "../images/user.svg"
-import LoadingPhone from "./LoadingPhone"
+import User from "../images/user.svg";
+import LoadingPhone from "./LoadingPhone";
 
 const Phone = (props) => {
     const handleWork = () => {
@@ -41,10 +41,10 @@ const Phone = (props) => {
                     return <FeedSoundtrack ele={ele} key={idx} />;
                 } else if (ele.type === "link" && ele.show) {
                     return <FeedLink ele={ele} key={idx} />;
-                } else if (ele.type === "blurb" && ele.show){
+                } else if (ele.type === "blurb" && ele.show) {
                     return <FeedBlurb ele={ele} key={idx} />;
                 } else {
-                    return
+                    return;
                 }
             });
             return feed;
@@ -53,9 +53,9 @@ const Phone = (props) => {
 
     const handleLoading = () => {
         if (props.phoneLoading) {
-            return <LoadingPhone />
+            return <LoadingPhone />;
         }
-    }
+    };
 
     return (
         <div className="phone">

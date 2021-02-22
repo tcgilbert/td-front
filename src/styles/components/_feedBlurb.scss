@@ -1,17 +1,23 @@
 .feedblurb {
     text-align: left;
-    border: solid 1px $color-dark;
     margin: 1vw .5vw;
     padding: .5vw;
     border-radius: .5vw;
+    background-color: rgb(195, 212, 242);
 
     &__heading {
         font-size: 1.3vw;
         font-weight: 500;
+        // color: white;
     }
     
     &__content {
         font-size: 1vw;
         font-weight: 400;
+        // color: white;
     }
+}
+
+.feedblurb:hover {
+    background-color: rgb(162, 196, 254);
 }
