@@ -5,6 +5,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import DndBlurb from "./dnd/DndBlurb";
 import DndLink from "./dnd/DndLink";
 import DndSpotify from "./dnd/DndSpotify";
+import DndComment from "./dnd/DndComment"
 
 // dnd functions
 const onDragEnd = (result, content, setContent) => {
@@ -32,6 +33,8 @@ const Sandbox = (props) => {
             return <DndLink content={props.content} setContent={props.setContent} provided={provided} snapshot={snapshot} ele={ele} setContentLoading={props.setContentLoading}/>;
         } else if (ele.type === "soundtrack") {
             return <DndSpotify content={props.content} setContent={props.setContent} provided={provided} snapshot={snapshot} ele={ele} setContentLoading={props.setContentLoading}/>;
+        } else if (ele.type === "comment") {
+            return <DndComment content={props.content} setContent={props.setContent} provided={provided} snapshot={snapshot} ele={ele} setContentLoading={props.setContentLoading}/>;
         }
     };
     

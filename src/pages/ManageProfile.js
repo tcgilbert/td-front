@@ -85,6 +85,7 @@ const ManageProfile = (props) => {
                             return ele
                         }
                     }))
+                    console.log(content);
                     setContent(content);
                     setContentLoading(false);
                 } catch (error) {

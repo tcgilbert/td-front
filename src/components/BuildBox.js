@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Blurb from "./Blurb";
 import About from "./About";
 import Link from "./Link";
+import Comment from "./Comment";
 import Soundtrack from "./Soundtrack";
 
 const BuildBox = (props) => {
@@ -14,8 +15,9 @@ const BuildBox = (props) => {
             const blurbs = document.getElementById("blurbs");
             const soundtrack = document.getElementById("soundtrack");
             const links = document.getElementById("links");
+            const comment = document.getElementById("comment");
 
-            const buildOptions = [about, blurbs, soundtrack, links];
+            const buildOptions = [about, blurbs, soundtrack, links, comment];
             buildOptions.forEach((opt) => {
                 if (opt.id === buildOption) {
                     opt.classList.add("build__selected");
@@ -71,6 +73,15 @@ const BuildBox = (props) => {
                             content={props.content}
                         />
                     );
+                case "comment":
+                    return (
+                        <Comment
+                            user={props.user}
+                            setContentLoading={props.setContentLoading}
+                            setContent={props.setContent}
+                            content={props.content}
+                        />
+                    );
             }
         }
     };
@@ -90,14 +101,14 @@ const BuildBox = (props) => {
                     id="blurbs"
                     className="build__pill"
                 >
-                    Blurbs
+                    Blurb
                 </p>
                 <p
                     onClick={() => setBuildOption("links")}
                     id="links"
                     className="build__pill"
                 >
-                    Links
+                    Link
                 </p>
                 <p
                     onClick={() => setBuildOption("soundtrack")}
@@ -111,21 +122,14 @@ const BuildBox = (props) => {
                     id="soundtrack"
                     className="build__pill"
                 >
-                    book
+                    book/podcast
                 </p>
                 <p
-                    onClick={() => setBuildOption("soundtrack")}
-                    id="soundtrack"
+                    onClick={() => setBuildOption("comment")}
+                    id="comment"
                     className="build__pill"
                 >
-                    podcast
-                </p>
-                <p
-                    onClick={() => setBuildOption("soundtrack")}
-                    id="soundtrack"
-                    className="build__pill"
-                >
-                    subtext
+                    comment
                 </p>
             </div>
             <div className="build__form-container">{handleForms()}</div>
