@@ -64,7 +64,14 @@ const ManageProfile = (props) => {
                         if (ele.type !== "soundtrack") {
                             return ele
                         } else {
-                            let apiRes = await axios.get(`${spotifyEndpoint}${ele.content.type}s/${ele.content.spotifyId}`, 
+                            // console.log(ele.content);
+                            let url;
+                            if (ele.content.type === "show") {
+                                url = `${spotifyEndpoint}${ele.content.type}s/${ele.content.spotifyId}?market=US`
+                            } else {
+                                url = `${spotifyEndpoint}${ele.content.type}s/${ele.content.spotifyId}`
+                            }
+                            let apiRes = await axios.get(url, 
                             {
                                 method: "GET",
                                 headers: {
@@ -76,11 +83,14 @@ const ManageProfile = (props) => {
                                 ele.content["artists"] = newContent.artists
                                 ele.content["name"] = newContent.name
                                 ele.content["images"] = newContent.images
-                            } else {
+                            } else if (ele.content.type === "track"){ 
                                 ele.content["artists"] = newContent.artists
                                 ele.content["name"] = newContent.name
                                 ele.content["images"] = newContent.album.images
                                 ele.content["album"] = newContent.album.name
+                            } else {
+                                ele.content["name"] = newContent.name
+                                ele.content["images"] = newContent.images
                             }
                             return ele
                         }

@@ -17,7 +17,7 @@ const FeedSoundtrack = (props) => {
         <div className="feedsound">
             <img className="feedsound__image" src={content.images[0].url} alt="Album Art"/>
             <p className="feedsound__name">{content.name}</p>
-            {handleArtists(content.artists)}
+            {content.artists && handleArtists(content.artists)}
         </div>
     )
 }

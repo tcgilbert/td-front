@@ -44,18 +44,19 @@ const Soundtrack = (props) => {
     const [searchType, setSearchType] = useState("album");
     const [resultsAlbum, setResultsAlbum] = useState([]);
     const [resultsTrack, setResultsTrack] = useState([]);
+    const [resultsShow, setResultsShow] = useState([]);
     const [loading, setLoading] = useState(false);
     const [selectionMade, setSelectionMade] = useState(false);
     const SERVER = process.env.REACT_APP_SERVER;
     const spotifyEndpoint = "https://api.spotify.com/v1/search";
     const spotifyById = "https://api.spotify.com/v1/";
     const searchDebounced = useDeBounce(query, 1000);
-    console.log(props.spotifyToken);
+
     useEffect(() => {
         const handleSearch = async () => {
             try {
                 const apiRes = await axios.get(
-                    `${spotifyEndpoint}?q=${query}&type=${searchType}&limit=15 `,
+                    `${spotifyEndpoint}?q=${query}&type=${searchType}&limit=15&market=US`,
                     {
                         method: "GET",
                         headers: {
@@ -63,7 +64,6 @@ const Soundtrack = (props) => {
                         },
                     }
                 );
-                console.log(apiRes);
                 let searchData;
                 switch (searchType) {
                     case "album":
@@ -74,10 +74,13 @@ const Soundtrack = (props) => {
                         searchData = await apiRes.data.tracks.items;
                         setResultsTrack(searchData);
                         break;
+                    case "show":
+                        searchData = await apiRes.data.shows.items;
+                        setResultsShow(searchData)
                 }
                 setLoading(false);
             } catch (error) {
-                console.dir(error)
+                console.dir(error);
                 setLoading(false);
                 setResultsAlbum([]);
                 setResultsTrack([]);
@@ -104,41 +107,50 @@ const Soundtrack = (props) => {
             return <p className="soundtrack__artist-name">{array[0].name}</p>;
         } else {
             const artists = array.map((artist, idx) => {
-                return <p className="soundtrack__artist-name" key={idx}>{artist.name}</p>;
+                return (
+                    <p className="soundtrack__artist-name" key={idx}>
+                        {artist.name}
+                    </p>
+                );
             });
-            return artists
+            return artists;
         }
     };
 
     const handleSelection = async (ele, type) => {
-        try {            
+        try {
             const apiRes = await axios.post(`${SERVER}/soundtrack/create`, {
                 userId: props.user.id,
                 type: type,
                 spotifyId: ele.id,
-                comment: ""
-            })
+                comment: "",
+            });
             const newContent = await apiRes.data.reformatted;
-            let spotifyRes = await axios.get(`${spotifyById}${newContent.content.type}s/${newContent.content.spotifyId}`, 
-            {
-                method: "GET",
-                headers: {
-                    Authorization: "Bearer " + props.spotifyToken,
-                },
-            })
-            let soundData = await spotifyRes.data
+            let spotifyRes = await axios.get(
+                `${spotifyById}${newContent.content.type}s/${newContent.content.spotifyId}`,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer " + props.spotifyToken,
+                    },
+                }
+            );
+            let soundData = await spotifyRes.data;
             if (newContent.content.type === "album") {
-                newContent.content["artists"] = soundData.artists
-                newContent.content["name"] = soundData.name
-                newContent.content["images"] = soundData.images
+                newContent.content["artists"] = soundData.artists;
+                newContent.content["name"] = soundData.name;
+                newContent.content["images"] = soundData.images;
+            } else if (newContent.content.type === "track") {
+                newContent.content["artists"] = soundData.artists;
+                newContent.content["name"] = soundData.name;
+                newContent.content["images"] = soundData.album.images;
+                newContent.content["album"] = soundData.album.name;
             } else {
-                newContent.content["artists"] = soundData.artists
-                newContent.content["name"] = soundData.name
-                newContent.content["images"] = soundData.album.images
-                newContent.content["album"] = soundData.album.name
+                newContent.content["name"] = soundData.name;
+                newContent.content["images"] = soundData.images;
             }
-            const copiedContent = [...props.content, newContent]
-            props.setContent(copiedContent)
+            const copiedContent = [...props.content, newContent];
+            props.setContent(copiedContent);
         } catch (error) {
             console.log(error);
         }
@@ -220,6 +232,42 @@ const Soundtrack = (props) => {
                     }
                 });
                 return results;
+            } else if (searchType === "show" && resultsShow.length > 0) {
+                console.log(resultsShow);
+                const results = resultsShow.map((show, idx) => {
+                    if (show.name && show.images[0]) {
+                        return (
+                            <div key={idx} className="soundtrack__result">
+                                <div>
+                                    <div className="soundtrack__img-info">
+                                        <img
+                                            className="soundtrack__result-img"
+                                            src={show.images[0].url}
+                                            alt="Album Image"
+                                        />
+                                        <div>
+                                            <p className="soundtrack__album-name">
+                                                {show.name}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() =>
+                                        handleSelection(show, "show")
+                                    }
+                                    className="soundtrack__btn"
+                                >
+                                    <p>Add</p>
+                                    <p>Podcast</p>
+                                </button>
+                            </div>
+                        )
+                    } else {
+                        return
+                    }
+                })
+                return results
             } else {
                 let text;
                 if (query === "") {
@@ -231,7 +279,6 @@ const Soundtrack = (props) => {
             }
         }
     };
-
 
     return (
         <div className="build__form">
@@ -257,6 +304,9 @@ const Soundtrack = (props) => {
                         </MenuItem>
                         <MenuItem className={classes.menuItem} value="track">
                             Track
+                        </MenuItem>
+                        <MenuItem className={classes.menuItem} value="show">
+                            Podcast
                         </MenuItem>
                     </Select>
                 </FormControl>

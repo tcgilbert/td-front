@@ -3,7 +3,7 @@
     margin: 1vw .5vw;
     border-radius: .5vw;
     padding: 1vw;
-    background-color: rgb(242, 195, 195);
+    background-color: rgb(245, 162, 162);
 
     &__atag {
         text-decoration: none;
@@ -19,5 +19,6 @@
 
 .feedlink:hover {
     cursor: pointer;
-    background-color: rgb(245, 162, 162);
+    
+    background-color: rgb(242, 195, 195);
 }

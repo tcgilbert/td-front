@@ -124,7 +124,7 @@ const DndSpotify = (props) => {
                 />
                 <div>
                     <p className="spotify__lead">{name}</p>
-                    <p>{handleArtists(artists)}</p>
+                    {artists && <p>{handleArtists(artists)}</p>}
                 </div>
             </div>
             <DeleteDiv
