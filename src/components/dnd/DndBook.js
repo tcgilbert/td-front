@@ -119,7 +119,7 @@ const DndBook = (props) => {
             </div>
             <div className="spotify__container">
                 <img
-                    className="spotify__img"
+                    className="spotify__img-book"
                     src={imgUrl}
                     alt="Album Art"
                 />

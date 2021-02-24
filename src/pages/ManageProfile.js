@@ -52,6 +52,8 @@ const ManageProfile = (props) => {
         const fetchContent = async () => {
             if (contentLoading && props.user.id && spotifyToken) {
                 try {
+                    setPhoneLoading(true)
+                    
                     const apiRes = await axios.get(
                         `${SERVER}/about/${props.user.id}`
                     );
@@ -106,6 +108,7 @@ const ManageProfile = (props) => {
                         }
                     }))
                     setContent(content);
+                    setPhoneLoading(false)
                     setContentLoading(false);
                 } catch (error) {
                     console.log(error);

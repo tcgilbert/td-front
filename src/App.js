@@ -2,13 +2,14 @@ import "./styles/App.scss";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useState, useEffect } from "react";
-import { Route, Redirect, useHistory } from "react-router-dom";
+import { Route, Redirect, useHistory, Switch } from "react-router-dom";
 
 // pages
 import LandingPage from "./pages/LandingPage";
 import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
-import ManageProfile from "./pages/ManageProfile"
+import ManageProfile from "./pages/ManageProfile";
+import UserPage from "./pages/UserPage";
 
 // utils
 import setAuthToken from "./utils/setAuthToken";
@@ -39,29 +40,31 @@ function App() {
     // Check for token in local storage
     useEffect(() => {
         const checkToken = async () => {
-            const token = localStorage.getItem("jwtToken")
+            const token = localStorage.getItem("jwtToken");
             if (token) {
                 try {
-                    const apiRes = await axios.post(`${SERVER}/users/check-token`, {
-                        token
-                    })
+                    const apiRes = await axios.post(
+                        `${SERVER}/users/check-token`,
+                        {
+                            token,
+                        }
+                    );
                     if (apiRes.data.userFound) {
-                        const userInfo = jwt_decode(token)
-                        setCurrentUser(userInfo)
-                        setIsAuthenticated(true)
-                        setAuthToken(token)
-                        history.push("/manage")
+                        const userInfo = jwt_decode(token);
+                        setCurrentUser(userInfo);
+                        setIsAuthenticated(true);
+                        setAuthToken(token);
+                        // history.push("/manage");
                     }
                 } catch (error) {
-                    handleLogout()
+                    handleLogout();
                 }
             } else {
                 console.log("no token :(");
             }
-        }
-        checkToken()
-    }, [])
-
+        };
+        checkToken();
+    }, []);
 
     // Handle Login
     const handleLogin = async (values) => {
@@ -82,7 +85,7 @@ function App() {
             // set the current user
             setCurrentUser(userInfo);
             setIsAuthenticated(true);
-            history.push("/manage")
+            history.push("/manage");
         } catch (error) {
             console.log(error);
         }
@@ -106,11 +109,10 @@ function App() {
                 password: values.password,
             });
             if (createdUser) {
-              handleLogin(values)
+                handleLogin(values);
             }
         } catch (error) {
             console.log(error);
-            
         }
     };
 
@@ -125,27 +127,35 @@ function App() {
                     }}
                 />
             </div>
-            <Route
-                exact
-                path="/register"
-                render={() => {
-                    return <SignUp handleSignUp={handleSignUp} />;
-                }}
-            />
-            <Route
-                exact
-                path="/login"
-                render={() => {
-                    return <LogIn handleLogin={handleLogin} />;
-                }}
-            />
-            <PrivateRoute
-                exact
-                path="/manage"
-                component={ManageProfile}
-                user={currentUser}
-                handleLogout={handleLogout}
-            />
+            <Switch>
+                <Route
+                    exact
+                    path="/register"
+                    render={() => {
+                        return <SignUp handleSignUp={handleSignUp} />;
+                    }}
+                />
+                <Route
+                    exact
+                    path="/login"
+                    render={() => {
+                        return <LogIn handleLogin={handleLogin} />;
+                    }}
+                />
+                <PrivateRoute
+                    exact
+                    strict
+                    path="/manage"
+                    component={ManageProfile}
+                    user={currentUser}
+                    handleLogout={handleLogout}
+                />
+                <Route
+                    exact
+                    path="/:username"
+                    component={UserPage}
+                />
+            </Switch>
         </div>
     );
 }
