@@ -76,7 +76,7 @@ const Soundtrack = (props) => {
                         break;
                     case "show":
                         searchData = await apiRes.data.shows.items;
-                        setResultsShow(searchData)
+                        setResultsShow(searchData);
                 }
                 setLoading(false);
             } catch (error) {
@@ -126,8 +126,14 @@ const Soundtrack = (props) => {
                 comment: "",
             });
             const newContent = await apiRes.data.reformatted;
+            let url;
+            if (await newContent.content.type === "show") {
+                url = `${spotifyById}${newContent.content.type}s/${newContent.content.spotifyId}?market=US`;
+            } else {
+                url = `${spotifyById}${newContent.content.type}s/${newContent.content.spotifyId}`;
+            }
             let spotifyRes = await axios.get(
-                `${spotifyById}${newContent.content.type}s/${newContent.content.spotifyId}`,
+                url,
                 {
                     method: "GET",
                     headers: {
@@ -262,12 +268,12 @@ const Soundtrack = (props) => {
                                     <p>Podcast</p>
                                 </button>
                             </div>
-                        )
+                        );
                     } else {
-                        return
+                        return;
                     }
-                })
-                return results
+                });
+                return results;
             } else {
                 let text;
                 if (query === "") {
