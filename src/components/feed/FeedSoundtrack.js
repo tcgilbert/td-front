@@ -17,11 +17,21 @@ const handleArtists = (array) => {
 
 const FeedSoundtrack = (props) => {
     const { content } = props.ele;
+    console.log(props.ele);
+
+    // const handleType = () => {
+    //     if (props.ele.type === "show") {
+    //         return "podcast";
+    //     } else {
+    //         return props.ele.type;
+    //     }
+    // };
 
     const handleContentType = () => {
         if (content.type === "show") {
             return (
                 <div className="feedsound-pod">
+                    <p className="feedsound__type-pod">podcast</p>
                     <img
                         className="feedsound__image"
                         src={content.images[0].url}
@@ -34,6 +44,7 @@ const FeedSoundtrack = (props) => {
         } else {
             return (
                 <div className="feedsound">
+                    <p className="feedsound__type">{content.type}</p>
                     <img
                         className="feedsound__image"
                         src={content.images[0].url}

@@ -32,6 +32,24 @@
     &__artist {
         font-size: 1vw;
     }
+
+    &__type {
+        position: absolute;
+        top: .1vw;
+        left: .5vw;
+        font-size: 1vw;
+        font-weight: 600;
+        color: rgb(145, 95, 1);
+    }
+
+    &__type-pod {
+        position: absolute;
+        top: 0vw;
+        left: .5vw;
+        font-size: 1vw;
+        font-weight: 600;
+        color: purple;
+    }
 }
 
 .feedsound-pod {

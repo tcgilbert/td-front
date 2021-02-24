@@ -15,12 +15,13 @@ const handleAuthors = (array) => {
     }
 };
 
-const FeedSoundtrack = (props) => {
+const FeedBook = (props) => {
     const { content } = props.ele;
 
 
     return (
         <div className="feedbook">
+            <p className="feedbook__type">book</p>
             <img
                 className="feedbook__image"
                 src={content.imgUrl}
@@ -32,4 +33,4 @@ const FeedSoundtrack = (props) => {
     );
 };
 
-export default FeedSoundtrack;
+export default FeedBook;
