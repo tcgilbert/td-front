@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import LoadingBar from "./LoadingBar"
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -52,9 +53,9 @@ const Blurb = (props) => {
     }, [heading, content]);
 
     const handleSubmit = async () => {
-        console.log(props.content);
         if (heading !== "" || content !== "") {
-            try {                
+            try {
+                props.setPhoneLoading(true)                
                 const apiRes = await axios.post(`${SERVER}/blurb/create`, {
                     userId: props.user.id,
                     heading: heading,
@@ -66,6 +67,8 @@ const Blurb = (props) => {
                 props.setContent(copiedContent)
                 setHeading("")
                 setContent("")
+                props.setPhoneLoading(false)
+                props.setShow(false)
             } catch (error) {
                 console.log(error);
             }
@@ -74,6 +77,12 @@ const Blurb = (props) => {
             return;
         }
     };
+
+    const handleLoading = () => {
+        if (props.phoneLoading) {
+            return <LoadingBar />
+        }
+    }
 
     return (
         <div className="build__form">
@@ -112,6 +121,7 @@ const Blurb = (props) => {
             <button onClick={handleSubmit} id="blurb-btn" className="build__btn">
                 Add Blurb
             </button>
+            {handleLoading()}
         </div>
     );
 };

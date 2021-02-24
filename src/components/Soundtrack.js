@@ -6,6 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import useDeBounce from "../utils/useDeBouce";
 import Loading from "./Loading";
+import LoadingBar from "./LoadingBar";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +47,6 @@ const Soundtrack = (props) => {
     const [resultsTrack, setResultsTrack] = useState([]);
     const [resultsShow, setResultsShow] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [selectionMade, setSelectionMade] = useState(false);
     const SERVER = process.env.REACT_APP_SERVER;
     const spotifyEndpoint = "https://api.spotify.com/v1/search";
     const spotifyById = "https://api.spotify.com/v1/";
@@ -119,6 +119,7 @@ const Soundtrack = (props) => {
 
     const handleSelection = async (ele, type) => {
         try {
+            props.setPhoneLoading(true);
             const apiRes = await axios.post(`${SERVER}/soundtrack/create`, {
                 userId: props.user.id,
                 type: type,
@@ -126,20 +127,17 @@ const Soundtrack = (props) => {
             });
             const newContent = await apiRes.data.reformatted;
             let url;
-            if (await newContent.content.type === "show") {
+            if ((await newContent.content.type) === "show") {
                 url = `${spotifyById}${newContent.content.type}s/${newContent.content.spotifyId}?market=US`;
             } else {
                 url = `${spotifyById}${newContent.content.type}s/${newContent.content.spotifyId}`;
             }
-            let spotifyRes = await axios.get(
-                url,
-                {
-                    method: "GET",
-                    headers: {
-                        Authorization: "Bearer " + props.spotifyToken,
-                    },
-                }
-            );
+            let spotifyRes = await axios.get(url, {
+                method: "GET",
+                headers: {
+                    Authorization: "Bearer " + props.spotifyToken,
+                },
+            });
             let soundData = await spotifyRes.data;
             if (newContent.content.type === "album") {
                 newContent.content["artists"] = soundData.artists;
@@ -156,6 +154,8 @@ const Soundtrack = (props) => {
             }
             const copiedContent = [...props.content, newContent];
             props.setContent(copiedContent);
+            props.setPhoneLoading(false);
+            props.setShow(false)
         } catch (error) {
             console.log(error);
         }
@@ -284,6 +284,12 @@ const Soundtrack = (props) => {
         }
     };
 
+    const handleLoading = () => {
+        if (props.phoneLoading) {
+            return <LoadingBar />;
+        }
+    };
+
     return (
         <div className="build__form">
             <h1 className="build__prompt">
@@ -330,6 +336,7 @@ const Soundtrack = (props) => {
                 />
             </div>
             <div className="soundtrack__results">{resultsDisplayed()}</div>
+            {handleLoading()}
         </div>
     );
 };

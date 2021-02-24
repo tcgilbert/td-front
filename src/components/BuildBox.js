@@ -6,7 +6,6 @@ import Comment from "./Comment";
 import Soundtrack from "./Soundtrack";
 import Book from "./Book";
 
-
 const BuildBox = (props) => {
     const [buildOption, setBuildOption] = useState("about");
 
@@ -20,7 +19,14 @@ const BuildBox = (props) => {
             const comment = document.getElementById("comment");
             const book = document.getElementById("book");
 
-            const buildOptions = [about, blurbs, soundtrack, links, comment, book];
+            const buildOptions = [
+                about,
+                blurbs,
+                soundtrack,
+                links,
+                comment,
+                book,
+            ];
             buildOptions.forEach((opt) => {
                 if (opt.id === buildOption) {
                     opt.classList.add("build__selected");
@@ -51,10 +57,14 @@ const BuildBox = (props) => {
                 case "blurbs":
                     return (
                         <Blurb
+                            
                             user={props.user}
                             setContentLoading={props.setContentLoading}
                             setContent={props.setContent}
                             content={props.content}
+                            setShow={props.setShow}
+                            phoneLoading={props.phoneLoading}
+                            setPhoneLoading={props.setPhoneLoading}
                         />
                     );
                 case "links":
@@ -64,6 +74,9 @@ const BuildBox = (props) => {
                             setContentLoading={props.setContentLoading}
                             setContent={props.setContent}
                             content={props.content}
+                            setShow={props.setShow}
+                            phoneLoading={props.phoneLoading}
+                            setPhoneLoading={props.setPhoneLoading}
                         />
                     );
                 case "soundtrack":
@@ -74,6 +87,9 @@ const BuildBox = (props) => {
                             spotifyToken={props.spotifyToken}
                             setContent={props.setContent}
                             content={props.content}
+                            setShow={props.setShow}
+                            phoneLoading={props.phoneLoading}
+                            setPhoneLoading={props.setPhoneLoading}
                         />
                     );
                 case "comment":
@@ -83,8 +99,11 @@ const BuildBox = (props) => {
                             setContentLoading={props.setContentLoading}
                             setContent={props.setContent}
                             content={props.content}
+                            setShow={props.setShow}
+                            phoneLoading={props.phoneLoading}
+                            setPhoneLoading={props.setPhoneLoading}
                         />
-                    );       
+                    );
                 case "book":
                     return (
                         <Book
@@ -92,6 +111,9 @@ const BuildBox = (props) => {
                             setContentLoading={props.setContentLoading}
                             setContent={props.setContent}
                             content={props.content}
+                            setShow={props.setShow}
+                            phoneLoading={props.phoneLoading}
+                            setPhoneLoading={props.setPhoneLoading}
                         />
                     );
             }

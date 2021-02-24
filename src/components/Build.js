@@ -37,6 +37,7 @@ const Build = (props) => {
                     setPhoneLoading={props.setPhoneLoading}
                     phoneLoading={props.phoneLoading}
                     spotifyToken={props.spotifyToken}
+                    setShow={setShow}
                 />
             );
         } else {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
+import LoadingBar from "./LoadingBar"
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +58,7 @@ const Link = (props) => {
             return;
         } else {
             try {
+                props.setPhoneLoading(true)
                 const apiRes = await axios.post(`${SERVER}/link/create`, {
                     url: link,
                     title: title,
@@ -65,6 +67,8 @@ const Link = (props) => {
                 const newContent = await apiRes.data.reformatted;
                 const copiedContent = [...props.content, newContent];
                 props.setContent(copiedContent);
+                props.setPhoneLoading(false)
+                props.setShow(false)
                 setLink("")
                 setTitle("")
             } catch (error) {
@@ -72,6 +76,12 @@ const Link = (props) => {
             }
         }
     };
+
+    const handleLoading = () => {
+        if (props.phoneLoading) {
+            return <LoadingBar />
+        }
+    }
 
     return (
         <div className="build__form">
@@ -110,6 +120,7 @@ const Link = (props) => {
             <button onClick={handleSubmit} id="link-btn" className="build__btn">
                 Add Link
             </button>
+            {handleLoading()}
         </div>
     );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import LoadingBar from "./LoadingBar"
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -51,6 +52,7 @@ const Comment = (props) => {
             return;
         } else {
             try {
+                props.setPhoneLoading(true)
                 const apiRes = await axios.post(`${SERVER}/comment/create`, {
                     comment: comment,
                     userId: props.user.id,
@@ -58,12 +60,20 @@ const Comment = (props) => {
                 const newContent = await apiRes.data.reformatted;
                 const copiedContent = [...props.content, newContent];
                 props.setContent(copiedContent);
+                props.setPhoneLoading(false)
+                props.setShow(false)
                 setComment("")
             } catch (error) {
                 console.log(error);
             }
         }
     };
+
+    const handleLoading = () => {
+        if (props.phoneLoading) {
+            return <LoadingBar />
+        }
+    }
 
     return (
         <div className="build__form">

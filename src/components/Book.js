@@ -3,6 +3,7 @@ import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import useDeBounce from "../utils/useDeBouce";
 import Loading from "./Loading";
+import LoadingBar from "./LoadingBar"
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -112,6 +113,7 @@ const Book = (props) => {
 
     const handleSelection = async (ele) => {
         try {
+            props.setPhoneLoading(true)
             const apiRes = await axios.post(`${SERVER}/book/create`, {
                 userId: props.user.id,
                 title: ele.title,
@@ -121,17 +123,25 @@ const Book = (props) => {
             console.log(newContent);
             let googleRes = await axios.get(
                 `https://www.googleapis.com/books/v1/volumes/${newContent.content.apiId}?key=${API_KEY}`
-            );
-            let bookContent = await googleRes.data.volumeInfo
-            console.log(bookContent.imageLinks.thumbnail);
-            newContent.content["authors"] = bookContent.authors
-            newContent.content["imgUrl"] = bookContent.imageLinks.thumbnail
-            const copiedContent = [...props.content, newContent];
-            props.setContent(copiedContent);
+                );
+                let bookContent = await googleRes.data.volumeInfo
+                console.log(bookContent.imageLinks.thumbnail);
+                newContent.content["authors"] = bookContent.authors
+                newContent.content["imgUrl"] = bookContent.imageLinks.thumbnail
+                const copiedContent = [...props.content, newContent];
+                props.setContent(copiedContent);
+                props.setPhoneLoading(false)
+                props.setShow(false)
         } catch (error) {
             console.log(error);
         }
     };
+
+    const handleLoading = () => {
+        if (props.phoneLoading) {
+            return <LoadingBar />
+        }
+    }
 
     const resultsDisplayed = () => {
         if (loading) {
@@ -204,6 +214,7 @@ const Book = (props) => {
                 />
             </div>
             <div className="soundtrack__results">{resultsDisplayed()}</div>
+            {handleLoading()}
         </div>
     );
 };
