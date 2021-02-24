@@ -8,6 +8,7 @@ import FeedSoundtrack from "./feed/FeedSoundtrack";
 import FeedBook from "./feed/FeedBook";
 import User from "../images/user.svg";
 import LoadingPhone from "./LoadingPhone";
+import Logo from "../images/logo.svg";
 
 const Phone = (props) => {
     const handleWork = () => {
@@ -66,23 +67,33 @@ const Phone = (props) => {
     return (
         <div className="phone">
             {handleLoading()}
-            <div className="phone__content">
-                <div className="phone__top">
-                    <img
-                        className="phone__profile-pic"
-                        src={props.about.picture ? props.about.picture : User}
-                        alt="Profile Picture"
-                    />
-                    <p className="phone__name">
-                        {props.about.nameShow ? props.about.name : ""}
-                    </p>
-                    <p className="phone__username">@{props.user.username}</p>
+            <div className="phone__content-container">
+                <div className="phone__content">
+                    <div className="phone__top">
+                        <img
+                            className="phone__profile-pic"
+                            src={
+                                props.about.picture ? props.about.picture : User
+                            }
+                            alt="Profile Picture"
+                        />
+                        <p className="phone__name">
+                            {props.about.nameShow ? props.about.name : ""}
+                        </p>
+                        <p className="phone__username">
+                            @{props.user.username}
+                        </p>
+                    </div>
+                    <div className="phone__about">
+                        {handleWork()}
+                        {handleLocation()}
+                    </div>
+                    <div className="phone__content">{handleContent()}</div>
+                    <div className="phone__logo-container">
+                        <img className="phone__logo" src={Logo} alt="logo" />
+                        <p className="phone__logo-text">thesedays</p>
+                    </div>
                 </div>
-                <div className="phone__about">
-                    {handleWork()}
-                    {handleLocation()}
-                </div>
-                <div className="phone__content">{handleContent()}</div>
             </div>
         </div>
     );
