@@ -14,6 +14,17 @@
         align-items: center;
     }
 
+    &__tag-pod {
+        color: white;
+        border-radius: .5rem .5rem 0 0;
+        background-color: purple;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: .5rem .8rem .5rem .5rem;
+        align-items: center;
+    }
+
     &__container {
         padding: .5rem;
         cursor: default;

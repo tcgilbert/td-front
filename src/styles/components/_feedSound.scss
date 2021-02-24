@@ -32,7 +32,21 @@
     }
 }
 
-.feedsound:hover {
+.feedsound-pod {
+    position: relative;
+    margin: 1vw .5vw;
+    padding: 1vw;
+    border-radius: .5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(189, 131, 255);
+}
 
+.feedsound-pod:hover {
+    background-color: rgb(206, 165, 254);
+}
+
+.feedsound:hover {
     background-color: rgb(249, 219, 175);
 }
