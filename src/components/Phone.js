@@ -5,6 +5,7 @@ import FeedBlurb from "./feed/FeedBlurb";
 import FeedLink from "./feed/FeedLink";
 import FeedComment from "./feed/FeedComment";
 import FeedSoundtrack from "./feed/FeedSoundtrack";
+import FeedBook from "./feed/FeedBook";
 import User from "../images/user.svg";
 import LoadingPhone from "./LoadingPhone";
 
@@ -46,6 +47,8 @@ const Phone = (props) => {
                     return <FeedBlurb ele={ele} key={idx} />;
                 } else if (ele.type === "comment" && ele.show) {
                     return <FeedComment ele={ele} key={idx} />;
+                } else if (ele.type === "book" && ele.show) {
+                    return <FeedBook ele={ele} key={idx} />;
                 } else {
                     return;
                 }

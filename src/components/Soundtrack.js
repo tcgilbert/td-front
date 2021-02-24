@@ -123,7 +123,6 @@ const Soundtrack = (props) => {
                 userId: props.user.id,
                 type: type,
                 spotifyId: ele.id,
-                comment: "",
             });
             const newContent = await apiRes.data.reformatted;
             let url;
@@ -239,7 +238,6 @@ const Soundtrack = (props) => {
                 });
                 return results;
             } else if (searchType === "show" && resultsShow.length > 0) {
-                console.log(resultsShow);
                 const results = resultsShow.map((show, idx) => {
                     if (show.name && show.images[0]) {
                         return (

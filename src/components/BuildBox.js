@@ -4,6 +4,8 @@ import About from "./About";
 import Link from "./Link";
 import Comment from "./Comment";
 import Soundtrack from "./Soundtrack";
+import Book from "./Book";
+
 
 const BuildBox = (props) => {
     const [buildOption, setBuildOption] = useState("about");
@@ -16,8 +18,9 @@ const BuildBox = (props) => {
             const soundtrack = document.getElementById("soundtrack");
             const links = document.getElementById("links");
             const comment = document.getElementById("comment");
+            const book = document.getElementById("book");
 
-            const buildOptions = [about, blurbs, soundtrack, links, comment];
+            const buildOptions = [about, blurbs, soundtrack, links, comment, book];
             buildOptions.forEach((opt) => {
                 if (opt.id === buildOption) {
                     opt.classList.add("build__selected");
@@ -81,6 +84,15 @@ const BuildBox = (props) => {
                             setContent={props.setContent}
                             content={props.content}
                         />
+                    );       
+                case "book":
+                    return (
+                        <Book
+                            user={props.user}
+                            setContentLoading={props.setContentLoading}
+                            setContent={props.setContent}
+                            content={props.content}
+                        />
                     );
             }
         }
@@ -115,14 +127,14 @@ const BuildBox = (props) => {
                     id="soundtrack"
                     className="build__pill"
                 >
-                    Soundtrack
+                    Audio
                 </p>
                 <p
-                    onClick={() => setBuildOption("soundtrack")}
-                    id="soundtrack"
+                    onClick={() => setBuildOption("book")}
+                    id="book"
                     className="build__pill"
                 >
-                    book/podcast
+                    book
                 </p>
                 <p
                     onClick={() => setBuildOption("comment")}

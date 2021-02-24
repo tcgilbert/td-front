@@ -17,6 +17,7 @@ const ManageProfile = (props) => {
     const spotifyEndpoint = "https://api.spotify.com/v1/";
     const spotifyId = process.env.REACT_APP_SPOTIFY_ID;
     const spotifySecret = process.env.REACT_APP_SPOTIFY_SECRET;
+    const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
     // Fetch spotify token
     useEffect(() => {
@@ -61,9 +62,9 @@ const ManageProfile = (props) => {
                     );
                     const content = apiRes2.data.userContent;
                     await Promise.all(content.map(async (ele) => {
-                        if (ele.type !== "soundtrack") {
+                        if (ele.type !== "soundtrack" && ele.type !== "book") {
                             return ele
-                        } else {
+                        } else if (ele.type === "soundtrack") {
                             // console.log(ele.content);
                             let url;
                             if (ele.content.type === "show") {
@@ -93,9 +94,17 @@ const ManageProfile = (props) => {
                                 ele.content["images"] = newContent.images
                             }
                             return ele
+                        } else {
+                            let googleRes = await axios.get(
+                                `https://www.googleapis.com/books/v1/volumes/${ele.content.apiId}?key=${GOOGLE_API_KEY}`
+                            );
+                            let bookContent = await googleRes.data.volumeInfo
+                            console.log(bookContent);
+                            ele.content["authors"] = bookContent.authors
+                            ele.content["imgUrl"] = bookContent.imageLinks.thumbnail
+                            return ele
                         }
                     }))
-                    console.log(content);
                     setContent(content);
                     setContentLoading(false);
                 } catch (error) {
