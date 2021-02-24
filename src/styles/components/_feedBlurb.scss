@@ -3,22 +3,23 @@
     margin: 1vw .5vw;
     padding: .5vw;
     border-radius: .5vw;
-    background-color: rgb(162, 196, 254);
+    background-color: rgb(68, 137, 255);
+    border: solid .15vw blue;
     
 
     &__heading {
         font-size: 1.3vw;
         font-weight: 500;
-        // color: white;
+        color: white;
     }
     
     &__content {
         font-size: 1vw;
         font-weight: 400;
-        // color: white;
+        color: white;
     }
 }
 
 .feedblurb:hover {
-    background-color: rgb(195, 212, 242);
+    background-color: rgb(95, 153, 254);
 }

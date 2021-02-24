@@ -3,7 +3,8 @@
     margin: 1vw .5vw;
     border-radius: .5vw;
     padding: 1vw;
-    background-color: rgb(245, 162, 162);
+    background-color: rgb(240, 114, 114);
+    border: solid .15vw rgb(210, 45, 45);
 
     &__atag {
         text-decoration: none;
@@ -12,7 +13,7 @@
     &__title {
         font-size: 1.5vw;
         font-weight: 500;
-        color: black;
+        color: white;
         letter-spacing: 1px;
     }
 }
@@ -20,5 +21,5 @@
 .feedlink:hover {
     cursor: pointer;
     
-    background-color: rgb(242, 195, 195);
+    background-color: rgb(242, 149, 149);
 }
