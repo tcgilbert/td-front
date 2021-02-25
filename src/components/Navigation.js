@@ -7,7 +7,6 @@ const Navigation = (props) => {
             return (
                 <>
                     <NavLink
-                        onClick={props.handleLogout}
                         className="navigation__link"
                         to="/manage"
                     >
@@ -53,10 +52,7 @@ const Navigation = (props) => {
             <div>
                 <ul className="navigation__list">
                     {handleButtons()}
-                    {/* <NavLink className="navigation__link" to="/login">
-                        log in
-                        <div className="navigation__underline"></div>
-                    </NavLink> */}
+
                 </ul>
             </div>
         </div>

@@ -81,6 +81,7 @@ const DndComment = (props) => {
     // Update show value on switch change
     const handleShowChange = async (bool, id) => {
         try {
+            props.setPhoneLoading(true)
             const apiRes = await axios.put(`${SERVER}/content/update/show`, {
                 id: props.ele.id,
                 show: bool,
@@ -93,9 +94,11 @@ const DndComment = (props) => {
                     return ele;
                 });
                 props.setContent(updatedContent);
+                props.setPhoneLoading(false)
             }
         } catch (error) {
             console.log(error);
+            props.setPhoneLoading(false)
         }
     };
 
@@ -107,20 +110,26 @@ const DndComment = (props) => {
         if (comment === props.ele.content.comment) {
             return;
         } else {
-            const apiRes = await axios.put(`${SERVER}/comment/update`, {
-                id: props.ele.content.id,
-                newComment: comment
-            });
-            if (apiRes) {
-                const updatedComment = await apiRes.data.comment;
-                const updatedContent = props.content.map((ele) => {
-                    if (ele.id === props.ele.id) {
-                        ele.content = updatedComment;
-                    }
-                    return ele;
+            try {
+                props.setPhoneLoading(true)
+                const apiRes = await axios.put(`${SERVER}/comment/update`, {
+                    id: props.ele.content.id,
+                    newComment: comment
                 });
-                props.setContent(updatedContent);
-                setEditSelected(false);
+                if (apiRes) {
+                    const updatedComment = await apiRes.data.comment;
+                    const updatedContent = props.content.map((ele) => {
+                        if (ele.id === props.ele.id) {
+                            ele.content = updatedComment;
+                        }
+                        return ele;
+                    });
+                    props.setContent(updatedContent);
+                    setEditSelected(false);
+                    props.setPhoneLoading(false)
+                }
+            } catch (error) {
+                props.setPhoneLoading(false)
             }
         }
     };
@@ -234,6 +243,7 @@ const DndComment = (props) => {
                 ele={props.ele}
                 setDeleteSelected={setDeleteSelected}
                 setContentLoading={props.setContentLoading}
+                setPhoneLoading={props.setPhoneLoading}
             />
         </div>
     );

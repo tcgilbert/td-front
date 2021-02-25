@@ -88,6 +88,7 @@ const DndLink = (props) => {
     // Update show value on switch change
     const handleShowChange = async (bool, id) => {
         try {
+            props.setPhoneLoading(true)
             const apiRes = await axios.put(`${SERVER}/content/update/show`, {
                 id: props.ele.id,
                 show: bool,
@@ -100,8 +101,10 @@ const DndLink = (props) => {
                     return ele;
                 });
                 props.setContent(updatedContent);
+                props.setPhoneLoading(false)
             }
         } catch (error) {
+            props.setPhoneLoading(false)
             console.log(error);
         }
     };
@@ -117,21 +120,28 @@ const DndLink = (props) => {
         ) {
             return;
         } else {
-            const apiRes = await axios.put(`${SERVER}/link/update`, {
-                id: props.ele.content.id,
-                newUrl: url,
-                newTitle: title,
-            });
-            if (apiRes) {
-                const updatedLink = await apiRes.data.link;
-                const updatedContent = props.content.map((ele) => {
-                    if (ele.id === props.ele.id) {
-                        ele.content = updatedLink;
-                    }
-                    return ele;
+            try {
+                props.setPhoneLoading(true)
+                const apiRes = await axios.put(`${SERVER}/link/update`, {
+                    id: props.ele.content.id,
+                    newUrl: url,
+                    newTitle: title,
                 });
-                props.setContent(updatedContent);
-                setEditSelected(false);
+                if (apiRes) {
+                    const updatedLink = await apiRes.data.link;
+                    const updatedContent = props.content.map((ele) => {
+                        if (ele.id === props.ele.id) {
+                            ele.content = updatedLink;
+                        }
+                        return ele;
+                    });
+                    props.setContent(updatedContent);
+                    setEditSelected(false);
+                    props.setPhoneLoading(false)
+                }
+            } catch (error) {
+                props.setPhoneLoading(false)
+                console.log(error);
             }
         }
     };
@@ -265,6 +275,7 @@ const DndLink = (props) => {
                 ele={props.ele}
                 setDeleteSelected={setDeleteSelected}
                 setContentLoading={props.setContentLoading}
+                setPhoneLoading={props.setPhoneLoading}
             />
         </div>
     );

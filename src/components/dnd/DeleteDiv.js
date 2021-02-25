@@ -7,6 +7,7 @@ const DeleteDiv = (props) => {
 
     const handleDelete = async () => {
 
+        props.setPhoneLoading(true)
         const deleteInfo = {
             contentId: props.ele.id,
             type: props.ele.type,
@@ -21,6 +22,7 @@ const DeleteDiv = (props) => {
         if (apiRes) {
             const updatedContent = props.content.filter((ele) => ele.id !== props.ele.id)
             props.setContent(updatedContent);
+            props.setPhoneLoading(false)
         }
     }
 

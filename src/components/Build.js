@@ -18,6 +18,7 @@ const Build = (props) => {
                     setContentLoading={props.setContentLoading}
                     setContent={props.setContent}
                     about={props.about}
+                    setPhoneLoading={props.setPhoneLoading}
                 />
             );
         }

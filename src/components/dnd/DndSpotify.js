@@ -56,6 +56,7 @@ const DndSpotify = (props) => {
     // Update show value on switch change
     const handleShowChange = async (bool, id) => {
         try {
+            props.setPhoneLoading(true)
             const apiRes = await axios.put(`${SERVER}/content/update/show`, {
                 id: props.ele.id,
                 show: bool,
@@ -68,9 +69,11 @@ const DndSpotify = (props) => {
                     return ele;
                 });
                 props.setContent(updatedContent);
+                props.setPhoneLoading(false)
             }
         } catch (error) {
             console.log(error);
+            props.setPhoneLoading(false)
         }
     };
 
@@ -195,6 +198,7 @@ const DndSpotify = (props) => {
                     ele={props.ele}
                     setDeleteSelected={setDeleteSelected}
                     setContentLoading={props.setContentLoading}
+                    setPhoneLoading={props.setPhoneLoading}
                 />
             </div>
             )

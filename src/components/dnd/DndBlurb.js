@@ -89,6 +89,7 @@ const DndBlurb = (props) => {
     // Update show value on switch change
     const handleShowChange = async (bool, id) => {
         try {
+            props.setPhoneLoading(true)
             const apiRes = await axios.put(`${SERVER}/content/update/show`, {
                 id: props.ele.id,
                 show: bool,
@@ -101,9 +102,11 @@ const DndBlurb = (props) => {
                     return ele;
                 });
                 props.setContent(updatedContent);
+                props.setPhoneLoading(false)
             }
         } catch (error) {
             console.log(error);
+            props.setPhoneLoading(false)
         }
         return;
     };
@@ -133,21 +136,28 @@ const DndBlurb = (props) => {
         ) {
             return;
         } else {
-            const apiRes = await axios.put(`${SERVER}/blurb/update`, {
-                id: props.ele.content.id,
-                newContent: content,
-                newHeading: heading,
-            });
-            if (apiRes) {
-                const updatedBlurb = await apiRes.data.blurb;
-                const updatedContent = props.content.map((ele) => {
-                    if (ele.id === props.ele.id) {
-                        ele.content = updatedBlurb;
-                    }
-                    return ele;
+            try {
+                props.setPhoneLoading(true)
+                const apiRes = await axios.put(`${SERVER}/blurb/update`, {
+                    id: props.ele.content.id,
+                    newContent: content,
+                    newHeading: heading,
                 });
-                props.setContent(updatedContent);
-                setEditSelected(false);
+                if (apiRes) {
+                    const updatedBlurb = await apiRes.data.blurb;
+                    const updatedContent = props.content.map((ele) => {
+                        if (ele.id === props.ele.id) {
+                            ele.content = updatedBlurb;
+                        }
+                        return ele;
+                    });
+                    props.setContent(updatedContent);
+                    setEditSelected(false);
+                    props.setPhoneLoading(false)
+                }
+            } catch (error) {
+                console.log(error);
+                props.setPhoneLoading(false)
             }
         }
     };
@@ -266,6 +276,7 @@ const DndBlurb = (props) => {
                 ele={props.ele}
                 setDeleteSelected={setDeleteSelected}
                 setContentLoading={props.setContentLoading}
+                setPhoneLoading={props.setPhoneLoading}
             />
         </div>
     );

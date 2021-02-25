@@ -3,6 +3,17 @@
     border-radius: .5rem;
     box-shadow: 0 .1rem 1rem 0 rgba(0,0,0,0.27);
 
+    &__relative {
+        position: relative;
+    }
+
+    &__charlimit {
+        position: absolute;
+        top: -2.2rem;
+        right: 1rem;
+        font-size: 1.3rem;
+    }
+
     &__tag {
         color: white;
         background-color: $color-blue;
