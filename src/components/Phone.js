@@ -64,6 +64,26 @@ const Phone = (props) => {
         }
     };
 
+    const handleProfilePic = () => {
+        if (props.about.picture) {
+            return (
+                <img
+                    className="phone__profile-pic"
+                    src={props.about.picture}
+                    alt="Profile Picture"
+                />
+            );
+        } else {
+            return (
+                <img
+                    className="phone__profile-pic-default"
+                    src={User}
+                    alt="Profile Picture"
+                />
+            );
+        }
+    };
+
     return (
         <div className="phone">
             {handleLoading()}
@@ -71,7 +91,8 @@ const Phone = (props) => {
                 <div className="phone__content">
                     <div className="phone__wrapper">
                         <div className="phone__top">
-                            <img
+                            {handleProfilePic()}
+                            {/* <img
                                 className="phone__profile-pic"
                                 src={
                                     props.about.picture
@@ -79,7 +100,7 @@ const Phone = (props) => {
                                         : User
                                 }
                                 alt="Profile Picture"
-                            />
+                            /> */}
                             <p className="phone__name">
                                 {props.about.nameShow ? props.about.name : ""}
                             </p>
