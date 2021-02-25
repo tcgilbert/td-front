@@ -47,7 +47,7 @@ const PrivateNav = (props) => {
                     >
                         Log Out
                     </Link>
-                    <Link className="private-nav__link" to="#">
+                    <Link className="private-nav__link" to="/account">
                         My Account
                     </Link>
                 </div>

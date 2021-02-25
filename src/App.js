@@ -10,6 +10,7 @@ import SignUp from "./pages/SignUp";
 import LogIn from "./pages/LogIn";
 import ManageProfile from "./pages/ManageProfile";
 import UserPage from "./pages/UserPage";
+import Account from "./pages/Account";
 
 // utils
 import setAuthToken from "./utils/setAuthToken";
@@ -123,7 +124,12 @@ function App() {
                     exact
                     path="/"
                     render={() => {
-                        return <LandingPage isAuthenticated={isAuthenticated} handleLogout={handleLogout}/>;
+                        return (
+                            <LandingPage
+                                isAuthenticated={isAuthenticated}
+                                handleLogout={handleLogout}
+                            />
+                        );
                     }}
                 />
             </div>
@@ -135,6 +141,14 @@ function App() {
                         return <SignUp handleSignUp={handleSignUp} />;
                     }}
                 />
+                <PrivateRoute
+                    exact
+                    path="/account"
+                    component={Account}
+                    user={currentUser}
+                    isAuthenticated={isAuthenticated}
+                    handleLogout={handleLogout}
+                />
                 <Route
                     exact
                     path="/login"
@@ -144,17 +158,12 @@ function App() {
                 />
                 <PrivateRoute
                     exact
-                    strict
                     path="/manage"
                     component={ManageProfile}
                     user={currentUser}
                     handleLogout={handleLogout}
                 />
-                <Route
-                    exact
-                    path="/:username"
-                    component={UserPage}
-                />
+                <Route exact path="/:username" component={UserPage} />
             </Switch>
         </div>
     );
