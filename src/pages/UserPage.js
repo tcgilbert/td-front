@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom"
 import Loading from "../components/Loading";
 import axios from "axios";
 
@@ -13,6 +14,7 @@ import FeedBook from "../components/feed/FeedBook";
 import User from "../images/user.svg";
 import Work from "../images/portfolio.svg";
 import Location from "../images/placeholder.svg";
+import Logo from "../images/logo.svg";
 
 const UserPage = (props) => {
     const [username, setUsername] = useState(props.match.params.username);
@@ -20,6 +22,7 @@ const UserPage = (props) => {
     const [content, setContent] = useState(null);
     const [contentLoading, setContentLoading] = useState(true);
     const [spotifyToken, setSpotifyToken] = useState(null);
+    const history = useHistory()
     const SERVER = process.env.REACT_APP_SERVER;
     const spotifyEndpoint = "https://api.spotify.com/v1/";
     const spotifyId = process.env.REACT_APP_SPOTIFY_ID;
@@ -55,6 +58,7 @@ const UserPage = (props) => {
         }
     }, []);
 
+    // Fetch the user's content
     useEffect(() => {
         const fetchContent = async () => {
             if (username && spotifyToken) {
@@ -133,6 +137,14 @@ const UserPage = (props) => {
         fetchContent();
     }, [spotifyToken]);
 
+    // Grab the logo div from DOM
+    useEffect(() => {
+        const logoLink = document.getElementById("logo-link")
+        logoLink.addEventListener("click", () => {
+            history.push("/")
+        })
+    }, [])
+
     const handleLodaing = () => {
         if (contentLoading) {
             return <Loading />;
@@ -206,8 +218,11 @@ const UserPage = (props) => {
                     {handleWork()}
                     {handleLocation()}
                 </div>
-
                 {handleLodaing()}
+                <div id="logo-link" className="phone__logo-container">
+                    <img className="phone__logo" src={Logo} alt="logo" />
+                    <p className="phone__logo-text">thesedays</p>
+                </div>
             </div>
         </div>
     );

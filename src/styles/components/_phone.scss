@@ -66,6 +66,10 @@
         padding-bottom: 2vw;
     }
 
+    &__logo-container:hover {
+        cursor: pointer;
+    }
+
     &__logo {
         width: 2.5vw;
         margin-right: .3vw;

@@ -123,7 +123,7 @@ function App() {
                     exact
                     path="/"
                     render={() => {
-                        return <LandingPage />;
+                        return <LandingPage isAuthenticated={isAuthenticated} handleLogout={handleLogout}/>;
                     }}
                 />
             </div>

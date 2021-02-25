@@ -21,6 +21,8 @@
 
     &__list {
         margin-top: .5rem;
+        display: flex;
+        flex-direction: row;
     }
 
     &__logo {
@@ -32,6 +34,7 @@
         font-size: 2rem;
         text-decoration: none;
         color: white;
+        margin-left: 3rem;
     }
 
     &__underline {

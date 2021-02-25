@@ -5,14 +5,24 @@ const Navigation = (props) => {
     const handleButtons = () => {
         if (props.isAuthenticated) {
             return (
-                <NavLink
-                    onClick={props.handleLogout}
-                    className="navigation__link"
-                    to="/"
-                >
-                    log out
-                    <div className="navigation__underline"></div>
-                </NavLink>
+                <>
+                    <NavLink
+                        onClick={props.handleLogout}
+                        className="navigation__link"
+                        to="/manage"
+                    >
+                        profile
+                        <div className="navigation__underline"></div>
+                    </NavLink>
+                    <NavLink
+                        onClick={props.handleLogout}
+                        className="navigation__link"
+                        to="/"
+                    >
+                        log out
+                        <div className="navigation__underline"></div>
+                    </NavLink>
+                </>
             );
         } else {
             return (
@@ -42,11 +52,11 @@ const Navigation = (props) => {
             </NavLink>
             <div>
                 <ul className="navigation__list">
-                    {/* {handleButtons()} */}
-                    <NavLink className="navigation__link" to="/login">
-                    log in
-                    <div className="navigation__underline"></div>
-                </NavLink>
+                    {handleButtons()}
+                    {/* <NavLink className="navigation__link" to="/login">
+                        log in
+                        <div className="navigation__underline"></div>
+                    </NavLink> */}
                 </ul>
             </div>
         </div>
