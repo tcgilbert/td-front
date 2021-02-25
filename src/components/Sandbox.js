@@ -41,9 +41,19 @@ const Sandbox = (props) => {
         }
     };
     
-    // console.log(props.content);
+    const handleEmptyContent = () => {
+        if (props.content.length === 0) {
+            return (
+                <p className="sandbox__empty">Click components to add content</p>
+            )
+        } else {
+            return 
+        }
+    }
+
     return (
         <div className="sandbox">
+            {handleEmptyContent()}
             <DragDropContext
                 onDragEnd={(result) =>
                     onDragEnd(result, props.content, props.setContent)

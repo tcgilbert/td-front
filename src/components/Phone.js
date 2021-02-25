@@ -69,26 +69,31 @@ const Phone = (props) => {
             {handleLoading()}
             <div className="phone__content-container">
                 <div className="phone__content">
-                    <div className="phone__top">
-                        <img
-                            className="phone__profile-pic"
-                            src={
-                                props.about.picture ? props.about.picture : User
-                            }
-                            alt="Profile Picture"
-                        />
-                        <p className="phone__name">
-                            {props.about.nameShow ? props.about.name : ""}
-                        </p>
-                        <p className="phone__username">
-                            @{props.user.username}
-                        </p>
+                    <div className="phone__wrapper">
+                        <div className="phone__top">
+                            <img
+                                className="phone__profile-pic"
+                                src={
+                                    props.about.picture
+                                        ? props.about.picture
+                                        : User
+                                }
+                                alt="Profile Picture"
+                            />
+                            <p className="phone__name">
+                                {props.about.nameShow ? props.about.name : ""}
+                            </p>
+                            <p className="phone__username">
+                                @{props.user.username}
+                            </p>
+                        </div>
+                        <div className="phone__about">
+                            {handleWork()}
+                            {handleLocation()}
+                        </div>
+                        <div className="phone__content">{handleContent()}</div>
+                        <div className="phone__push"></div>
                     </div>
-                    <div className="phone__about">
-                        {handleWork()}
-                        {handleLocation()}
-                    </div>
-                    <div className="phone__content">{handleContent()}</div>
                     <div className="phone__logo-container">
                         <img className="phone__logo" src={Logo} alt="logo" />
                         <p className="phone__logo-text">thesedays</p>
