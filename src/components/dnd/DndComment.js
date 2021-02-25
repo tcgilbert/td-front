@@ -141,7 +141,12 @@ const DndComment = (props) => {
                     <TextField
                         type="text"
                         value={comment}
-                        onChange={(e) => setComment(e.target.value)}
+                        name="title"
+                        onChange={(e) => { 
+                            if (comment.length < 150 || e.nativeEvent.inputType === "deleteContentBackward") {
+                                setComment(e.target.value)
+                            }
+                        }}
                         InputProps={{
                             className: classes.input,
                             startAdornment: (

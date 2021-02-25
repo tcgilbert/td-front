@@ -181,7 +181,6 @@ const DndBlurb = (props) => {
                         variant="outlined"
                         value={content}
                         onChange={(e) => { 
-                            console.log(e);
                             if (content.length < 280 || e.nativeEvent.inputType === "deleteContentBackward") {
                                 contentChange(e, "content")
                             }

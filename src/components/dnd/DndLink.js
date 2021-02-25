@@ -168,7 +168,12 @@ const DndLink = (props) => {
                     <TextField
                         type="text"
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        name="title"
+                        onChange={(e) => { 
+                            if (title.length < 35 || e.nativeEvent.inputType === "deleteContentBackward") {
+                                setTitle(e.target.value)
+                            }
+                        }}
                         InputProps={{
                             className: classes.input,
                             startAdornment: (

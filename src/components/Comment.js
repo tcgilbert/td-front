@@ -90,7 +90,11 @@ const Comment = (props) => {
                 value={comment}
                 label="Comment"
                 name="comment"
-                onChange={(e) => setComment(e.target.value)}
+                onChange={(e) => { 
+                    if (comment.length < 150 || e.nativeEvent.inputType === "deleteContentBackward") {
+                        setComment(e.target.value)
+                    }
+                }}
             />
             <button onClick={handleSubmit} id="link-btn" className="build__btn">
                 Add Comment

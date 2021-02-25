@@ -115,7 +115,12 @@ const Link = (props) => {
                 value={title}
                 label="Title"
                 name="title"
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => { 
+                    if (title.length < 35 || e.nativeEvent.inputType === "deleteContentBackward") {
+                        setTitle(e.target.value)
+                    }
+                }}
+                
             />
             <button onClick={handleSubmit} id="link-btn" className="build__btn">
                 Add Link
