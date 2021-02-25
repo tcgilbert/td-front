@@ -180,7 +180,12 @@ const DndBlurb = (props) => {
                         rowsMin={3}
                         variant="outlined"
                         value={content}
-                        onChange={(e) => contentChange(e, "content")}
+                        onChange={(e) => { 
+                            console.log(e);
+                            if (content.length < 280 || e.nativeEvent.inputType === "deleteContentBackward") {
+                                contentChange(e, "content")
+                            }
+                        }}
                     />
                     <div className="blurb__btns">
                         <button
