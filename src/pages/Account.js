@@ -18,6 +18,7 @@ const Account = (props) => {
             );
             if (apiRes) {
                 setLoading(false)
+                props.handleLogout()
                 history.push("/")
             }
         } catch (error) {
