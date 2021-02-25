@@ -92,15 +92,6 @@ const Phone = (props) => {
                     <div className="phone__wrapper">
                         <div className="phone__top">
                             {handleProfilePic()}
-                            {/* <img
-                                className="phone__profile-pic"
-                                src={
-                                    props.about.picture
-                                        ? props.about.picture
-                                        : User
-                                }
-                                alt="Profile Picture"
-                            /> */}
                             <p className="phone__name">
                                 {props.about.nameShow ? props.about.name : ""}
                             </p>
