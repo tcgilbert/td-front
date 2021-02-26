@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import Loading from "../components/Loading";
 import axios from "axios";
 
@@ -22,7 +22,8 @@ const UserPage = (props) => {
     const [content, setContent] = useState(null);
     const [contentLoading, setContentLoading] = useState(true);
     const [spotifyToken, setSpotifyToken] = useState(null);
-    const history = useHistory()
+    const [maintenance, setMaintenance] = useState(null);
+    const history = useHistory();
     const SERVER = process.env.REACT_APP_SERVER;
     const spotifyEndpoint = "https://api.spotify.com/v1/";
     const spotifyId = process.env.REACT_APP_SPOTIFY_ID;
@@ -67,7 +68,8 @@ const UserPage = (props) => {
                         `${SERVER}/users/unique/${username}`
                     );
                     const userId = await getUser.data.userId;
-                    console.log(userId);
+                    setMaintenance(getUser.data.maintenance);
+                    console.log(maintenance);
                     const apiRes = await axios.get(`${SERVER}/about/${userId}`);
                     const about = apiRes.data.about;
                     setAbout(about);
@@ -140,11 +142,11 @@ const UserPage = (props) => {
 
     // Grab the logo div from DOM
     useEffect(() => {
-        const logoLink = document.getElementById("logo-link")
+        const logoLink = document.getElementById("logo-link");
         logoLink.addEventListener("click", () => {
-            history.push("/")
-        })
-    }, [])
+            history.push("/");
+        });
+    }, []);
 
     const handleLodaing = () => {
         if (contentLoading) {
@@ -201,31 +203,81 @@ const UserPage = (props) => {
         }
     };
 
+    const handleMaintence = () => {
+        if (maintenance) {
+            return (
+                <div className="userpage" style={{ width: "50%", margin: "15rem auto"}}>
+                    <h1>User's page currently under maintenance</h1>
+                    <div id="logo-link" className="phone__logo-container">
+                            <img
+                                className="phone__logo"
+                                src={Logo}
+                                alt="logo"
+                            />
+                            <p className="phone__logo-text">thesedays</p>
+                        </div>
+                </div>
+            );
+        } else {
+            return (
+                <div className="userpage">
+                    <div className="userpage__feed">
+                        <div className="phone__top">
+                            <img
+                                className="phone__profile-pic"
+                                src={about.picture ? about.picture : User}
+                                alt="Profile Picture"
+                            />
+                            <p className="phone__name">
+                                {about.nameShow ? about.name : ""}
+                            </p>
+                            <p className="phone__username">@{username}</p>
+                        </div>
+                        <div className="phone__about">
+                            {handleWork()}
+                            {handleLocation()}
+                        </div>
+                        {handleLodaing()}
+                        <div id="logo-link" className="phone__logo-container">
+                            <img
+                                className="phone__logo"
+                                src={Logo}
+                                alt="logo"
+                            />
+                            <p className="phone__logo-text">thesedays</p>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+    };
+
     return (
-        <div className="userpage">
-            <div className="userpage__feed">
-                <div className="phone__top">
-                    <img
-                        className="phone__profile-pic"
-                        src={about.picture ? about.picture : User}
-                        alt="Profile Picture"
-                    />
-                    <p className="phone__name">
-                        {about.nameShow ? about.name : ""}
-                    </p>
-                    <p className="phone__username">@{username}</p>
-                </div>
-                <div className="phone__about">
-                    {handleWork()}
-                    {handleLocation()}
-                </div>
-                {handleLodaing()}
-                <div id="logo-link" className="phone__logo-container">
-                    <img className="phone__logo" src={Logo} alt="logo" />
-                    <p className="phone__logo-text">thesedays</p>
-                </div>
-            </div>
-        </div>
+        <>{handleMaintence()}</>
+        // <div className="userpage">
+        //     <div className="userpage__feed">
+        //         <div className="phone__top">
+        //             <img
+        //                 className="phone__profile-pic"
+        //                 src={about.picture ? about.picture : User}
+        //                 alt="Profile Picture"
+        //             />
+        //             <p className="phone__name">
+        //                 {about.nameShow ? about.name : ""}
+        //             </p>
+        //             <p className="phone__username">@{username}</p>
+        //         </div>
+        //         <div className="phone__about">
+        //             {handleWork()}
+        //             {handleLocation()}
+        //         </div>
+        //         {handleLodaing()}
+        //         <div id="logo-link" className="phone__logo-container">
+        //             <img className="phone__logo" src={Logo} alt="logo" />
+        //             <p className="phone__logo-text">thesedays</p>
+        //         </div>
+        //     </div>
+        // </div>
     );
 };
 
