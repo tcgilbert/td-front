@@ -29,6 +29,7 @@ const About = (props) => {
     );
     const [workCheck, setWorkCheck] = useState(props.about.workShow);
     const [profilePictureFile, setProfilePictureFile] = useState(null);
+    const [uploadAlert, setUploadAlert] = useState(false)
 
     // Update about
     const handleSubmit = async () => {
@@ -68,14 +69,30 @@ const About = (props) => {
 
     const handleFileInput = (e) => {
         const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            setProfilePictureFile(reader.result);
-            setFileName(e.target.files[0].name);
-        };
-        return;
+        console.log(file.size);
+        if (file.size > 5000000) {
+            setUploadAlert(true)
+            return 
+        } else {
+            if (uploadAlert) {
+                setUploadAlert(false)
+            }
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                setProfilePictureFile(reader.result);
+                setFileName(e.target.files[0].name);
+            };
+        }
     };
+
+    const handleUploadAlert = () => {
+        if (uploadAlert) {
+            return <p className="about__upload-alert">File must be less than 5mb</p>
+        } else {
+            return 
+        }
+    }
 
     const uploadImage = async (base64EncodedImage) => {
         try {
@@ -279,6 +296,9 @@ const About = (props) => {
                 >
                     Choose File
                 </button>
+            </div>
+            <div>
+                {handleUploadAlert()}
             </div>
             <button
                 id="about-btn"
