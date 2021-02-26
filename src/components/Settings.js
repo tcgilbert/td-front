@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Switch from "@material-ui/core/Switch";
-import LoadingBar from "../components/LoadingBar"
+import LoadingPhone from "../components/LoadingPhone"
 import axios from "axios";
 
 const Settings = (props) => {
@@ -10,14 +10,18 @@ const Settings = (props) => {
 
     useEffect(() => {
         const fetchUserInfo = async () => {
-            if (maintain === null) {
-                const apiRes = await axios.get(
-                    `${SERVER}/users/unique/${props.user.username}`
-                );
-                if (apiRes) {
-                    setMaintain(apiRes.data.maintenance)
-                    setLoading(false)
+            try {
+                if (maintain === null) {
+                    const apiRes = await axios.get(
+                        `${SERVER}/users/unique/${props.user.username}`
+                    );
+                    if (apiRes) {
+                        setMaintain(apiRes.data.maintenance)
+                        setLoading(false)
+                    }
                 }
+            } catch (error) {
+                console.log(error);
             }
         };
         fetchUserInfo();
@@ -43,7 +47,7 @@ const Settings = (props) => {
 
     const handleLoading = () => {
         if (loading) {
-            return <LoadingBar />
+            return <LoadingPhone settings={true}/>
         } else {
             return (
                 <Switch
