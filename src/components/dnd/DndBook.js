@@ -76,7 +76,6 @@ const DndBook = (props) => {
             props.setPhoneLoading(false)
         }
     };
-    console.log(imgUrl);
 
     useDidMount(() => {
         handleShowChange(show, props.ele.id);

@@ -167,6 +167,7 @@ function App() {
                     user={currentUser}
                     handleLogout={handleLogout}
                     isAuthenticated={isAuthenticated}
+                    setCurrentUser={setCurrentUser}
                 />
                 <Route exact path="/:username" component={UserPage} />
             </Switch>

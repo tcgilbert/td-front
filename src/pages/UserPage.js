@@ -130,6 +130,7 @@ const UserPage = (props) => {
                     setContent(content);
                     setContentLoading(false);
                 } catch (error) {
+                    setContentLoading(false);
                     console.log(error);
                 }
             }

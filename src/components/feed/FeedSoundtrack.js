@@ -17,15 +17,6 @@ const handleArtists = (array) => {
 
 const FeedSoundtrack = (props) => {
     const { content } = props.ele;
-    console.log(props.ele);
-
-    // const handleType = () => {
-    //     if (props.ele.type === "show") {
-    //         return "podcast";
-    //     } else {
-    //         return props.ele.type;
-    //     }
-    // };
 
     const handleContentType = () => {
         if (content.type === "show") {

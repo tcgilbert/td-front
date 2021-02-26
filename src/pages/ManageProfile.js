@@ -6,6 +6,7 @@ import axios from "axios";
 import PrivateNav from "../components/PrivateNav";
 import Build from "../components/Build";
 import Phone from "../components/Phone"
+import Settings from "../components/Settings"
 
 const ManageProfile = (props) => {
     const [location, setLocation] = useState("build");
@@ -22,6 +23,32 @@ const ManageProfile = (props) => {
     const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
 
+    // Handle mangage nav
+    const handleDisplay = () => {
+        if (location === "build") {
+            return (
+                <Build
+                about={about}
+                setAbout={setAbout}
+                user={props.user}
+                content={content}
+                setContent={setContent}
+                setContentLoading={setContentLoading}
+                contentLoading={contentLoading}
+                spotifyToken={spotifyToken}
+                setPhoneLoading={setPhoneLoading}
+                phoneLoading={phoneLoading}
+            />
+            )
+        } else {
+            return (
+                <Settings user={props.user} setCurrentUser={props.setCurrentUser}/>
+            )
+        }
+    }
+
+
+    // Logout user once token expires
     useEffect(() => {
 
         if (props.isAuthenticated === false) {
@@ -210,7 +237,8 @@ const ManageProfile = (props) => {
                 </p>
             </div>
             <div className="grid manage__grid3">
-                <Build
+                {handleDisplay()}
+                {/* <Build
                     about={about}
                     setAbout={setAbout}
                     user={props.user}
@@ -221,7 +249,7 @@ const ManageProfile = (props) => {
                     spotifyToken={spotifyToken}
                     setPhoneLoading={setPhoneLoading}
                     phoneLoading={phoneLoading}
-                />
+                /> */}
             </div>
             <div className="grid manage__grid4">
                 <Phone phoneLoading={phoneLoading} user={props.user} about={about} content={content} contentLoading={contentLoading}/>
