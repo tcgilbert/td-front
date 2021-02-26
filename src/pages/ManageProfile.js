@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom"
 import axios from "axios";
 
 //  Components
@@ -13,11 +14,22 @@ const ManageProfile = (props) => {
     const [contentLoading, setContentLoading] = useState(true);
     const [spotifyToken, setSpotifyToken] = useState(null);
     const [phoneLoading, setPhoneLoading] = useState(false)
+    const history = useHistory()
     const SERVER = process.env.REACT_APP_SERVER;
     const spotifyEndpoint = "https://api.spotify.com/v1/";
     const spotifyId = process.env.REACT_APP_SPOTIFY_ID;
     const spotifySecret = process.env.REACT_APP_SPOTIFY_SECRET;
     const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
+
+
+    useEffect(() => {
+
+        if (!props.isAuthenticated) {
+            history.push("/")
+        }
+
+    }, [props.isAuthenticated])
+
 
     // Fetch spotify token
     useEffect(() => {

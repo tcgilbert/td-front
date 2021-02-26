@@ -1,6 +1,5 @@
 @import "../variables.scss";
 
-
 .landing {
     margin-top: 10rem;
     text-align: center;
@@ -19,12 +18,23 @@
         outline: none;
         color: white;
         font-weight: 600;
-        transition: all .15s;
+        transition: all 0.15s;
     }
-    
+
     &__btn:hover {
         cursor: pointer;
-        transform: translateY(-.15rem);
-        box-shadow: 0 .5rem 1rem 0 rgba(0,0,0,0.27);
+        transform: translateY(-0.15rem);
+        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.27);
     }
+
+    &__alert {
+        width: 25%;
+        margin: 3rem auto;
+        border: solid 1px goldenrod;
+    }
+
+    &__alert-text {
+        font-size: 1.3rem;
+    }
+
 }

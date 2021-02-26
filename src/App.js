@@ -18,6 +18,7 @@ import setAuthToken from "./utils/setAuthToken";
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
     const [currentUser, setCurrentUser] = useState("");
+    const [showAlert, setShowAlert] = useState(false)
     const SERVER = process.env.REACT_APP_SERVER;
     const history = useHistory();
 
@@ -55,10 +56,11 @@ function App() {
                         setCurrentUser(userInfo);
                         setIsAuthenticated(true);
                         setAuthToken(token);
-                        // history.push("/manage");
                     }
                 } catch (error) {
+                    console.log(error);
                     handleLogout();
+                    setShowAlert(true)
                 }
             } else {
                 console.log("no token :(");
@@ -128,6 +130,8 @@ function App() {
                             <LandingPage
                                 isAuthenticated={isAuthenticated}
                                 handleLogout={handleLogout}
+                                showAlert={showAlert}
+                                setShowAlert={setShowAlert}
                             />
                         );
                     }}
@@ -162,6 +166,7 @@ function App() {
                     component={ManageProfile}
                     user={currentUser}
                     handleLogout={handleLogout}
+                    isAuthenticated={isAuthenticated}
                 />
                 <Route exact path="/:username" component={UserPage} />
             </Switch>
