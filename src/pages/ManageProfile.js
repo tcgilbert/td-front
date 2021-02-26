@@ -24,7 +24,7 @@ const ManageProfile = (props) => {
 
     useEffect(() => {
 
-        if (!props.isAuthenticated) {
+        if (props.isAuthenticated === false) {
             history.push("/")
         }
 

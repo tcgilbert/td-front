@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Switch from "@material-ui/core/Switch";
 import { makeStyles } from "@material-ui/core/styles";
 import LoadingBar from "./LoadingBar"
+import { Input } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -69,7 +70,6 @@ const About = (props) => {
 
     const handleFileInput = (e) => {
         const file = e.target.files[0];
-        console.log(file.size);
         if (file.size > 5000000) {
             setUploadAlert(true)
             return 
@@ -279,8 +279,9 @@ const About = (props) => {
                         Profile Picture -
                     </label>
                     <p className="about__filename">( {fileName} )</p>
-                    <input
+                    <Input
                         type="file"
+                        inputProps={{ accept: 'image/*' }}
                         name="profile-pic"
                         id="profile-pic"
                         onChange={handleFileInput}
