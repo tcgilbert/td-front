@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from '@material-ui/core/styles';
 import useForm from '../utils/useForm'
 import { Link } from 'react-router-dom'
 import Navigation from '../components/Navigation'
+import axios from "axios"
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -22,6 +23,31 @@ const useStyles = makeStyles((theme) => ({
 const LogIn = (props) => {
     const classes = useStyles();
     const [values, handleChange] = useForm({username: "", password: ""})
+    const [noUser, setNoUser] = useState(false)
+    const [wrongPassword, setWrongPassword] = useState(false)
+    const SERVER = process.env.REACT_APP_SERVER;
+
+
+    const handleSubmit = async () => {
+        try {
+            const checkUsername = await axios.get(`${SERVER}/users/unique/${values.username}`)
+            if (noUser) {
+                setNoUser(false)
+            }
+        } catch (error) {
+            console.log(error);
+            setNoUser(true)
+            return
+        }
+        const login = await props.handleLogin(values)
+        if (login === false) {
+            setWrongPassword(true)
+        } else {
+            setWrongPassword(false)
+        }
+    }
+
+
     return (
         <div className="signup">
             <Navigation/>
@@ -40,6 +66,8 @@ const LogIn = (props) => {
                     name="username"
                     value={values.username}
                     onChange={(e) => handleChange(e)}
+                    error={noUser}
+                    helperText={noUser ? "No user with that username found" : ""}
                 />
                 <TextField
                     className={classes.textField}
@@ -54,8 +82,10 @@ const LogIn = (props) => {
                     name="password"
                     value={values.password}
                     onChange={(e) => handleChange(e)}
+                    error={wrongPassword}
+                    helperText={wrongPassword ? "Incorrect password" : ""}
                 />
-                <button onClick={() => props.handleLogin(values)} className="signup__btn">Log In</button>
+                <button onClick={() => handleSubmit()} className="signup__btn">Log In</button>
                 <p className="signup__text">Don't have an account? <Link to='/register' className="signup__link">Register</Link></p>
             </div>
         </div>

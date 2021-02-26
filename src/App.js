@@ -89,8 +89,10 @@ function App() {
             setCurrentUser(userInfo);
             setIsAuthenticated(true);
             history.push("/manage");
+            return true
         } catch (error) {
             console.log(error);
+            return false
         }
     };
 
