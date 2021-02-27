@@ -19,3 +19,47 @@
     }
 }
 
+.feedcomment-u {
+
+    text-align: left;
+    margin-left: 1vw;
+    margin-bottom: -1vw;
+    transform: translateY(-1rem);
+
+    &__text {
+        font-size: 1vw;
+        display: inline;
+        margin-right: 1vw;
+        font-weight: 500;
+    }
+    
+    &__arrow {
+        width: 1.3vw;
+        transform: translate(-.5rem, .1rem);
+        display: inline;
+    }
+}
+
+@media (max-width: 1100px) { 
+    .feedcomment-u {
+
+        text-align: left;
+        margin-left: 1rem;
+        margin-bottom: -1rem;
+        transform: translateY(-.8rem);
+    
+        &__text {
+            font-size: 1.4rem;
+            display: inline;
+            margin-right: 1rem;
+            font-weight: 500;
+        }
+        
+        &__arrow {
+            width: 1.3rem;
+            transform: translate(-.5rem, .1rem);
+            display: inline;
+        }
+    }
+}
+

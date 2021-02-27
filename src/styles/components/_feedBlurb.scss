@@ -23,3 +23,50 @@
 .feedblurb:hover {
     background-color: rgb(95, 153, 254);
 }
+
+.feedblurb-u {
+    text-align: left;
+    margin: 1vw .5vw;
+    padding: .5vw;
+    border-radius: .5vw;
+    background-color: rgb(68, 137, 255);
+    border: solid .15vw blue;
+    
+
+    &__heading {
+        font-size: 1.3vw;
+        font-weight: 500;
+        color: white;
+    }
+    
+    &__content {
+        font-size: 1vw;
+        font-weight: 400;
+        color: white;
+    }
+}
+
+.feedblurb-u:hover {
+    background-color: rgb(95, 153, 254);
+}
+
+
+@media (max-width: 1100px) {
+    .feedblurb-u {
+
+        text-align: left;
+        margin: 1rem .5rem;
+        padding: .5rem;
+        border-radius: .5rem;
+        background-color: rgb(68, 137, 255);
+        border: solid .15rem blue;
+
+        &__heading {
+            font-size: 2rem;
+        }
+
+        &__content {
+            font-size: 1.5rem;
+        }
+    }
+}

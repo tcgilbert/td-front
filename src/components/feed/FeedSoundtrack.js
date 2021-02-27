@@ -20,31 +20,61 @@ const FeedSoundtrack = (props) => {
 
     const handleContentType = () => {
         if (content.type === "show") {
-            return (
-                <div className="feedsound-pod">
-                    <p className="feedsound__type-pod">podcast</p>
-                    <img
-                        className="feedsound__image"
-                        src={content.images[0].url}
-                        alt="Album Art"
-                    />
-                    <p className="feedsound__name">{content.name}</p>
-                    {content.artists && handleArtists(content.artists)}
-                </div>
-            );
+            if (props.userpage) {
+                return (
+                    <div className="feedsound-u-pod">
+                        <p className="feedsound-u__type-pod">podcast</p>
+                        <img
+                            className="feedsound-u__image"
+                            src={content.images[0].url}
+                            alt="Album Art"
+                        />
+                        <p className="feedsound-u__name">{content.name}</p>
+                        {content.artists && handleArtists(content.artists)}
+                    </div>
+                );
+            } else {
+                return (
+                    <div className="feedsound-pod">
+                        <p className="feedsound__type-pod">podcast</p>
+                        <img
+                            className="feedsound__image"
+                            src={content.images[0].url}
+                            alt="Album Art"
+                        />
+                        <p className="feedsound__name">{content.name}</p>
+                        {content.artists && handleArtists(content.artists)}
+                    </div>
+                );
+            }
         } else {
-            return (
-                <div className="feedsound">
-                    <p className="feedsound__type">{content.type}</p>
-                    <img
-                        className="feedsound__image"
-                        src={content.images[0].url}
-                        alt="Album Art"
-                    />
-                    <p className="feedsound__name">{content.name}</p>
-                    {content.artists && handleArtists(content.artists)}
-                </div>
-            );
+            if (props.userpage) {
+                return (
+                    <div className="feedsound-u">
+                        <p className="feedsound-u__type">{content.type}</p>
+                        <img
+                            className="feedsound-u__image"
+                            src={content.images[0].url}
+                            alt="Album Art"
+                        />
+                        <p className="feedsound-u__name">{content.name}</p>
+                        {content.artists && handleArtists(content.artists)}
+                    </div>
+                );
+            } else {
+                return (
+                    <div className="feedsound">
+                        <p className="feedsound__type">{content.type}</p>
+                        <img
+                            className="feedsound__image"
+                            src={content.images[0].url}
+                            alt="Album Art"
+                        />
+                        <p className="feedsound__name">{content.name}</p>
+                        {content.artists && handleArtists(content.artists)}
+                    </div>
+                );
+            }
         }
     };
 

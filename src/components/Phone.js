@@ -41,15 +41,15 @@ const Phone = (props) => {
         if (props.content !== null) {
             const feed = props.content.map((ele, idx) => {
                 if (ele.type === "soundtrack" && ele.show) {
-                    return <FeedSoundtrack ele={ele} key={idx} />;
+                    return <FeedSoundtrack userpage={false} ele={ele} key={idx} />;
                 } else if (ele.type === "link" && ele.show) {
-                    return <FeedLink ele={ele} key={idx} />;
+                    return <FeedLink userpage={false} ele={ele} key={idx} />;
                 } else if (ele.type === "blurb" && ele.show) {
-                    return <FeedBlurb ele={ele} key={idx} />;
+                    return <FeedBlurb userpage={false} ele={ele} key={idx} />;
                 } else if (ele.type === "comment" && ele.show) {
-                    return <FeedComment ele={ele} key={idx} />;
+                    return <FeedComment userpage={false} ele={ele} key={idx} />;
                 } else if (ele.type === "book" && ele.show) {
-                    return <FeedBook ele={ele} key={idx} />;
+                    return <FeedBook userpage={false} ele={ele} key={idx} />;
                 } else {
                     return;
                 }

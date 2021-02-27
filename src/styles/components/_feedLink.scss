@@ -24,3 +24,49 @@
     
     background-color: rgb(242, 149, 149);
 }
+
+.feedlink-u {
+    margin: 1vw .5vw;
+    margin: 1vw .5vw;
+    border-radius: .5vw;
+    padding: 1vw;
+    background-color: rgb(240, 114, 114);
+    border: solid .15vw rgb(210, 45, 45);
+
+    &__atag {
+        text-decoration: none;
+    }
+
+    &__title {
+        font-size: 1.5vw;
+        font-weight: 500;
+        color: white;
+        letter-spacing: 1px;
+        text-decoration: none;
+    }
+}
+
+.feedlink-u:hover {
+    cursor: pointer;
+    
+    background-color: rgb(242, 149, 149);
+}
+
+@media (max-width: 1100px) {
+    .feedlink-u {
+        margin: 1rem .5rem;
+        margin: 1rem .5rem;
+        border-radius: .5rem;
+        padding: 1rem;
+        background-color: rgb(240, 114, 114);
+        border: solid .15rem rgb(210, 45, 45);
+    
+        &__atag {
+            text-decoration: none;
+        }
+    
+        &__title {
+            font-size: 1.8rem;
+        }
+    }
+}

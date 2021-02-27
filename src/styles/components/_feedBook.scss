@@ -10,6 +10,51 @@
     border: solid .15vw green;
     color: rgb(1, 72, 1);
 
+
+    &__image {
+        margin-top: .5rem;
+        width: 10vw;
+        height: 13vw;
+    }
+
+    &__name  {
+        font-size: 1.3vw;
+        font-weight: 500;
+        margin-top: .2rem;
+    }
+
+    &__artist {
+        font-size: 1vw;
+    }
+
+    &__type {
+        position: absolute;
+        top: .1vw;
+        left: .5vw;
+        font-size: 1vw;
+        font-weight: 600;
+        color: rgb(0, 99, 0);
+    }
+}
+
+
+.feedbook:hover {
+    background-color: rgb(110, 189, 159);
+}
+
+
+.feedbook-u {
+    position: relative;
+    margin: 1vw .5vw;
+    padding: 1vw;
+    border-radius: .5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(52, 187, 135);
+    border: solid .15vw green;
+    color: rgb(1, 72, 1);
+
     &__heading {
         position: absolute;
         font-size: .8vw;
@@ -44,6 +89,54 @@
 }
 
 
-.feedbook:hover {
+.feedbook-u:hover {
     background-color: rgb(110, 189, 159);
+}
+
+
+@media (max-width: 1100px) {
+
+    .feedbook-u {
+        position: relative;
+        margin: 1rem .5rem;
+        padding: 1rem;
+        border-radius: .5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgb(52, 187, 135);
+        border: solid .15rem green;
+        color: rgb(1, 72, 1);
+
+    
+        &__image {
+            margin-top: .5rem;
+            width: 13rem;
+            height: 16rem;
+        }
+    
+        &__name  {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-top: .2rem;
+        }
+    
+
+    
+        &__type {
+            position: absolute;
+            top: .1rem;
+            left: .5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgb(0, 99, 0);
+        }
+    }
+
+    .feedbook {
+        &__artist {
+            font-size: 1.5rem;
+        }
+    }
+    
 }

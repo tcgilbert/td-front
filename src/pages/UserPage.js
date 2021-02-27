@@ -158,15 +158,15 @@ const UserPage = (props) => {
         if (content !== null) {
             const feed = content.map((ele, idx) => {
                 if (ele.type === "soundtrack" && ele.show) {
-                    return <FeedSoundtrack ele={ele} key={idx} />;
+                    return <FeedSoundtrack userpage={true} ele={ele} key={idx} />;
                 } else if (ele.type === "link" && ele.show) {
-                    return <FeedLink ele={ele} key={idx} />;
+                    return <FeedLink userpage={true}  ele={ele} key={idx} />;
                 } else if (ele.type === "blurb" && ele.show) {
-                    return <FeedBlurb ele={ele} key={idx} />;
+                    return <FeedBlurb userpage={true}  ele={ele} key={idx} />;
                 } else if (ele.type === "comment" && ele.show) {
-                    return <FeedComment ele={ele} key={idx} />;
+                    return <FeedComment userpage={true}  ele={ele} key={idx} />;
                 } else if (ele.type === "book" && ele.show) {
-                    return <FeedBook ele={ele} key={idx} />;
+                    return <FeedBook userpage={true}  ele={ele} key={idx} />;
                 } else {
                     return;
                 }
@@ -178,9 +178,9 @@ const UserPage = (props) => {
     const handleWork = () => {
         if (about.workShow) {
             return (
-                <div className="phone__icon-container">
-                    <img className="phone__icon" src={Work} alt="Work Icon" />
-                    <p className="about__text">{about.work}</p>
+                <div className="userpage__icon-container">
+                    <img className="userpage__icon" src={Work} alt="Work Icon" />
+                    <p className="userpage__text">{about.work}</p>
                 </div>
             );
         }
@@ -189,13 +189,13 @@ const UserPage = (props) => {
     const handleLocation = () => {
         if (about.locationShow) {
             return (
-                <div className="phone__icon-container">
+                <div className="userpage__icon-container">
                     <img
-                        className="phone__icon"
+                        className="userpage__icon"
                         src={Location}
                         alt="Location Icon"
                     />
-                    <p className="about__text">{about.location}</p>
+                    <p className="userpage__text">{about.location}</p>
                 </div>
             );
         }
@@ -232,30 +232,30 @@ const UserPage = (props) => {
                         <div className="userpage__feed">
                             <div className="phone__top">
                                 <img
-                                    className="phone__profile-pic"
+                                    className="userpage__profile-pic"
                                     src={about.picture ? about.picture : User}
                                     alt="Profile Picture"
                                 />
-                                <p className="phone__name">
+                                <p className="userpage__name">
                                     {about.nameShow ? about.name : ""}
                                 </p>
-                                <p className="phone__username">@{username}</p>
+                                <p className="userpage__username">@{username}</p>
                             </div>
-                            <div className="phone__about">
+                            <div className="userpage__about">
                                 {handleWork()}
                                 {handleLocation()}
                             </div>
                             {handleLodaing()}
                             <div
                                 id="logo-link"
-                                className="phone__logo-container"
+                                className="userpage__logo-container"
                             >
                                 <img
-                                    className="phone__logo"
+                                    className="userpage__logo"
                                     src={Logo}
                                     alt="logo"
                                 />
-                                <p className="phone__logo-text">thesedays</p>
+                                <p className="userpage__logo-text">thesedays</p>
                             </div>
                         </div>
                     </div>

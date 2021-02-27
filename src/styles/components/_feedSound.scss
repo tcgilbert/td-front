@@ -72,3 +72,140 @@
 .feedsound:hover {
     background-color: rgb(255, 223, 97);
 }
+
+.feedsound-u {
+    position: relative;
+    margin: 1vw .5vw;
+    padding: 1vw;
+    border-radius: .5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(255, 214, 50);
+    border: solid .15vw rgb(191, 124, 0);
+    color: rgb(116, 76, 1);
+
+    &__image {
+        margin-top: .5rem;
+        width: 11vw;
+        height: 11vw;
+    }
+
+    &__name  {
+        font-size: 1.3vw;
+        font-weight: 500;
+        margin-top: .2rem;
+    }
+
+    &__artist {
+        font-size: 1vw;
+    }
+
+    &__type {
+        position: absolute;
+        top: .1vw;
+        left: .5vw;
+        font-size: 1vw;
+        font-weight: 600;
+        color: rgb(145, 95, 1);
+    }
+
+    &__type-pod {
+        position: absolute;
+        top: 0vw;
+        left: .5vw;
+        font-size: 1vw;
+        font-weight: 600;
+        color: purple;
+    }
+}
+
+.feedsound-u-pod {
+    position: relative;
+    margin: 1vw .5vw;
+    padding: 1vw;
+    border-radius: .5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(189, 131, 255);
+    border: solid .15vw purple;
+    color: rgb(101, 0, 101);
+}
+
+.feedsound-u-pod:hover {
+    background-color: rgb(206, 165, 254);
+}
+
+.feedsound-u:hover {
+    background-color: rgb(255, 223, 97);
+}
+
+
+@media (max-width: 1100px) { 
+    .feedsound-u {
+        position: relative;
+        margin: 1rem .5rem;
+        padding: 1rem;
+        border-radius: .5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgb(255, 214, 50);
+        border: solid .15rem rgb(191, 124, 0);
+        color: rgb(116, 76, 1);
+
+    
+        &__image {
+            margin-top: .5rem;
+            width: 15rem;
+            height: 15rem;
+        }
+    
+        &__name  {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-top: .2rem;
+        }
+    
+        &__artist {
+            font-size: 1.5rem;
+        }
+    
+        &__type {
+            position: absolute;
+            top: .1rem;
+            left: .5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgb(145, 95, 1);
+        }
+    
+        &__type-pod {
+            position: absolute;
+            top: 0rem;
+            left: .5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: purple;
+        }
+    }
+    
+    .feedsound-u-pod {
+        position: relative;
+        margin: 1rem .5rem;
+        padding: 1rem;
+        border-radius: .5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgb(189, 131, 255);
+        border: solid .15rem purple;
+        color: rgb(101, 0, 101);
+    }
+
+    .feedsound__artist {
+        font-size: 1.5rem;
+    }
+    
+}
