@@ -4,12 +4,10 @@
     display: grid;
     grid-template-columns: 1.5fr 1fr;
     grid-template-rows: 1fr 10fr;
-    // grid-area: "nav info" "dash display"
 
     &__grid1 {
         border-bottom: solid lightgray .1rem;
         border-right: solid lightgray .1rem;
-        // max-height: 72px;
     }
     
     &__grid2 {
@@ -29,7 +27,7 @@
 
     &__container {
         position: relative;
-        height: 100%;
+        height: auto;
     }
     
     &__list {

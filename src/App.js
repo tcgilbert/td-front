@@ -107,8 +107,6 @@ function App() {
 
     // Handle Sign up
     const handleSignUp = async (values) => {
-        console.log(`${SERVER}/users/signup`);
-        console.log(SERVER + "/users/signup");
         try {
             const createdUser = await axios.post(`${SERVER}/users/signup`, {
                 username: values.username,

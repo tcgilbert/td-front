@@ -114,6 +114,13 @@ const SignUp = (props) => {
         return errorPresent;
     };
 
+    const enterPressed = (e) => {
+        var code = e.keyCode || e.which;
+        if(code === 13) { //13 is the enter keycode
+            signupValidation()
+        } 
+    }
+
     return (
         <div className="signup">
             <Navigation />
@@ -148,6 +155,7 @@ const SignUp = (props) => {
                             ? "Username is required"
                             : ""
                     }
+                    onKeyPress={(e) => enterPressed(e)}
                 />
                 <TextField
                     className={classes.textField}
@@ -170,60 +178,60 @@ const SignUp = (props) => {
                             ? "Email is required"
                             : ""
                     }
+                    onKeyPress={(e) => enterPressed(e)}
                 />
-                <form style={{ width: "100%", textAlign: "center"}}>
-                    <TextField
-                        className={classes.textField}
-                        InputProps={{
-                            className: classes.input,
-                        }}
-                        InputLabelProps={{
-                            className: classes.label,
-                        }}
-                        label="Password"
-                        type="password"
-                        name="password"
-                        value={values.password}
-                        onChange={(e) => handleChange(e)}
-                        error={passwordLengthError || passwordMatchError}
-                        helperText={
-                            passwordLengthError
-                                ? "Password must be at least 8 characters"
-                                : passwordMatchError
-                                ? "Passwords do not match"
-                                : ""
-                        }
-                    />
-                    <TextField
-                        className={classes.textField}
-                        InputProps={{
-                            className: classes.input,
-                        }}
-                        InputLabelProps={{
-                            className: classes.label,
-                        }}
-                        label="Confirm Password"
-                        type="password"
-                        name="confirmPassword"
-                        value={values.confirmPassword}
-                        onChange={(e) => handleChange(e)}
-                        error={passwordLengthError || passwordMatchError}
-                        helperText={
-                            passwordLengthError
-                                ? "Password must be at least 8 characters"
-                                : passwordMatchError
-                                ? "Passwords do not match"
-                                : ""
-                        }
-                    />
-                </form>
+                <TextField
+                    className={classes.textField}
+                    InputProps={{
+                        className: classes.input,
+                    }}
+                    InputLabelProps={{
+                        className: classes.label,
+                    }}
+                    label="Password"
+                    type="password"
+                    name="password"
+                    value={values.password}
+                    onChange={(e) => handleChange(e)}
+                    error={passwordLengthError || passwordMatchError}
+                    helperText={
+                        passwordLengthError
+                            ? "Password must be at least 8 characters"
+                            : passwordMatchError
+                            ? "Passwords do not match"
+                            : ""
+                    }
+                    onKeyPress={(e) => enterPressed(e)}
+                />
+                <TextField
+                    className={classes.textField}
+                    InputProps={{
+                        className: classes.input,
+                    }}
+                    InputLabelProps={{
+                        className: classes.label,
+                    }}
+                    label="Confirm Password"
+                    type="password"
+                    name="confirmPassword"
+                    value={values.confirmPassword}
+                    onChange={(e) => handleChange(e)}
+                    error={passwordLengthError || passwordMatchError}
+                    helperText={
+                        passwordLengthError
+                            ? "Password must be at least 8 characters"
+                            : passwordMatchError
+                            ? "Passwords do not match"
+                            : ""
+                    }
+                    onKeyPress={(e) => enterPressed(e)}
+                />
                 <button
                     className="signup__btn"
                     onClick={() => signupValidation()}
                 >
                     Create Account
                 </button>
-                {/* <button onClick={() => props.handleSignUp(values)} className="signup__btn">Create Account</button> */}
                 <p className="signup__text">
                     Already have an account?{" "}
                     <Link to="/login" className="signup__link">

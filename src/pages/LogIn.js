@@ -31,7 +31,7 @@ const LogIn = (props) => {
         console.log(`${SERVER}/users/unique/${values.username}`);
         try {
             const checkUsername = await axios.get(`${SERVER}/users/unique/${values.username}`)
-            if (noUser) {
+            if (noUser && checkUsername) {
                 setNoUser(false)
             }
         } catch (error) {
@@ -47,12 +47,18 @@ const LogIn = (props) => {
         }
     };
 
+    const enterPressed = (e) => {
+        var code = e.keyCode || e.which;
+        if(code === 13) { //13 is the enter keycode
+            handleSubmit()
+        } 
+    }
+
     return (
         <div className="signup">
             <Navigation />
             <h1 className="signup__heading">Log into your account</h1>
             <div className="signup__form">
-                <form>
                     <TextField
                         className={classes.textField}
                         InputProps={{
@@ -70,6 +76,7 @@ const LogIn = (props) => {
                         helperText={
                             noUser ? "No user with that username found" : ""
                         }
+                        onKeyPress={(e) => enterPressed(e)}
                     />
                     <TextField
                         className={classes.textField}
@@ -86,9 +93,9 @@ const LogIn = (props) => {
                         onChange={(e) => handleChange(e)}
                         error={wrongPassword}
                         helperText={wrongPassword ? "Incorrect password" : ""}
+                        onKeyPress={(e) => enterPressed(e)}
                     />
-                </form>
-                <button onClick={() => handleSubmit()} className="signup__btn">
+                <button type="submit" onClick={() => handleSubmit()} className="signup__btn" >
                     Log In
                 </button>
                 <p className="signup__text">

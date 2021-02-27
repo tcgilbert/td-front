@@ -196,7 +196,7 @@ const ManageProfile = (props) => {
         }
     }, [content]);
 
-
+    console.log(window.location.origin);
     return (
         <div className="manage">
             <PrivateNav user={props.user} handleLogout={props.handleLogout} />
@@ -229,25 +229,13 @@ const ManageProfile = (props) => {
                     Your link:{" "}
                     <a
                         className="manage__thelink"
-                        href={`https://thesedays.io/${props.user.username}`}
+                        href={`${window.location.origin}/${props.user.username}`}
                         target="_blank"
-                    >{`https://thesedays.io/${props.user.username}`}</a>
+                    >{`${window.location.origin}/${props.user.username}`}</a>
                 </p>
             </div>
             <div className="grid manage__grid3">
                 {handleDisplay()}
-                {/* <Build
-                    about={about}
-                    setAbout={setAbout}
-                    user={props.user}
-                    content={content}
-                    setContent={setContent}
-                    setContentLoading={setContentLoading}
-                    contentLoading={contentLoading}
-                    spotifyToken={spotifyToken}
-                    setPhoneLoading={setPhoneLoading}
-                    phoneLoading={phoneLoading}
-                /> */}
             </div>
             <div className="grid manage__grid4">
                 <Phone phoneLoading={phoneLoading} user={props.user} about={about} content={content} contentLoading={contentLoading}/>
