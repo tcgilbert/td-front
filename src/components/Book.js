@@ -53,7 +53,6 @@ const Book = (props) => {
                     `https://www.googleapis.com/books/v1/volumes?q=${search.toLowerCase()}&maxResults=6&key=${API_KEY}`
                 );
                 let resArray = await axiosRes.data.items;
-                console.log(resArray);
                 if (resArray !== "undefined") {
                     resArray.forEach((ele) => {
                         if (
@@ -120,12 +119,10 @@ const Book = (props) => {
                 apiId: ele.apiId,
             });
             const newContent = await apiRes.data.reformatted;
-            console.log(newContent);
             let googleRes = await axios.get(
                 `https://www.googleapis.com/books/v1/volumes/${newContent.content.apiId}?key=${API_KEY}`
                 );
                 let bookContent = await googleRes.data.volumeInfo
-                console.log(bookContent.imageLinks.thumbnail);
                 newContent.content["authors"] = bookContent.authors
                 newContent.content["imgUrl"] = bookContent.imageLinks.thumbnail
                 const copiedContent = [...props.content, newContent];

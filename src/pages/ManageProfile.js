@@ -106,7 +106,6 @@ const ManageProfile = (props) => {
                         if (ele.type !== "soundtrack" && ele.type !== "book") {
                             return ele
                         } else if (ele.type === "soundtrack") {
-                            // console.log(ele.content);
                             let url;
                             if (ele.content.type === "show") {
                                 url = `${spotifyEndpoint}${ele.content.type}s/${ele.content.spotifyId}?market=US`
@@ -140,7 +139,6 @@ const ManageProfile = (props) => {
                                 `https://www.googleapis.com/books/v1/volumes/${ele.content.apiId}?key=${GOOGLE_API_KEY}`
                             );
                             let bookContent = await googleRes.data.volumeInfo
-                            console.log(bookContent);
                             ele.content["authors"] = bookContent.authors
                             ele.content["imgUrl"] = bookContent.imageLinks.thumbnail
                             return ele

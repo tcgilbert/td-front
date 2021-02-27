@@ -37,7 +37,6 @@ const Settings = (props) => {
                 }
             );
             if (apiRes) {
-                console.log(apiRes);
                 setMaintain(bool)
             }
         } catch (error) {

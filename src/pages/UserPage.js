@@ -70,7 +70,6 @@ const UserPage = (props) => {
                     );
                     const userId = await getUser.data.userId;
                     setMaintenance(getUser.data.maintenance);
-                    console.log(maintenance);
                     const apiRes = await axios.get(`${SERVER}/about/${userId}`);
                     const about = apiRes.data.about;
                     setAbout(about);
@@ -78,7 +77,6 @@ const UserPage = (props) => {
                         `${SERVER}/content/getall/${userId}`
                     );
                     const content = apiRes2.data.userContent;
-                    console.log(content);
                     await Promise.all(
                         content.map(async (ele) => {
                             if (
@@ -120,9 +118,7 @@ const UserPage = (props) => {
                                 let googleRes = await axios.get(
                                     `https://www.googleapis.com/books/v1/volumes/${ele.content.apiId}?key=${GOOGLE_API_KEY}`
                                 );
-                                let bookContent = await googleRes.data
-                                    .volumeInfo;
-                                console.log(bookContent);
+                                let bookContent = await googleRes.data.volumeInfo;
                                 ele.content["authors"] = bookContent.authors;
                                 ele.content["imgUrl"] =
                                     bookContent.imageLinks.thumbnail;

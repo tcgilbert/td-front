@@ -75,7 +75,6 @@ const Blurb = (props) => {
                     content: content,
                 });
                 const newContent = await apiRes.data.reformatted;
-                console.log(newContent);
                 const copiedContent = [...props.content, newContent];
                 props.setContent(copiedContent);
                 setHeading("");
