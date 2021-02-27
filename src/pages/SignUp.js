@@ -72,9 +72,9 @@ const SignUp = (props) => {
             setPasswordLengthError(false);
         }
         if (errorPresent) {
-            return
+            return;
         } else {
-            props.handleSignUp(values)
+            props.handleSignUp(values);
         }
     };
 
@@ -171,50 +171,52 @@ const SignUp = (props) => {
                             : ""
                     }
                 />
-                <TextField
-                    className={classes.textField}
-                    InputProps={{
-                        className: classes.input,
-                    }}
-                    InputLabelProps={{
-                        className: classes.label,
-                    }}
-                    label="Password"
-                    type="password"
-                    name="password"
-                    value={values.password}
-                    onChange={(e) => handleChange(e)}
-                    error={passwordLengthError || passwordMatchError}
-                    helperText={
-                        passwordLengthError
-                            ? "Password must be at least 8 characters"
-                            : passwordMatchError
-                            ? "Passwords do not match"
-                            : ""
-                    }
-                />
-                <TextField
-                    className={classes.textField}
-                    InputProps={{
-                        className: classes.input,
-                    }}
-                    InputLabelProps={{
-                        className: classes.label,
-                    }}
-                    label="Confirm Password"
-                    type="password"
-                    name="confirmPassword"
-                    value={values.confirmPassword}
-                    onChange={(e) => handleChange(e)}
-                    error={passwordLengthError || passwordMatchError}
-                    helperText={
-                        passwordLengthError
-                            ? "Password must be at least 8 characters"
-                            : passwordMatchError
-                            ? "Passwords do not match"
-                            : ""
-                    }
-                />
+                <form style={{ width: "100%", textAlign: "center"}}>
+                    <TextField
+                        className={classes.textField}
+                        InputProps={{
+                            className: classes.input,
+                        }}
+                        InputLabelProps={{
+                            className: classes.label,
+                        }}
+                        label="Password"
+                        type="password"
+                        name="password"
+                        value={values.password}
+                        onChange={(e) => handleChange(e)}
+                        error={passwordLengthError || passwordMatchError}
+                        helperText={
+                            passwordLengthError
+                                ? "Password must be at least 8 characters"
+                                : passwordMatchError
+                                ? "Passwords do not match"
+                                : ""
+                        }
+                    />
+                    <TextField
+                        className={classes.textField}
+                        InputProps={{
+                            className: classes.input,
+                        }}
+                        InputLabelProps={{
+                            className: classes.label,
+                        }}
+                        label="Confirm Password"
+                        type="password"
+                        name="confirmPassword"
+                        value={values.confirmPassword}
+                        onChange={(e) => handleChange(e)}
+                        error={passwordLengthError || passwordMatchError}
+                        helperText={
+                            passwordLengthError
+                                ? "Password must be at least 8 characters"
+                                : passwordMatchError
+                                ? "Passwords do not match"
+                                : ""
+                        }
+                    />
+                </form>
                 <button
                     className="signup__btn"
                     onClick={() => signupValidation()}
