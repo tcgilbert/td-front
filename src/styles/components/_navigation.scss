@@ -9,6 +9,7 @@
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 1000;
 
     &__title {
         font-size: 2rem;
@@ -49,14 +50,5 @@
     &__link:hover &__underline {
         width: 100%;
     }
-
-    // &__underline {
-    //     background: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
-    //     height: .34rem;
-    //     width: 100%;
-    //     margin-top: .5rem;
-    //     margin-bottom: 0;
-    // }
-
 
 }

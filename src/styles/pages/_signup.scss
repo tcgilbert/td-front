@@ -56,3 +56,13 @@
      }
 
 }
+
+@media (max-width: 1000px) {
+
+    .signup {
+        &__form {
+            width: 40rem;
+        }
+    }
+
+}

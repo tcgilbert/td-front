@@ -28,9 +28,13 @@
     }
 
     &__alert {
-        width: 25%;
+        width: 80%;
         margin: 3rem auto;
         border: solid 1px goldenrod;
+        position: absolute;
+        top: -8rem;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     &__alert-text {
@@ -43,6 +47,7 @@
         align-items: center;
         width: 60%;
         margin: 15rem auto;
+        position: relative;
     }
 
     &__small-container {
@@ -69,4 +74,13 @@
         opacity: .3;
     }
 
+}
+
+
+@media (max-width: 1000px) {
+    .landing {
+        &__container {
+            flex-direction: column-reverse;
+        }
+    }
 }

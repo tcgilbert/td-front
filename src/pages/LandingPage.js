@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import Alert from "@material-ui/lab/Alert";
-import HomePagePhoto from "../images/home-page.png"
+import HomePagePhoto from "../images/home-page.png";
 
 const LandingPage = (props) => {
     const history = useHistory();
@@ -33,11 +33,15 @@ const LandingPage = (props) => {
                 isAuthenticated={props.isAuthenticated}
                 handleLogout={props.handleLogout}
             />
-            {handleAlert()}
 
             <div className="landing__container">
+                {handleAlert()}
                 <div>
-                    <img className="landing__photo" src={HomePagePhoto} alt="Display Preview"/>
+                    <img
+                        className="landing__photo"
+                        src={HomePagePhoto}
+                        alt="Display Preview"
+                    />
                 </div>
                 <div className="landing__small-container">
                     <h1 className="landing__heading">
@@ -50,7 +54,12 @@ const LandingPage = (props) => {
                         Get started For Free
                     </button>
                     <div className="landing__example">
-                        <p className="landing__example-text">thesedays.io/<span className="landing__example-faint">yournamehere</span></p>
+                        <p className="landing__example-text">
+                            thesedays.io/
+                            <span className="landing__example-faint">
+                                yournamehere
+                            </span>
+                        </p>
                     </div>
                 </div>
             </div>
