@@ -56,7 +56,7 @@ const DndSpotify = (props) => {
     // Update show value on switch change
     const handleShowChange = async (bool, id) => {
         try {
-            props.setPhoneLoading(true)
+            props.setPhoneLoading(true);
             const apiRes = await axios.put(`${SERVER}/content/update/show`, {
                 id: props.ele.id,
                 show: bool,
@@ -69,11 +69,11 @@ const DndSpotify = (props) => {
                     return ele;
                 });
                 props.setContent(updatedContent);
-                props.setPhoneLoading(false)
+                props.setPhoneLoading(false);
             }
         } catch (error) {
             console.log(error);
-            props.setPhoneLoading(false)
+            props.setPhoneLoading(false);
         }
     };
 
@@ -85,131 +85,128 @@ const DndSpotify = (props) => {
         if (type === "show") {
             return (
                 <div
-                className="spotify"
-                ref={props.provided.innerRef}
-                {...props.provided.draggableProps}
-                {...props.provided.dragHandleProps}
-                style={{
-                    userSelect: "none",
-                    backgroundColor: props.snapshot.isDragging
-                        ? "rgb(233, 233, 233)"
-                        : "white",
-                    color: "black",
-                    ...props.provided.draggableProps.style,
-                }}
-            >
-                <div className="spotify__tag-pod">
-                    <p className="sandbox__label">Podcast</p>
-                    <div className="sandbox__options-container">
-                        <button
-                            className="sandbox__btn-wrap"
-                            onClick={handleDisplay}
-                        >
-                            <img
-                                className="sandbox__icon"
-                                src={Trash}
-                                alt="delete"
-                            />
-                        </button>
-                        <FormControlLabel
-                            control={
-                                <SwitchBtn
-                                    checked={show}
-                                    onChange={() => setShow(!show)}
+                    className="spotify"
+                    ref={props.provided.innerRef}
+                    {...props.provided.draggableProps}
+                    {...props.provided.dragHandleProps}
+                    style={{
+                        userSelect: "none",
+                        backgroundColor: props.snapshot.isDragging
+                            ? "rgb(233, 233, 233)"
+                            : "white",
+                        color: "black",
+                        ...props.provided.draggableProps.style,
+                    }}
+                >
+                    <div className="spotify__tag-pod">
+                        <p className="sandbox__label">Podcast</p>
+                        <div className="sandbox__options-container">
+                            <button
+                                className="sandbox__btn-wrap"
+                                onClick={handleDisplay}
+                            >
+                                <img
+                                    className="sandbox__icon"
+                                    src={Trash}
+                                    alt="delete"
                                 />
-                            }
+                            </button>
+                            <FormControlLabel
+                                control={
+                                    <SwitchBtn
+                                        checked={show}
+                                        onChange={() => setShow(!show)}
+                                    />
+                                }
+                            />
+                        </div>
+                    </div>
+                    <div className="spotify__container">
+                        <img
+                            className="spotify__img"
+                            src={images[0].url}
+                            alt="Album Art"
                         />
+                        <div>
+                            <p className="spotify__lead">{name}</p>
+                        </div>
                     </div>
-                </div>
-                <div className="spotify__container">
-                    <img
-                        className="spotify__img"
-                        src={images[0].url}
-                        alt="Album Art"
+                    <DeleteDiv
+                        content={props.content}
+                        setContent={props.setContent}
+                        deleteSelected={deleteSelected}
+                        ele={props.ele}
+                        setDeleteSelected={setDeleteSelected}
+                        setContentLoading={props.setContentLoading}
+                        setPhoneLoading={props.setPhoneLoading}
                     />
-                    <div>
-                        <p className="spotify__lead">{name}</p>
-                    </div>
                 </div>
-                <DeleteDiv
-                    content={props.content}
-                    setContent={props.setContent}
-                    deleteSelected={deleteSelected}
-                    ele={props.ele}
-                    setDeleteSelected={setDeleteSelected}
-                    setContentLoading={props.setContentLoading}
-                />
-            </div>
-            )
+            );
         } else {
             return (
                 <div
-                className="spotify"
-                ref={props.provided.innerRef}
-                {...props.provided.draggableProps}
-                {...props.provided.dragHandleProps}
-                style={{
-                    userSelect: "none",
-                    backgroundColor: props.snapshot.isDragging
-                        ? "rgb(233, 233, 233)"
-                        : "white",
-                    color: "black",
-                    ...props.provided.draggableProps.style,
-                }}
-            >
-                <div className="spotify__tag">
-                    <p className="sandbox__label">Soundtrack - {type}</p>
-                    <div className="sandbox__options-container">
-                        <button
-                            className="sandbox__btn-wrap"
-                            onClick={handleDisplay}
-                        >
-                            <img
-                                className="sandbox__icon"
-                                src={Trash}
-                                alt="delete"
-                            />
-                        </button>
-                        <FormControlLabel
-                            control={
-                                <SwitchBtn
-                                    checked={show}
-                                    onChange={() => setShow(!show)}
+                    className="spotify"
+                    ref={props.provided.innerRef}
+                    {...props.provided.draggableProps}
+                    {...props.provided.dragHandleProps}
+                    style={{
+                        userSelect: "none",
+                        backgroundColor: props.snapshot.isDragging
+                            ? "rgb(233, 233, 233)"
+                            : "white",
+                        color: "black",
+                        ...props.provided.draggableProps.style,
+                    }}
+                >
+                    <div className="spotify__tag">
+                        <p className="sandbox__label">Soundtrack - {type}</p>
+                        <div className="sandbox__options-container">
+                            <button
+                                className="sandbox__btn-wrap"
+                                onClick={handleDisplay}
+                            >
+                                <img
+                                    className="sandbox__icon"
+                                    src={Trash}
+                                    alt="delete"
                                 />
-                            }
+                            </button>
+                            <FormControlLabel
+                                control={
+                                    <SwitchBtn
+                                        checked={show}
+                                        onChange={() => setShow(!show)}
+                                    />
+                                }
+                            />
+                        </div>
+                    </div>
+                    <div className="spotify__container">
+                        <img
+                            className="spotify__img"
+                            src={images[0].url}
+                            alt="Album Art"
                         />
+                        <div>
+                            <p className="spotify__lead">{name}</p>
+                            <p>{handleArtists(artists)}</p>
+                        </div>
                     </div>
-                </div>
-                <div className="spotify__container">
-                    <img
-                        className="spotify__img"
-                        src={images[0].url}
-                        alt="Album Art"
+                    <DeleteDiv
+                        content={props.content}
+                        setContent={props.setContent}
+                        deleteSelected={deleteSelected}
+                        ele={props.ele}
+                        setDeleteSelected={setDeleteSelected}
+                        setContentLoading={props.setContentLoading}
+                        setPhoneLoading={props.setPhoneLoading}
                     />
-                    <div>
-                        <p className="spotify__lead">{name}</p>
-                        <p>{handleArtists(artists)}</p>
-                    </div>
                 </div>
-                <DeleteDiv
-                    content={props.content}
-                    setContent={props.setContent}
-                    deleteSelected={deleteSelected}
-                    ele={props.ele}
-                    setDeleteSelected={setDeleteSelected}
-                    setContentLoading={props.setContentLoading}
-                    setPhoneLoading={props.setPhoneLoading}
-                />
-            </div>
-            )
+            );
         }
-    }
+    };
 
-    return (
-        <>
-        {handleSoundtrackType()}
-        </>
-    );
+    return <>{handleSoundtrackType()}</>;
 };
 
 export default DndSpotify;
