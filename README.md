@@ -57,3 +57,86 @@ In many ways, this projects represents the culmination of my software education 
         -   Because of all of the content within the phone (which is really just a rectangle div with a black border) I had to not only mantain the aspect ratio of the phone, but all of the content inside of it
 
         -   No silver bullet solution, just tons of CSS iteration to finally find something that worked
+
+## Code examples
+
+#### Fetching the user's content from backend
+
+Okay, I am both proud and embarrassed of the code below because it is a little messy, and I know better by now. That said, this useEffect is really at the heart of the application.
+
+Because I did not want to store things like album art or book cover's in my database, this function is sifting through the user's content and fetching the necessary information from the third party API's prior to setting the content in state
+
+```javascript
+// Fetch user's content
+useEffect(() => {
+    const fetchContent = async () => {
+        if (username && spotifyToken) {
+            try {
+                const getUser = await axios.get(
+                    `${SERVER}/users/unique/${username}`
+                );
+                const userId = await getUser.data.userId;
+                setMaintenance(getUser.data.maintenance);
+                const apiRes = await axios.get(`${SERVER}/about/${userId}`);
+                const about = apiRes.data.about;
+                setAbout(about);
+                const apiRes2 = await axios.get(
+                    `${SERVER}/content/getall/${userId}`
+                );
+                const content = apiRes2.data.userContent;
+                await Promise.all(
+                    content.map(async (ele) => {
+                        if (ele.type !== "soundtrack" && ele.type !== "book") {
+                            return ele;
+                        } else if (ele.type === "soundtrack") {
+                            let url;
+                            if (ele.content.type === "show") {
+                                url = `${spotifyEndpoint}${ele.content.type}s/${ele.content.spotifyId}?market=US`;
+                            } else {
+                                url = `${spotifyEndpoint}${ele.content.type}s/${ele.content.spotifyId}`;
+                            }
+                            let apiRes = await axios.get(url, {
+                                method: "GET",
+                                headers: {
+                                    Authorization: "Bearer " + spotifyToken,
+                                },
+                            });
+                            let newContent = await apiRes.data;
+                            if (ele.content.type === "album") {
+                                ele.content["artists"] = newContent.artists;
+                                ele.content["name"] = newContent.name;
+                                ele.content["images"] = newContent.images;
+                            } else if (ele.content.type === "track") {
+                                ele.content["artists"] = newContent.artists;
+                                ele.content["name"] = newContent.name;
+                                ele.content["images"] = newContent.album.images;
+                                ele.content["album"] = newContent.album.name;
+                            } else {
+                                ele.content["name"] = newContent.name;
+                                ele.content["images"] = newContent.images;
+                            }
+                            return ele;
+                        } else {
+                            let googleRes = await axios.get(
+                                `https://www.googleapis.com/books/v1/volumes/${ele.content.apiId}?key=${GOOGLE_API_KEY}`
+                            );
+                            let bookContent = await googleRes.data.volumeInfo;
+                            ele.content["authors"] = bookContent.authors;
+                            ele.content["imgUrl"] =
+                                bookContent.imageLinks.thumbnail;
+                            return ele;
+                        }
+                    })
+                );
+                setContent(content);
+                setContentLoading(false);
+            } catch (error) {
+                setContentLoading(false);
+                setFourOhFour(true);
+                console.log(error);
+            }
+        }
+    };
+    fetchContent();
+}, [spotifyToken]);
+```
