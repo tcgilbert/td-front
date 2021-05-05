@@ -13,12 +13,13 @@ This repo works in congruance with its backend server --> <a target="_blank" hre
 -   react-beautiful-dnd
 -   jwt authentication
 -   react-router-dom
+-   Cloudinary photo storage
 -   Heroku deployment
 
 ## Third party API's
 
--   Spotify - for music and podcast data
--   Google Books API - for book images and info
+-   `Spotify API` - for music and podcast data
+-   `Google Books API` - for book images and info
 
 ---
 
@@ -44,7 +45,7 @@ In many ways, this projects represents the culmination of my software education 
 
     -   Where the user can organize as well as update, delete, or hide content from feed
 
-    -   To provide the Dnd functionality I used the react-beautiful-dnd library
+    -   To provide the Dnd functionality I used the `react-beautiful-dnd` library
 
         -   There was a bit of a learning curve, but once you get the hang of the syntax it is amazing how well this library works
 
@@ -62,9 +63,9 @@ In many ways, this projects represents the culmination of my software education 
 
 #### Fetching the user's content from backend
 
-Okay, I am both proud and embarrassed of the code below because it is a little messy, and I know better by now. That said, this useEffect is really at the heart of the application.
+Okay, I am both proud and embarrassed of the code below because it is a little messy. That said, this useEffect that runs once the Spotify token is fetched is really at the heart of the application.
 
-Because I did not want to store things like album art or book cover's in my database, this function is sifting through the user's content and fetching the necessary information from the third party API's prior to setting the content in state
+Because I did not want to store things like album art or book cover's in my database, this function is sifting through the user's content and fetching the necessary front end information from the third party API's prior to setting the content in state.
 
 ```javascript
 // Fetch user's content
@@ -140,3 +141,19 @@ useEffect(() => {
     fetchContent();
 }, [spotifyToken]);
 ```
+
+### Lessons learned
+
+1. Use `redux` for state management next time
+    - While prop drilling was not that big of a problem, the organizational quality of this project would have greatly benefitted from the necessary structoring required of redux
+2. File Structuring
+
+    - Being that I built this project without any templates or outside help, as the project grew, I began to realize that my file organization could use an upgrade
+    - I have sense made a point to improve on this, and if I were to start over I would be more intentional with my file naming as well as group the component with the styles in the same folder
+
+        ```
+        / components
+            / navagation
+                navagation.component.jsx
+                navagation.styles.scss
+        ```
