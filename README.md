@@ -36,9 +36,17 @@ In many ways, this projects represents the culmination of my software education 
 
     -   Where the user creates new content for mobile site
 
+    -   A goal of mine was for the user to not only share and write about what they are up to, but also share what they have been consuming culturally
+
+    -   The Spotify API was great for this because it provided access to both music and podcasts
+
 -   Drag and Drop Area
 
     -   Where the user can organize as well as update, delete, or hide content from feed
+
+    -   To provide the Dnd functionality I used the react-beautiful-dnd library
+
+            -    There was a bit of a learning curve   
 
 -   Mobile Preview
 
