@@ -25,7 +25,7 @@ This repo works in congruance with its backend server --> <a target="_blank" hre
 
 ## Overview
 
-In many ways, this projects represents the culmination of my software education journey, of which I started close to a year ago now. I say that because this project represents a clear departure from a developer in trainer, to a self-sufficent full-stack engineer. That is not to say I still have a lot to learn, quite the opposite, the skills required to build this project are the foundation by which I intend to build on as I continue my development as an engineer. 
+In many ways, this projects represents the culmination of my software education journey, of which I started close to a year ago now. I say that because this project represents a clear departure from a developer in trainer, to a self-sufficent full-stack engineer. That is not to say I still have a lot to learn, quite the opposite, there are many things I would have done differently if I were to start this project over. That said, the skills required to build this project are the foundation by which I intend to build on as I continue my development as an engineer. 
 
 ### User Sandbox
 
