@@ -46,8 +46,14 @@ In many ways, this projects represents the culmination of my software education 
 
     -   To provide the Dnd functionality I used the react-beautiful-dnd library
 
-            -    There was a bit of a learning curve   
+        -   There was a bit of a learning curve, but once you get the hang of the syntax it is amazing how well this library works
 
 -   Mobile Preview
 
     -   A real time preview of how the site will look on mobile display
+
+    -   Believe it or not, creating this mobile preview was one of the most difficult parts of this entire project
+
+        -   Because of all of the content within the phone (which is really just a rectangle div with a black border) I had to not only mantain the aspect ratio of the phone, but all of the content inside of it
+
+        -   No silver bullet solution, just tons of CSS iteration to finally find something that worked
